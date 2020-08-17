@@ -22,8 +22,14 @@
                     <div class="col-xs-8 col-xs-offset-2">
                         <div class="picture-container">
                             <div class="picture">
-                                <img src="assets/img/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" />
-                                <input type="file" id="wizard-picture" />
+                                <!-- <img src="assets/img/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" /> -->
+                                <img :src="imageData" class="picture-src" title="" />
+
+                                <input
+                                    type="file"
+                                    id="wizard-picture"
+                                    @change="readURL"
+                                />
                             </div>
                         </div>
                     </div>
@@ -87,10 +93,6 @@ import { mapActions, mapGetters } from 'vuex'
 /* Import modules. */
 import Nito from 'nitojs'
 
-/* Import jQuery. */
-// FIXME: Remove ALL jQuery dependencies.
-const $ = window.jQuery
-
 export default {
     components: {
         //
@@ -98,6 +100,7 @@ export default {
     data: () => {
         return {
             hasPrivacy: null,
+            imageData: null,
         }
     },
     computed: {
@@ -151,7 +154,11 @@ export default {
         /**
          * Read URL
          */
-        readURL(input) {
+        readURL(_evt) {
+            /* Retrieve input. */
+            const input = _evt.target
+
+            /* Handle input. */
             if (input.files && input.files[0]) {
                 /* Initialize file reader. */
                 const reader = new FileReader()
@@ -162,12 +169,14 @@ export default {
 
                     /* Set master key. */
                     const masterKey = Nito.Crypto.hash(e.target.result, 'sha256')
-                    console.log('MASTER KEY', masterKey)
+                    // console.log('MASTER KEY', masterKey)
 
                     /* Update store. */
                     this.updateMasterSeed(masterKey)
 
-                    $('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow')
+                    /* Update image data. */
+                    // $('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow')
+                    this.imageData = e.target.result
                 }
 
                 /* Convert to data URL. */
@@ -179,14 +188,12 @@ export default {
     created: function () {
         /* Set privacy flag. */
         this.hasPrivacy = true
+
+        /* Initialize image data. */
+        this.imageData = 'assets/img/default-avatar.jpg'
     },
     mounted: function () {
-        const self = this
-
-        // Prepare the preview for profile picture
-        $("#wizard-picture").change(function () {
-            self.readURL(this)
-        })
+        //
     },
 }
 </script>

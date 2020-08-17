@@ -52,32 +52,44 @@
         </div>
 
         <div class="wizard-footer">
-            <div class="pull-right">
-                <input
-                    v-if="tabIndex !== 2"
-                    type="button"
-                    class="btn btn-next btn-fill btn-warning btn-wd"
-                    value="Next"
-                    @click="next"
-                />
+            <div class="row">
+                <div class="col-xs-4 text-left">
+                    <input
+                        v-if="tabIndex !== 0"
+                        type="button"
+                        class="btn btn-previous btn-default btn-wd"
+                        value="Previous"
+                        @click="previous"
+                    />
+                </div>
 
-                <input
-                    v-if="tabIndex === 2"
-                    type="button"
-                    class="btn btn-finish btn-fill btn-warning btn-wd"
-                    value="Finish"
-                    @click="finish"
-                />
-            </div>
+                <div class="col-xs-4 text-center">
+                    <input
+                        v-if="tabIndex === 1"
+                        type="button"
+                        class="btn btn-burn btn-danger btn-wd"
+                        value="Burn Wallet"
+                        @click="burn"
+                    />
+                </div>
 
-            <div class="pull-left">
-                <input
-                    v-if="tabIndex !== 0"
-                    type="button"
-                    class="btn btn-previous btn-default btn-wd"
-                    value="Previous"
-                    @click="previous"
-                />
+                <div class="col-xs-4 text-right">
+                    <input
+                        v-if="tabIndex !== 2"
+                        type="button"
+                        class="btn btn-next btn-fill btn-warning btn-wd"
+                        value="Next"
+                        @click="next"
+                    />
+
+                    <!-- <input
+                        v-if="tabIndex === 2"
+                        type="button"
+                        class="btn btn-finish btn-fill btn-warning btn-wd"
+                        value="Finish"
+                        @click="finish"
+                    /> -->
+                </div>
             </div>
 
             <div class="clearfix"></div>
@@ -134,6 +146,10 @@ export default {
 
         finish() {
             this.toast(['Done!', 'You shuffle session is complete', 'success'])
+        },
+
+        burn() {
+            this.toast(['Oops!', 'Your wallet is NOT empty', 'error'])
         },
 
         /**
