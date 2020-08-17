@@ -1,6 +1,6 @@
 {
   "name": "shuffle.cash",
-  "version": "20.8.16",
+  "version": "20.8.17",
   "description": "Spend Your Cash Privately. Fearlessly!",
   "author": "Bitcoin Cash Please <support@bchplease.org>",
   "scripts": {
@@ -13,6 +13,7 @@
   "dependencies": {
     "core-js": "3.6.5",
     "nitojs": "gitlab:bchplease/nitojs",
+    "scrypt-js": "3.0.1",
     "sweetalert2": "9.17.1",
     "vue": "2.6.11",
     "vue-router": "3.2.0",

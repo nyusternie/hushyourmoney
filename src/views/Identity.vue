@@ -8,11 +8,23 @@
                     Shuffling is as easy as <span class="text-success">1-2-3</span>
                 </h4>
 
-                <p>
+                <div>
                     Start by selecting a <strong>UNIQUE</strong> photo or image file from your device.
-                    <strong class="text-danger">DO NOT USE AN IMAGE THAT YOU HAVE ALREADY PUBLISHED ONLINE.</strong>
-                    If you're on a mobile device, you can use your phone to take a new photo now.
-                </p>
+                    If you're on a mobile device, we recommend you use your device's camera to take a new photo now.
+
+                    <hr />
+
+                    <strong>
+                        <span class="text-danger">!!!WARNING!!! !!!WARNING!!! !!!WARNING!!!</span><br />
+                        To protect the security of your wallet, DO NOT use a PUBLIC photo/image, ie. one you have:
+                    </strong>
+
+                    <ol>
+                        <li>downloaded online</li>
+                        <li>previously published online</li>
+                        <li>plans to publish online</li>
+                    </ol>
+                </div>
 
             </div>
 
@@ -23,7 +35,7 @@
                         <div class="picture-container">
                             <div class="picture">
                                 <!-- <img src="assets/img/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" /> -->
-                                <img :src="imageData" class="picture-src" title="" />
+                                <img :src="dataUrl" class="picture-src" title="" />
 
                                 <input
                                     type="file"
@@ -92,6 +104,7 @@ import { mapActions, mapGetters } from 'vuex'
 
 /* Import modules. */
 import Nito from 'nitojs'
+import scrypt from 'scrypt-js'
 
 export default {
     components: {
@@ -100,7 +113,7 @@ export default {
     data: () => {
         return {
             hasPrivacy: null,
-            imageData: null,
+            dataUrl: null,
         }
     },
     computed: {
@@ -160,23 +173,69 @@ export default {
 
             /* Handle input. */
             if (input.files && input.files[0]) {
+                // TODO: We should perform some validation here.
+                //       Should we restrict to (JPG) photos ONLY??
+
+                // FIXME: We need a modal to block interactions until this
+                //        process has completed.
+
+                // TODO: Test the performance on various mobile devices.
+                //       Up to 10 seconds is fine, 15 for low-end devices.
+                this.toast(['Please wait!', 'Processing identity photo. This may take a while...', 'warning'])
+
                 /* Initialize file reader. */
                 const reader = new FileReader()
 
                 /* Handle onload event. */
-                reader.onload = (e) => {
-                    // console.log('IMAGE SRC', e.target.result)
+                reader.onload = async (e) => {
+                    // console.log('IMAGE SRC-', e.target.result)
 
-                    /* Set master key. */
-                    const masterKey = Nito.Crypto.hash(e.target.result, 'sha256')
-                    // console.log('MASTER KEY', masterKey)
+                    /* Set data URL. */
+                    const dataUrl = e.target.result
 
-                    /* Update store. */
-                    this.updateMasterSeed(masterKey)
+                    /* Calculate password. */
+                    // NOTE: Due to concern over "extra-large" image/file
+                    //       sizes, we will hash the data URL before
+                    //       feeding it as the password for Scrypt.
+                    const password = Nito.Crypto.hash(dataUrl, 'sha512')
+                    // console.log('PASSWORD', password)
 
-                    /* Update image data. */
-                    // $('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow')
-                    this.imageData = e.target.result
+                    /* Calculate salt. */
+                    const salt = Nito.Crypto.hash(dataUrl, 'sha256')
+                    // console.log('SALT', salt)
+
+                    /* Set CPU (memory) cost. */
+                    // NOTE: increasing this increases the overall difficulty.
+                    // TODO: Test params on mobile devices (scale back, if necessary).
+                    // const N = 16384 // 2^14 (original recommendation)
+                    // const N = 32768 // 2^15 (safe recommendation)
+                    const N = 65536 // 2^16 (JS-native recommendation)
+                    // const N = 1048576 // 2^20 (optimal recommendation)
+
+                    /* Set block size. */
+                    // NOTE: Increasing this increases the dependency on memory
+                    //       latency and bandwidth.
+                    const r = 8
+
+                    /* Set parallelization cost. */
+                    // NOTE: Increasing this increases the dependency on
+                    //       multi-processing.
+                    const p = 1
+
+                    /* Set derived key length (in bytes). */
+                    const dkLen = 32
+
+                    /* Compute master seed. */
+                    const masterSeed = await scrypt
+                        .scrypt(password, salt, N, r, p, dkLen)
+                    // console.log('MASTER SEED', masterSeed)
+
+                    /* Update master seed. */
+                    this.updateMasterSeed(masterSeed)
+
+                    /* Set data URL. */
+                    // NOTE: We do this last, as it will update the UI.
+                    this.dataUrl = dataUrl
                 }
 
                 /* Convert to data URL. */
@@ -190,7 +249,7 @@ export default {
         this.hasPrivacy = true
 
         /* Initialize image data. */
-        this.imageData = 'assets/img/default-avatar.jpg'
+        this.dataUrl = 'assets/img/default-avatar.jpg'
     },
     mounted: function () {
         //

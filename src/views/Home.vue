@@ -99,7 +99,7 @@
 
 <script>
 /* Initialize vuex. */
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 /* Import components. */
 import Identity from './Identity'
@@ -119,6 +119,10 @@ export default {
         }
     },
     computed: {
+        ...mapGetters('wallet', [
+            'getMasterSeed',
+        ]),
+
 
     },
     methods: {
@@ -171,6 +175,11 @@ export default {
          * Show Wallet
          */
         showWallet() {
+            /* Validate master seed. */
+            if (!this.getMasterSeed) {
+                return this.toast(['Oops!', 'Please select a photo from your device', 'error'])
+            }
+
             /* Set tab index. */
             this.tabIndex = 1
 
@@ -186,6 +195,11 @@ export default {
          * Show Shuffler
          */
         showShuffler() {
+            /* Validate master seed. */
+            if (!this.getMasterSeed) {
+                return this.toast(['Oops!', 'Please select a photo from your device', 'error'])
+            }
+
             /* Set tab index. */
             this.tabIndex = 2
 
