@@ -33,6 +33,42 @@
     </div>
 </template>
 
+<script>
+/* Import jQuery. */
+// FIXME: Remove ALL jQuery dependencies.
+const $ = window.jQuery
+
+export default {
+    components: {
+        //
+    },
+    data: () => {
+        return {
+            //
+        }
+    },
+    computed: {
+        //
+    },
+    methods: {
+        //
+    },
+    created: function () {
+        //
+    },
+    mounted: function () {
+        // Wizard Initialization
+        $(".wizard-card").bootstrapWizard({
+            // tabClass: "nav nav-pills",
+            // nextSelector: ".btn-next",
+            // previousSelector: ".btn-previous",
+        })
+    },
+}
+</script>
+
 <style>
-/*  */
+.set-full-height {
+    height: auto;
+}
 </style>
