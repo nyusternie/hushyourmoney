@@ -86,17 +86,13 @@
 </template>
 
 <script>
-/* Import modules. */
-import Nito from 'nitojs'
+/* Initialize vuex. */
+import { mapActions } from 'vuex'
 
 /* Import components. */
 import Identity from './Identity'
 import Shuffler from './Shuffler'
 import Wallet from './Wallet'
-
-/* Import jQuery. */
-// FIXME: Remove ALL jQuery dependencies.
-const $ = window.jQuery
 
 export default {
     components: {
@@ -114,6 +110,10 @@ export default {
 
     },
     methods: {
+        ...mapActions('utils', [
+            'toast',
+        ]),
+
         next() {
             switch(this.tabIndex) {
             case 0:
@@ -133,7 +133,7 @@ export default {
         },
 
         finish() {
-            alert('Sweet alert here!')
+            this.toast(['Done!', 'You shuffle session is complete', 'success'])
         },
 
         /**
@@ -181,33 +181,12 @@ export default {
             this.pbWidth = `${move_distance}%`
         },
 
-        readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    console.log('IMAGE SRC', e.target.result)
-
-                    const privateKey = Nito.Crypto.hash(e.target.result, 'sha256', true)
-                    console.log('PRIVATE KEY', privateKey)
-
-                    $('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow')
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        },
-
     },
     created: function () {
         //
     },
     mounted: function () {
-        const self = this
-
-        // Prepare the preview for profile picture
-        $("#wizard-picture").change(function () {
-            self.readURL(this)
-        })
+        //
     },
 }
 </script>

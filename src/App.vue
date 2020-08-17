@@ -58,11 +58,7 @@ export default {
     },
     mounted: function () {
         // Wizard Initialization
-        $(".wizard-card").bootstrapWizard({
-            // tabClass: "nav nav-pills",
-            // nextSelector: ".btn-next",
-            // previousSelector: ".btn-previous",
-        })
+        $(".wizard-card").bootstrapWizard()
     },
 }
 </script>

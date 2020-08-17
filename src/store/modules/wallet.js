@@ -10,6 +10,7 @@ import getDustAmount from './wallet/getters/getDustAmount'
 import getHDNode from './wallet/getters/getHDNode'
 import getHistory from './wallet/getters/getHistory'
 import getIndicies from './wallet/getters/getIndicies'
+import getMasterSeed from './wallet/getters/getMasterSeed'
 import getMnemonic from './wallet/getters/getMnemonic'
 
 /* Import modules (actions). */
@@ -18,12 +19,14 @@ import destroyWallet from './wallet/actions/destroyWallet'
 import initWallet from './wallet/actions/initWallet'
 import updateCoin from './wallet/actions/updateCoin'
 import updateCoins from './wallet/actions/updateCoins'
+import updateMasterSeed from './wallet/actions/updateMasterSeed'
 import updateOutbox from './wallet/actions/updateOutbox'
 
 /* Import modules (mutations). */
 import setCoins from './wallet/mutations/setCoins'
 import setEmptyWallet from './wallet/mutations/setEmptyWallet'
 import setIndicies from './wallet/mutations/setIndicies'
+import setMasterSeed from './wallet/mutations/setMasterSeed'
 
 /* Initialize state. */
 const state = {
@@ -56,6 +59,20 @@ const state = {
     indices: null,
 
     /**
+     * Master Seed
+     *
+     * A 32-byte seed, generated from the hash of a user-provided image.
+     */
+    masterSeed: null,
+
+    /**
+     * Metadata
+     *
+     * Used to store (user-defined) data for individual coins.
+     */
+    meta: null,
+
+    /**
      * Outbox
      *
      * Coins waiting to be sent out from the wallet.
@@ -75,6 +92,7 @@ const getters = {
     getHDNode,
     getHistory,
     getIndicies,
+    getMasterSeed,
     getMnemonic,
 }
 
@@ -85,6 +103,7 @@ const actions = {
     initWallet,
     updateCoin,
     updateCoins,
+    updateMasterSeed,
     updateOutbox,
 }
 
@@ -93,6 +112,7 @@ const mutations = {
     setCoins,
     setEmptyWallet,
     setIndicies,
+    setMasterSeed,
 }
 
 /* Export. */

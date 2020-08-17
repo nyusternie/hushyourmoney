@@ -4,9 +4,6 @@
  * This will completely destory the user's wallet.
  */
 const destroyWallet = (state) => {
-    /* Reset accounts. */
-    state.accounts = null
-
     /* Reset coins. */
     state.coins = null
 

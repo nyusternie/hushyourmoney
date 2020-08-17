@@ -69,94 +69,94 @@ var bootstrapWizardCreate = function(element, options) {
 		}
 	};
 
-	this.previous = function(e) {
+	// this.previous = function(e) {
+    //
+	// 	// If we clicked the first then dont activate this
+	// 	if(element.hasClass('first')) {
+	// 		return false;
+	// 	}
+    //
+	// 	if($settings.onPrevious && typeof $settings.onPrevious === 'function' && $settings.onPrevious($activeTab, $navigation, obj.previousIndex())===false){
+	// 		return false;
+	// 	}
+    //
+	// 	$index = obj.previousIndex();
+	// 	if($index < 0) {
+	// 	} else {
+	// 		$navigation.find(baseItemSelector + ':eq('+$index+') a').tab('show');
+	// 	}
+	// };
 
-		// If we clicked the first then dont activate this
-		if(element.hasClass('first')) {
-			return false;
-		}
-
-		if($settings.onPrevious && typeof $settings.onPrevious === 'function' && $settings.onPrevious($activeTab, $navigation, obj.previousIndex())===false){
-			return false;
-		}
-
-		$index = obj.previousIndex();
-		if($index < 0) {
-		} else {
-			$navigation.find(baseItemSelector + ':eq('+$index+') a').tab('show');
-		}
-	};
-
-	this.first = function(e) {
-		if($settings.onFirst && typeof $settings.onFirst === 'function' && $settings.onFirst($activeTab, $navigation, obj.firstIndex())===false){
-			return false;
-		}
-
-		// If the element is disabled then we won't do anything
-		if(element.hasClass('disabled')) {
-			return false;
-		}
-		$navigation.find(baseItemSelector + ':eq(0) a').tab('show');
-
-	};
-	this.last = function(e) {
-		if($settings.onLast && typeof $settings.onLast === 'function' && $settings.onLast($activeTab, $navigation, obj.lastIndex())===false){
-			return false;
-		}
-
-		// If the element is disabled then we won't do anything
-		if(element.hasClass('disabled')) {
-			return false;
-		}
-		$navigation.find(baseItemSelector + ':eq('+obj.navigationLength()+') a').tab('show');
-	};
-	this.currentIndex = function() {
-		return $navigation.find(baseItemSelector).index($activeTab);
-	};
-	this.firstIndex = function() {
-		return 0;
-	};
-	this.lastIndex = function() {
-		return obj.navigationLength();
-	};
-	this.getIndex = function(e) {
-		return $navigation.find(baseItemSelector).index(e);
-	};
-	this.nextIndex = function() {
-		return $navigation.find(baseItemSelector).index($activeTab) + 1;
-	};
-	this.previousIndex = function() {
-		return $navigation.find(baseItemSelector).index($activeTab) - 1;
-	};
-	this.navigationLength = function() {
-		return $navigation.find(baseItemSelector).length - 1;
-	};
-	this.activeTab = function() {
-		return $activeTab;
-	};
-	this.nextTab = function() {
-		return $navigation.find(baseItemSelector + ':eq('+(obj.currentIndex()+1)+')').length ? $navigation.find(baseItemSelector + ':eq('+(obj.currentIndex()+1)+')') : null;
-	};
-	this.previousTab = function() {
-		if(obj.currentIndex() <= 0) {
-			return null;
-		}
-		return $navigation.find(baseItemSelector + ':eq('+parseInt(obj.currentIndex()-1)+')');
-	};
-	this.show = function(index) {
-		if (isNaN(index)) {
-			return element.find(baseItemSelector + ' a[href=#' + index + ']').tab('show');
-		}
-		else {
-			return element.find(baseItemSelector + ':eq(' + index + ') a').tab('show');
-		}
-	};
-	this.disable = function(index) {
-		$navigation.find(baseItemSelector + ':eq('+index+')').addClass('disabled');
-	};
-	this.enable = function(index) {
-		$navigation.find(baseItemSelector + ':eq('+index+')').removeClass('disabled');
-	};
+	// this.first = function(e) {
+	// 	if($settings.onFirst && typeof $settings.onFirst === 'function' && $settings.onFirst($activeTab, $navigation, obj.firstIndex())===false){
+	// 		return false;
+	// 	}
+    //
+	// 	// If the element is disabled then we won't do anything
+	// 	if(element.hasClass('disabled')) {
+	// 		return false;
+	// 	}
+	// 	$navigation.find(baseItemSelector + ':eq(0) a').tab('show');
+    //
+	// };
+	// this.last = function(e) {
+	// 	if($settings.onLast && typeof $settings.onLast === 'function' && $settings.onLast($activeTab, $navigation, obj.lastIndex())===false){
+	// 		return false;
+	// 	}
+    //
+	// 	// If the element is disabled then we won't do anything
+	// 	if(element.hasClass('disabled')) {
+	// 		return false;
+	// 	}
+	// 	$navigation.find(baseItemSelector + ':eq('+obj.navigationLength()+') a').tab('show');
+	// };
+	// this.currentIndex = function() {
+	// 	return $navigation.find(baseItemSelector).index($activeTab);
+	// };
+	// this.firstIndex = function() {
+	// 	return 0;
+	// };
+	// this.lastIndex = function() {
+	// 	return obj.navigationLength();
+	// };
+	// this.getIndex = function(e) {
+	// 	return $navigation.find(baseItemSelector).index(e);
+	// };
+	// this.nextIndex = function() {
+	// 	return $navigation.find(baseItemSelector).index($activeTab) + 1;
+	// };
+	// this.previousIndex = function() {
+	// 	return $navigation.find(baseItemSelector).index($activeTab) - 1;
+	// };
+	// this.navigationLength = function() {
+	// 	return $navigation.find(baseItemSelector).length - 1;
+	// };
+	// this.activeTab = function() {
+	// 	return $activeTab;
+	// };
+	// this.nextTab = function() {
+	// 	return $navigation.find(baseItemSelector + ':eq('+(obj.currentIndex()+1)+')').length ? $navigation.find(baseItemSelector + ':eq('+(obj.currentIndex()+1)+')') : null;
+	// };
+	// this.previousTab = function() {
+	// 	if(obj.currentIndex() <= 0) {
+	// 		return null;
+	// 	}
+	// 	return $navigation.find(baseItemSelector + ':eq('+parseInt(obj.currentIndex()-1)+')');
+	// };
+	// this.show = function(index) {
+	// 	if (isNaN(index)) {
+	// 		return element.find(baseItemSelector + ' a[href=#' + index + ']').tab('show');
+	// 	}
+	// 	else {
+	// 		return element.find(baseItemSelector + ':eq(' + index + ') a').tab('show');
+	// 	}
+	// };
+	// this.disable = function(index) {
+	// 	$navigation.find(baseItemSelector + ':eq('+index+')').addClass('disabled');
+	// };
+	// this.enable = function(index) {
+	// 	$navigation.find(baseItemSelector + ':eq('+index+')').removeClass('disabled');
+	// };
 	// this.hide = function(index) {
 	// 	$navigation.find(baseItemSelector + ':eq('+index+')').hide();
 	// };
@@ -244,13 +244,13 @@ var bootstrapWizardCreate = function(element, options) {
 };
 $.fn.bootstrapWizard = function(options) {
 	//expose methods
-	if (typeof options == 'string') {
-		var args = Array.prototype.slice.call(arguments, 1)
-		if(args.length === 1) {
-			args.toString();
-		}
-		return this.data('bootstrapWizard')[options](args);
-	}
+	// if (typeof options == 'string') {
+	// 	var args = Array.prototype.slice.call(arguments, 1)
+	// 	if(args.length === 1) {
+	// 		args.toString();
+	// 	}
+	// 	return this.data('bootstrapWizard')[options](args);
+	// }
 	return this.each(function(index){
 		var element = $(this);
 		// Return early if this element already has a plugin instance

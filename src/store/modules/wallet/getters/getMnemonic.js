@@ -6,12 +6,12 @@ import Nito from 'nitojs'
  *
  * source: https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki
  */
-const getMnemonic = (state, getters, rootState, rootGetters) => {
+const getMnemonic = (state, getters) => {
     /* Set master seed. */
-    const masterSeed = rootGetters['profile/getMasterSeed']
+    const masterSeed = getters.getMasterSeed
 
     /* Set locale. */
-    const locale = rootGetters.getLocale
+    const locale = null // TODO: Auto-detect user's locale.
 
     /**
      * Create mnemonic wordlist using BIP-39.
