@@ -12,8 +12,12 @@
   },
   "dependencies": {
     "core-js": "3.6.5",
+    "moment": "2.27.0",
     "nitojs": "gitlab:bchplease/nitojs",
+    "numeral": "2.0.6",
+    "qrcode": "1.4.4",
     "scrypt-js": "3.0.1",
+    "superagent": "6.0.0",
     "sweetalert2": "9.17.1",
     "vue": "2.6.11",
     "vue-router": "3.2.0",
