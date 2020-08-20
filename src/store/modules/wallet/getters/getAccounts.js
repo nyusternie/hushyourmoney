@@ -60,11 +60,6 @@ const getAccounts = (state, getters) => {
         loadPath(getters, accounts, 1, i)
     }
 
-    /* Loop through ALL (causes) indicies (inclusive). */
-    for (let i = 0; i <= acctIndexes.causes; i++) {
-        loadPath(getters, accounts, 6767, i)
-    }
-
     /* Loop through ALL (nito) indicies (inclusive). */
     for (let i = 0; i <= acctIndexes.nito; i++) {
         loadPath(getters, accounts, 7867, i)

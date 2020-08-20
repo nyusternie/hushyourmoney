@@ -5,7 +5,7 @@
             <div class="col-xs-4">
 
                 <div class="info-text mode-select">
-                    Shuffling Mode
+                    Shuffle Mode
                 </div>
 
                 <div class="row mode-select-container">
@@ -38,7 +38,7 @@
 
             <div class="col-xs-8">
                 <div class="info-text coin-select">
-                    Choose a Coin
+                    Coin Selection
                 </div>
 
                 <div class="row" v-if="poolInfo">

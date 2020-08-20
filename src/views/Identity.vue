@@ -1,23 +1,27 @@
 <template>
-    <div class="tab-pane" id="identity">
+    <main class="tab-pane" id="identity">
+
         <div class="row">
 
             <div class="col-xs-7">
 
-                <h4 class="info-text">
+                <div class="info-text easy">
                     Shuffling is as easy as <span class="text-success">1-2-3</span>
-                </h4>
+                </div>
 
                 <div>
-                    Start by selecting a <strong>UNIQUE</strong> photo or image file from your device.
+                    Start by selecting a <strong class="text-primary">UNIQUE</strong> photo or image file from your device.
                     If you're on a mobile device, we recommend you use your device's camera to take a new photo now.
 
                     <hr />
 
-                    <strong>
-                        <span class="text-danger">!!!WARNING!!! !!!WARNING!!! !!!WARNING!!!</span><br />
-                        To protect the security of your wallet, DO NOT use a PUBLIC photo/image, ie. one you have:
-                    </strong>
+                    <div class="text-danger text-center warning">
+                        !!! WARNING !!! WARNING !!! WARNING !!!
+                    </div>
+
+                    <div class="warning-msg">
+                        To protect the security of your wallet, <strong>DO NOT</strong> use a <strong>PUBLIC</strong> photo or image, ie. one you have:
+                    </div>
 
                     <ol>
                         <li>downloaded online</li>
@@ -95,7 +99,8 @@
             </div>
 
         </div>
-    </div>
+
+    </main>
 </template>
 
 <script>
@@ -105,6 +110,12 @@ import { mapActions, mapGetters } from 'vuex'
 /* Import modules. */
 import Nito from 'nitojs'
 import scrypt from 'scrypt-js'
+import Swal from 'sweetalert2'
+
+/**
+ * Delay (Execution)
+ */
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 export default {
     components: {
@@ -118,6 +129,7 @@ export default {
     },
     computed: {
         ...mapGetters('wallet', [
+            'getAccounts',
             'getMasterSeed',
             'getMnemonic',
         ]),
@@ -154,6 +166,7 @@ export default {
         ]),
 
         ...mapActions('wallet', [
+            'initWallet',
             'updateMasterSeed',
         ]),
 
@@ -167,7 +180,7 @@ export default {
         /**
          * Read URL
          */
-        readURL(_evt) {
+        async readURL(_evt) {
             /* Retrieve input. */
             const input = _evt.target
 
@@ -181,7 +194,24 @@ export default {
 
                 // TODO: Test the performance on various mobile devices.
                 //       Up to 10 seconds is fine, 15 for low-end devices.
-                this.toast(['Please wait!', 'Processing identity photo. This may take a while...', 'warning'])
+
+                Swal.fire({
+                    title: 'Please Wait!',
+                    text: 'Processing identity photo. This may take a while...',
+                    // imageUrl: 'https://i.imgur.com/gZa7NYc.png', // full image
+                    // imageUrl: 'https://i.imgur.com/NNHddFp.png', // 400 x 200
+                    // imageUrl: 'https://i.imgur.com/CiRtOqi.png', // 500 x 400
+                    imageUrl: require('@/assets/identity-setup.png'), // 500 x 400
+                    imageWidth: 250,
+                    imageHeight: 200,
+                    imageAlt: 'Processing identity photo.',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    showConfirmButton: false,
+                })
+
+                /* Wait a bit before locking process. */
+                await delay(100)
 
                 /* Initialize file reader. */
                 const reader = new FileReader()
@@ -233,9 +263,20 @@ export default {
                     /* Update master seed. */
                     this.updateMasterSeed(masterSeed)
 
+                    /* Initialize wallet. */
+                    this.initWallet()
+
                     /* Set data URL. */
                     // NOTE: We do this last, as it will update the UI.
                     this.dataUrl = dataUrl
+
+                    /* Initialize accounts. */
+                    // NOTE: These accounts are cached for quick access in the wallet.
+                    const accounts = this.getAccounts
+                    console.info('Cached accounts:', accounts) // eslint-disable-line no-console
+
+                    /* Close the popup. */
+                    Swal.close()
                 }
 
                 /* Convert to data URL. */
@@ -258,6 +299,17 @@ export default {
 </script>
 
 <style scoped>
+.easy {
+    font-size: 1.6em;
+}
+
+.warning {
+    font-size: 1.4em;
+}
+.warning-msg {
+    margin-top: 10px;
+}
+
 .btn-privacy {
     cursor: pointer;
 }

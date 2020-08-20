@@ -7,11 +7,6 @@ import Nito from 'nitojs'
  * Returns the next avaialble "receiving" address.
  */
 const getAddress = (state, getters) => (_account) => {
-    /* Validate accounts. */
-    if (!getters.getAccounts) {
-        return null
-    }
-
     /* Request indicies. */
     const indicies = getters.getIndicies
     // console.log('GET ADDRESS (indicies):', indicies)
@@ -30,9 +25,6 @@ const getAddress = (state, getters) => (_account) => {
         break
     case 'change':
         chain = 1
-        break
-    case 'causes':
-        chain = 6767
         break
     case 'nito':
         chain = 7867

@@ -44,7 +44,6 @@ const initWallet = ({ commit }) => {
     const indiciesModel = {
         deposit: 0,
         change: 0,
-        causes: 0,
         nito: 0,
     }
 
