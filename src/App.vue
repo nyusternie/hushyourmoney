@@ -34,6 +34,12 @@
 </template>
 
 <script>
+/* Initialize vuex. */
+import { mapActions, mapGetters } from 'vuex'
+
+/* Import modules. */
+import Nito from 'nitojs'
+
 /* Import jQuery. */
 // FIXME: Remove ALL jQuery dependencies.
 const $ = window.jQuery
@@ -44,14 +50,61 @@ export default {
     },
     data: () => {
         return {
-            //
+            blockchain: null,
         }
     },
+    watch: {
+        getMasterSeed: function (_seed) {
+            // console.log('MASTER SEED HAS CHANGED', _seed)
+
+            /* Validate seed. */
+            if (_seed) {
+                /* Start monitoring accounts. */
+                this.monitorAccounts()
+
+            }
+        },
+
+        // TODO: Watch shuffle queue from here
+    },
     computed: {
-        //
+        ...mapGetters('wallet', [
+            'getAddress',
+            'getMasterSeed',
+            'updateCoins',
+        ]),
+
     },
     methods: {
-        //
+        ...mapActions('utils', [
+            'toast',
+        ]),
+
+        /**
+         * Monitor Accounts
+         */
+        monitorAccounts() {
+            /* Set deposit address. */
+            const depositAddress = this.getAddress('deposit')
+            console.log('Deposit address:', depositAddress)
+
+            /* Initialize blockchain. */
+            this.blockchain = new Nito.Blockchain()
+
+            /* Subscribe to address. */
+            this.blockchain.subscribe('address', depositAddress)
+
+            /* Handle blockchain updates. */
+            this.blockchain.on('update', (_msg) => {
+                console.log('WALLET RECEIVED BLOCKCHAIN UPDATE (msg):', _msg)
+
+                /* Update coins. */
+                // FIXME: Why is this blocking the entire initial UI setup??
+                // this.updateCoins()
+            })
+
+        },
+
     },
     created: function () {
         //
@@ -59,6 +112,14 @@ export default {
     mounted: function () {
         // Wizard Initialization
         $(".wizard-card").bootstrapWizard()
+    },
+    beforeDestroy() {
+        console.log('DESTROYING APP..')
+        /* Validate blockchain. */
+        if (this.blockchain) {
+            /* Stop blockchain. */
+            this.blockchain.unsubscribe()
+        }
     },
 }
 </script>

@@ -1,7 +1,7 @@
 /**
  * Initialize Wallet
  */
-const initWallet = ({ commit }) => {
+const initWallet = ({ commit, getters }) => {
     console.info('Initializing wallet...') // eslint-disable-line no-console
 
     /**
@@ -49,6 +49,11 @@ const initWallet = ({ commit }) => {
 
     /* Commit indicies. */
     commit('setIndicies', indiciesModel)
+
+    /* Initialize accounts. */
+    // NOTE: These accounts are cached for quick access in the wallet.
+    const accounts = getters.getAccounts
+    console.info('Caching accounts..', accounts) // eslint-disable-line no-console
 
     /* Return success. */
     return true

@@ -270,11 +270,6 @@ export default {
                     // NOTE: We do this last, as it will update the UI.
                     this.dataUrl = dataUrl
 
-                    /* Initialize accounts. */
-                    // NOTE: These accounts are cached for quick access in the wallet.
-                    const accounts = this.getAccounts
-                    console.info('Cached accounts:', accounts) // eslint-disable-line no-console
-
                     /* Close the popup. */
                     Swal.close()
                 }

@@ -123,7 +123,6 @@ export default {
             'getMasterSeed',
         ]),
 
-
     },
     methods: {
         ...mapActions('utils', [

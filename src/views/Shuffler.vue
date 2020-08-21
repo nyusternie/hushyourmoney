@@ -183,6 +183,11 @@ export default {
     mounted: function () {
         //
     },
+    beforeDestroy() {
+        console.log('Stopping pool updates..')
+        // TODO: Stop refreshing pool data.
+
+    },
 }
 </script>
 

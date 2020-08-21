@@ -6,6 +6,21 @@
 
                 <div class="row">
                     <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Deposit Address</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Your Bitcoin deposit address"
+                                v-model="depositAddress"
+                                disabled
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
                         <h5 class="info-text">Are you living in a nice area?</h5>
                     </div>
 
@@ -64,7 +79,6 @@
 import { mapActions, mapGetters } from 'vuex'
 
 /* Import modules. */
-import Nito from 'nitojs'
 import QRCode from 'qrcode'
 
 export default {
@@ -122,30 +136,10 @@ export default {
             'toast',
         ]),
 
-        listen() {
-            /* Initialize blockchain. */
-            const blockchain = new Nito.Blockchain()
-
-            /* Subscribe to address. */
-            blockchain.subscribe('address', this.depositAddress)
-
-            /* Handle blockchain updates. */
-            blockchain.on('update', (_msg) => {
-                console.log('WALLET RECEIVED BLOCKCHAIN UPDATE (msg):', _msg)
-
-                /* Update coins. */
-                // FIXME: Why is this blocking the entire initial UI setup??
-                // this.updateCoins()
-            })
-
-        },
     },
     created: function () {
+        /* Set deposit address. */
         this.depositAddress = this.getAddress('deposit')
-        console.log('DEPOSIT ADDRESS', this.depositAddress)
-
-        /* Start listening. */
-        this.listen()
     },
     mounted: function () {
         //
