@@ -7,12 +7,12 @@ import Nito from 'nitojs'
  * Returns the next avaialble "receiving" address.
  */
 const getAddress = (state, getters) => (_account) => {
-    /* Request indicies. */
-    const indicies = getters.getIndicies
-    // console.log('GET ADDRESS (indicies):', indicies)
+    /* Request indices. */
+    const indices = getters.getIndices
+    // console.log('GET ADDRESS (indices):', indices)
 
     /* Initialize current (coin) index. */
-    const currentIndex = indicies[_account]
+    const currentIndex = indices[_account]
     // console.log('GET ADDRESS (currentIndex):', currentIndex)
 
     /* Initialize chain. */

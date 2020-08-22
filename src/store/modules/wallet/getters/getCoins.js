@@ -8,7 +8,8 @@ const getCoins = (state) => {
     }
 
     /* Initialize coins. */
-    const coins = state.coins
+    // NOTE: Deep cloned to prevent mutation and preserve reactivity.
+    const coins = JSON.parse(JSON.stringify(state.coins))
 
     /* Return coins. */
     return coins

@@ -72,7 +72,7 @@ const updateCoins = async ({ dispatch, getters, rootGetters }) => {
 
     /* Retrieve metadata. */
     const meta = await rootGetters['profile/getMeta']
-    console.log('UPDATE COINS (meta):', meta)
+    // console.log('UPDATE COINS (meta):', meta)
 
     /* Update status. */
     updateStatus(coins, meta, dispatch)
@@ -202,33 +202,16 @@ const updateCoins = async ({ dispatch, getters, rootGetters }) => {
                     }
                     // console.log('UPDATE COINS (coin)', coin)
 
-                    // const coins = getters.getCoinsBySessionId(sessionId)
-                    // console.log('COINS', sessionId, coins)
-
                     /* Validate new coin. */
                     if (coins && !coins[`${coin.txid}:${coin.vout}`]) {
                         /* Create coin package. */
                         const pkg = {
-                            // sessionId,
                             chainid,
                             coin,
                         }
 
                         /* Add new coin. */
                         dispatch('addCoin', pkg)
-
-                        try {
-                            /* Initialize coins. */
-                            const coins = new Audio(require('@/assets/audio/coins.wav'))
-
-                            /* Play coins. */
-                            // WARNING: This action may fail on several browsers;
-                            //          so it's best to do this last to avoid any
-                            //          unforseen side-effects.
-                            coins.play()
-                        } catch (err) {
-                            console.error(err) // eslint-disable-line no-console
-                        }
                     } else {
                         // console.error('Coin already exists in the purse.')
                     }

@@ -44,6 +44,11 @@ import Nito from 'nitojs'
 // FIXME: Remove ALL jQuery dependencies.
 const $ = window.jQuery
 
+/**
+ * Delay (Execution)
+ */
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+
 export default {
     components: {
         //
@@ -54,6 +59,16 @@ export default {
         }
     },
     watch: {
+        getCoins: function (_coins) {
+            console.log('COINS HAS CHANGED', _coins)
+
+            if (_coins) {
+                /* Start monitoring accounts. */
+                this.monitorAccounts()
+                
+            }
+        },
+
         getMasterSeed: function (_seed) {
             // console.log('MASTER SEED HAS CHANGED', _seed)
 
@@ -70,6 +85,7 @@ export default {
     computed: {
         ...mapGetters('wallet', [
             'getAddress',
+            'getCoins',
             'getMasterSeed',
             'updateCoins',
         ]),
@@ -83,10 +99,21 @@ export default {
         /**
          * Monitor Accounts
          */
-        monitorAccounts() {
+        async monitorAccounts() {
+            console.log('MONITOR ACCOUNTS')
+
             /* Set deposit address. */
             const depositAddress = this.getAddress('deposit')
             console.log('Deposit address:', depositAddress)
+
+            /* Verify blockchain. */
+            if (this.blockchain) {
+                /* Stop blockchain. */
+                this.blockchain.unsubscribe()
+
+                /* Wait a second. */
+                await delay(1000)
+            }
 
             /* Initialize blockchain. */
             this.blockchain = new Nito.Blockchain()

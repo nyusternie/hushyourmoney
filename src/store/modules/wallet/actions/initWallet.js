@@ -31,9 +31,9 @@ const initWallet = ({ commit, getters }) => {
     commit('setCoins', coinsModel)
 
     /**
-     * Indicies Model
+     * Indices Model
      *
-     * Manages the indicies of account (addresses) and their respective
+     * Manages the indices of account (addresses) and their respective
      * derivation paths.
      *
      * Deposit     : m/44'/145'/0'/0/<index>
@@ -41,14 +41,14 @@ const initWallet = ({ commit, getters }) => {
      * Causes Cash : m/44'/145'/0'/6767/<index>
      * Nito Cash   : m/44'/145'/0'/7867/<index>
      */
-    const indiciesModel = {
+    const indicesModel = {
         deposit: 0,
         change: 0,
         nito: 0,
     }
 
-    /* Commit indicies. */
-    commit('setIndicies', indiciesModel)
+    /* Commit indices. */
+    commit('setIndices', indicesModel)
 
     /* Initialize accounts. */
     // NOTE: These accounts are cached for quick access in the wallet.
