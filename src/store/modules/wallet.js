@@ -2,8 +2,6 @@
 import getAccounts from './wallet/getters/getAccounts'
 import getAddress from './wallet/getters/getAddress'
 import getBalance from './wallet/getters/getBalance'
-import getChangeAddress from './wallet/getters/getChangeAddress'
-// import getCoinById from './wallet/getters/getCoinById'
 import getCoins from './wallet/getters/getCoins'
 import getDerivationPath from './wallet/getters/getDerivationPath'
 import getDustAmount from './wallet/getters/getDustAmount'
@@ -85,7 +83,6 @@ const getters = {
     getAccounts,
     getAddress,
     getBalance,
-    getChangeAddress,
     getCoins,
     getDerivationPath,
     getDustAmount,

@@ -65,7 +65,7 @@ export default {
             if (_coins) {
                 /* Start monitoring accounts. */
                 this.monitorAccounts()
-                
+
             }
         },
 
@@ -87,13 +87,16 @@ export default {
             'getAddress',
             'getCoins',
             'getMasterSeed',
-            'updateCoins',
         ]),
 
     },
     methods: {
         ...mapActions('utils', [
             'toast',
+        ]),
+
+        ...mapActions('wallet', [
+            'updateCoins',
         ]),
 
         /**
@@ -113,6 +116,9 @@ export default {
 
                 /* Wait a second. */
                 await delay(1000)
+
+                /* Cleanup blockchain. */
+                this.blockchain = null
             }
 
             /* Initialize blockchain. */
@@ -127,7 +133,7 @@ export default {
 
                 /* Update coins. */
                 // FIXME: Why is this blocking the entire initial UI setup??
-                // this.updateCoins()
+                this.updateCoins()
             })
 
         },

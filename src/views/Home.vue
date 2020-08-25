@@ -120,11 +120,16 @@ export default {
     },
     computed: {
         ...mapGetters('wallet', [
+            'getCoins',
             'getMasterSeed',
         ]),
 
     },
     methods: {
+        ...mapActions('wallet', [
+            'updateCoins',
+        ]),
+
         ...mapActions('utils', [
             'toast',
         ]),
@@ -153,6 +158,11 @@ export default {
 
         burn() {
             this.toast(['Oops!', 'Your wallet is NOT empty', 'error'])
+
+            const coins = this.getCoins
+            console.log('COINS', coins)
+
+            this.updateCoins()
         },
 
         /**

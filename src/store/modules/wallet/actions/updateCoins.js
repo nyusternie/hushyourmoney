@@ -3,20 +3,19 @@ import Nito from 'nitojs'
 
 /**
  * Update Status
+ *
+ * Will mark "spent" coins as disabled.
  */
-const updateStatus = (_coins, _meta, dispatch) => {
+const updateStatus = (_coins, dispatch) => {
     Object.keys(_coins).forEach(async coinid => {
         /* Set txid. */
         const txid = coinid.split(':')[0]
-        // console.log('UPDATE STATUS (txid)', txid)
 
         /* Set vout. */
         const vout = coinid.split(':')[1]
-        // console.log('UPDATE STATUS (vout)', vout)
 
         /* Query spent status. */
         const isSpent = await Nito.Blockchain.Query.isSpent(txid, vout)
-        // console.log('UPDATE STATUS (isSpent)', isSpent, txid, vout)
 
         /* Validate spent. */
         if (isSpent) {
@@ -31,36 +30,16 @@ const updateStatus = (_coins, _meta, dispatch) => {
                 /* Request coin update. */
                 dispatch('updateCoin', coin)
             }
-        } else {
-            /* Validate metadata coins. */
-            if (!_meta || !_meta.coins[coinid]) {
-                return
-            }
-
-            if (_meta.coins[coinid].lock && _meta.coins[coinid].lock.isActive === true) {
-                /* Set coin. */
-                const coin = _coins[coinid]
-
-                /* Validate status. */
-                if (coin && coin.status !== 'locked') {
-                    /* Set status. */
-                    coin.status = 'locked'
-
-                    /* Request coin update. */
-                    dispatch('updateCoin', coin)
-                }
-            }
-
         }
-
     })
-
 }
 
 /**
  * Update Coins (for ALL sessions)
+ *
+ * TODO: Add handling for change/update package received from BitDB.
  */
-const updateCoins = async ({ dispatch, getters, rootGetters }) => {
+const updateCoins = async ({ dispatch, getters }) => {
     /* Set coins. */
     const coins = getters.getCoins
     // console.log('UPDATE COINS (coins)', coins)
@@ -70,12 +49,8 @@ const updateCoins = async ({ dispatch, getters, rootGetters }) => {
         return
     }
 
-    /* Retrieve metadata. */
-    const meta = await rootGetters['profile/getMeta']
-    // console.log('UPDATE COINS (meta):', meta)
-
     /* Update status. */
-    updateStatus(coins, meta, dispatch)
+    updateStatus(coins, dispatch)
 
     /* Retrieve accounts. */
     const accounts = getters.getAccounts
@@ -119,15 +94,14 @@ const updateCoins = async ({ dispatch, getters, rootGetters }) => {
             transactions,
             legacyAddress: Nito.Address.toLegacyAddress(address),
             cashAddress: address,
-
         })
         // console.log('UPDATE COINS (searchDetails)', searchDetails)
     }
 
     /* Process search details. */
     searchDetails.forEach(addrDetails => {
-        const searchAddr = addrDetails.cashAddress
-        // console.log('UPDATE COINS (searchAddr)', searchAddr)
+        const searchAddress = addrDetails.cashAddress
+        // console.log('UPDATE COINS (searchAddress)', searchAddress)
 
         const txs = addrDetails.transactions
         // console.log('UPDATE COINS (addrDetails.txs)', txs)
@@ -141,7 +115,7 @@ const updateCoins = async ({ dispatch, getters, rootGetters }) => {
             const outputs = txDetails.outputs
 
             /* Handle all transaction outputs. */
-            outputs.forEach((output, index) => {
+            outputs.forEach((output, vout) => {
                 // console.log('UPDATE COINS (output)', output)
 
                 /* Set satoshi (amount). */
@@ -157,30 +131,40 @@ const updateCoins = async ({ dispatch, getters, rootGetters }) => {
                 }
 
                 /* Set cash addresses. */
-                const cashAddrs = Nito.Address.toCashAddress(scriptPubKey)
-                // console.log('UPDATE COINS (cashAddrs)', cashAddrs)
+                const cashAddress = Nito.Address.toCashAddress(scriptPubKey)
+                console.log('UPDATE COINS (cashAddress)', cashAddress, searchAddress)
 
-                /* Initialize WIF. */
+                /* Initialize chain id. */
                 let chainid = null
 
                 /* Initialize WIF. */
                 let wif = null
 
-                /* Find the WIF. */
-                for (let i = 0; i < accounts.length; i++) {
-                    if (accounts[i].address === searchAddr) {
-                        /* Set chain id. */
-                        chainid = accounts[i].chainid
+                /* Find account. */
+                const account = getters.getAccounts.find(account => {
+                    return account.address === searchAddress
+                })
+                // console.log('ACCOUNT', account)
 
-                        /* Set WIF. */
-                        wif = accounts[i].wif
+                /* Validate account. */
+                if (account) {
+                    /* Set chain id. */
+                    chainid = account.chainid
 
-                        break
-                    }
+                    /* Set WIF. */
+                    wif = account.wif
                 }
 
                 /* Validate search address. */
-                if (cashAddrs.includes(searchAddr)) {
+                // if (cashAddress.includes(searchAddress)) {
+                if (cashAddress === searchAddress) {
+                    /* Set status. */
+                    const status = 'active'
+
+                    /* Set legacy address. */
+                    const legacyAddress = Nito.Address
+                        .toLegacyAddress(cashAddress)
+
                     /**
                      * Coin
                      *
@@ -192,18 +176,23 @@ const updateCoins = async ({ dispatch, getters, rootGetters }) => {
                      *             (eg. CashShuffle, CashFusion, ANYONECANPAY, etc)
                      */
                     const coin = {
-                        status: 'active',
+                        status,
                         txid,
-                        vout: index,
+                        vout,
                         satoshis,
                         wif,
-                        cashAddress: searchAddr,
-                        legacyAddress: Nito.Address.toLegacyAddress(searchAddr),
+                        // cashAddress: searchAddress,
+                        // legacyAddress: Nito.Address.toLegacyAddress(searchAddress),
+                        cashAddress,
+                        legacyAddress,
                     }
-                    // console.log('UPDATE COINS (coin)', coin)
+                    console.log('UPDATE COINS (coin)', coin)
+
+                    /* Set coin id. */
+                    const coinid = `${coin.txid}:${coin.vout}`
 
                     /* Validate new coin. */
-                    if (coins && !coins[`${coin.txid}:${coin.vout}`]) {
+                    if (!coins[coinid]) {
                         /* Create coin package. */
                         const pkg = {
                             chainid,
@@ -216,11 +205,13 @@ const updateCoins = async ({ dispatch, getters, rootGetters }) => {
                         // console.error('Coin already exists in the purse.')
                     }
                 }
-            })
 
-        })
+            }) // outputs.forEach()
 
-    })
+        }) // txs.forEach()
+
+    }) // searchDetails.forEach()
+
 }
 
 /* Export module. */
