@@ -26,15 +26,6 @@
                 </li>
 
                 <li :class="{ active: tabIndex === 1 }">
-                    <a href="javascript://" @click="showShuffler">
-                        <div class="icon-circle" :class="{ checked: tabIndex === 1 }">
-                            <i class="ti-control-shuffle"></i>
-                        </div>
-                        Shuffler
-                    </a>
-                </li>
-
-                <li :class="{ active: tabIndex === 2 }">
                     <a href="javascript://" @click="showAnalysis">
                         <div class="icon-circle" :class="{ checked: tabIndex === 2 }">
                             <i class="ti-receipt"></i>
@@ -42,13 +33,22 @@
                         Analysis
                     </a>
                 </li>
+
+                <li :class="{ active: tabIndex === 2 }">
+                    <a href="javascript://" @click="showShuffler">
+                        <div class="icon-circle" :class="{ checked: tabIndex === 1 }">
+                            <i class="ti-control-shuffle"></i>
+                        </div>
+                        Shuffler
+                    </a>
+                </li>
             </ul>
         </div>
 
         <div class="win-content">
             <Identity v-if="tabIndex === 0" />
-            <Shuffler v-if="tabIndex === 1" />
-            <Analysis v-if="tabIndex === 2" />
+            <Analysis v-if="tabIndex === 1" />
+            <Shuffler v-if="tabIndex === 2" />
         </div>
 
         <div class="wizard-footer">
@@ -58,14 +58,14 @@
                         v-if="tabIndex !== 0"
                         type="button"
                         class="btn btn-previous btn-default btn-wd"
-                        value="Previous"
+                        :value="lblPrevious"
                         @click="previous"
                     />
                 </div>
 
                 <div class="col-xs-4 text-center">
                     <input
-                        v-if="tabIndex === 1"
+                        v-if="tabIndex === 2"
                         type="button"
                         class="btn btn-options btn-warning btn-wd"
                         value="Options"
@@ -78,7 +78,7 @@
                         v-if="tabIndex !== 2"
                         type="button"
                         class="btn btn-next btn-fill btn-primary btn-wd"
-                        value="Next"
+                        :value="lblNext"
                         @click="next"
                     />
                 </div>
@@ -116,6 +116,30 @@ export default {
             'getMasterSeed',
         ]),
 
+        lblPrevious() {
+            if (this.tabIndex === 1) {
+                return 'Identity'
+            }
+
+            if (this.tabIndex === 2) {
+                return 'Analysis'
+            }
+
+            return null
+        },
+
+        lblNext() {
+            if (this.tabIndex === 0) {
+                return 'Analysis'
+            }
+
+            if (this.tabIndex === 1) {
+                return 'Shuffler'
+            }
+
+            return null
+        },
+
     },
     methods: {
         ...mapActions('wallet', [
@@ -129,9 +153,9 @@ export default {
         next() {
             switch(this.tabIndex) {
             case 0:
-                return this.showShuffler()
-            case 1:
                 return this.showAnalysis()
+            case 1:
+                return this.showShuffler()
             }
         },
 
@@ -140,7 +164,7 @@ export default {
             case 1:
                 return this.showIdentity()
             case 2:
-                return this.showShuffler()
+                return this.showAnalysis()
             }
         },
 
@@ -173,14 +197,9 @@ export default {
         },
 
         /**
-         * Show Shuffler
+         * Show Analysis
          */
-        showShuffler() {
-            /* Validate master seed. */
-            if (!this.getMasterSeed) {
-                return this.toast(['Oops!', 'Please select a photo from your device', 'error'])
-            }
-
+        showAnalysis() {
             /* Set tab index. */
             this.tabIndex = 1
 
@@ -193,9 +212,14 @@ export default {
         },
 
         /**
-         * Show Analysis
+         * Show Shuffler
          */
-        showAnalysis() {
+        showShuffler() {
+            /* Validate master seed. */
+            if (!this.getMasterSeed) {
+                return this.toast(['Oops!', 'Please select a photo from your device', 'error'])
+            }
+
             /* Set tab index. */
             this.tabIndex = 2
 

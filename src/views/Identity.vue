@@ -11,7 +11,7 @@
 
                 <div>
                     Start by selecting a <strong class="text-primary">UNIQUE</strong> photo or image file from your device.
-                    If you're on a mobile device, we recommend you use your device's camera to take a new photo now.
+                    If you're on a mobile device, we recommend using your device's camera to take a new photo now.
 
                     <hr />
 
@@ -56,28 +56,6 @@
                     <div class="col-xs-10 col-xs-offset-1">
                         <div class="form-group">
                             <label>
-                                Private key
-                                <small class="text-danger btn-privacy" @click="togglePrivacy">
-                                    (click to show)
-                                </small>
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Private wallet key"
-                                disabled
-                                :value="displayMasterKey"
-
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1">
-                        <div class="form-group">
-                            <label>
                                 Seed phrase
                                 <small class="text-danger btn-privacy" @click="togglePrivacy">
                                     (click to show)
@@ -90,6 +68,26 @@
                                 placeholder="Private seed phrase"
                                 disabled
                                 :value="displaySeedPhrase"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <div class="form-group">
+                            <label>
+                                Password
+                                <small class="text-secondary">
+                                    (optional)
+                                </small>
+                            </label>
+
+                            <input
+                                type="password"
+                                class="form-control"
+                                placeholder="Enter an optional password"
+                                v-model="password"
                             />
                         </div>
                     </div>
@@ -124,6 +122,7 @@ export default {
         return {
             hasPrivacy: null,
             dataUrl: null,
+            password: null,
         }
     },
     computed: {
@@ -132,19 +131,6 @@ export default {
             'getMasterSeed',
             'getMnemonic',
         ]),
-
-        /**
-         * Display Master Key
-         */
-        displayMasterKey() {
-            if (this.getMasterSeed && this.hasPrivacy) {
-                return 'Master seed is hidden for security'
-            } else if (this.getMasterSeed) {
-                return Buffer.from(this.getMasterSeed).toString('hex')
-            } else {
-                return null
-            }
-        },
 
         /**
          * Display Seed Phrase

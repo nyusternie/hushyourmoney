@@ -1,7 +1,7 @@
 <template>
     <div class="image-container set-full-height" :style="{ backgroundImage: 'url(' + backgroundImg + ')' }">
         <router-link to="help" class="made-with-pk">
-            <div class="brand">???</div>
+            <div class="brand"><i class="fa fa-question-circle"></i></div>
             <div class="made-with">Need help?</div>
         </router-link>
 
@@ -162,5 +162,13 @@ export default {
 <style>
 .set-full-height {
     height: auto;
+}
+
+.brand {
+    margin: -6px 0 0 -2px;
+}
+.brand i {
+    display: block;
+    font-size: 33px;
 }
 </style>
