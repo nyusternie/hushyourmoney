@@ -1,132 +1,82 @@
 <template>
-    <main class="tab-pane" id="shuffler">
+    <main class="tab-pane" id="wallet">
 
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col-xs-12 col-sm-7">
 
-                <div class="info-text mode-select">
-                    Shuffle Mode
+                <div class="row">
+                    <div class="form-group col-sm-7">
+                        <select name="country" class="form-control ">
+                            <option value="BCH"> Bitcoin Cash (BCH) </option>
+                            <option value="USDT"> Tether (USDt) </option>
+                            <option value="USDH"> Honest Coin (USDH) </option>
+                            <option value="SPICE"> Spice (SPICE) </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-sm-5">
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Your wallet balance"
+                            :value="displayBalance"
+                            disabled
+                        />
+                    </div>
                 </div>
 
-                <div class="row mode-select-container">
+                <div
+                    class="row"
+                    v-for="coin of getCoins"
+                    :key="coin.txid+coin.vout"
+                >
+                    <div class="col-sm-12">
+                        <strong>
+                            <small>
+                                <a :href="'https://explorer.bitcoin.com/bch/address/' + coin.cashAddress" target="_blank">
+                                    {{coin.cashAddress}}
+                                </a>
+                            </small>
+                        </strong>
+                    </div>
 
-                    <div class="col-sm-12 col-sm-offset-0">
-
-                        <div class="col-sm-6">
-                            <div class="choice active">
-                                <div class="card card-checkboxes card-hover-effect">
-                                    <i class="fa fa-sliders"></i>
-                                    <p>Manual</p>
-                                </div>
-                            </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-5 text-center">
+                            <small>{{coin.txid.slice(0, 8)}} ... {{coin.txid.slice(-8)}}</small>
                         </div>
 
-                        <div class="col-sm-6">
-                            <div class="choice">
-                                <div class="card card-checkboxes card-hover-effect">
-                                    <i class="fa fa-magic"></i>
-                                    <p>Auto</p>
-                                </div>
-                            </div>
+                        <div class="col-sm-4 text-center">
+                            <small>{{displayStatus(coin)}}</small>
                         </div>
 
+                        <div class="col-sm-3 text-center">
+                            <small>{{formattedValue(coin)}}</small>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 text-right">
+                        <small class="text-secondary">
+                            <a href="javascript://" class="text-danger">details</a> |
+                            <a href="javascript://" class="text-danger">lock</a> |
+                            <a href="javascript://" class="text-danger">shuffle</a> |
+                            <a href="javascript://" class="text-danger">send</a>
+                        </small>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <hr />
                     </div>
 
                 </div>
 
             </div>
 
-            <div class="col-xs-8">
-                <div class="info-text coin-select">
-                    Coin Selection
-                </div>
+            <div class="address-win col-xs-12 col-sm-5">
 
-                <div class="row" v-if="poolInfo">
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        Connections
-                    </div>
+                <div class="qr-code text-center" v-html="qr" />
 
-                    <div class="col-sm-7">
-                        {{poolInfo.connections}}
-                    </div>
+                <h5 class="text-center text-info">{{displayAddress}}</h5>
 
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        Pool Size
-                    </div>
-
-                    <div class="col-sm-7">
-                        {{poolInfo.poolSize}}
-                    </div>
-
-                    <br /><br /><hr />
-
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        0.0001 BCH
-                    </div>
-
-                    <div class="col-sm-7">
-                        {{getMembers(10000)}} members
-                    </div>
-
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        0.001 BCH
-                    </div>
-
-                    <div class="col-sm-7">
-                        {{getMembers(100000)}} members
-                    </div>
-
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        0.01 BCH
-                    </div>
-
-                    <div class="col-sm-7">
-                        {{getMembers(1000000)}} members
-                    </div>
-
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        0.1 BCH
-                    </div>
-
-                    <div class="col-sm-7">
-                        {{getMembers(10000000)}} members
-                    </div>
-
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        <strong class="text-danger">1 BCH</strong>
-                    </div>
-
-                    <div class="col-sm-7">
-                        <strong class="text-danger">{{getMembers(100000000)}} members</strong>
-                    </div>
-
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        10 BCH
-                    </div>
-
-                    <div class="col-sm-7">
-                        {{getMembers(1000000000)}} members
-                    </div>
-
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        100 BCH
-                    </div>
-
-                    <div class="col-sm-7">
-                        {{getMembers(10000000000)}} members
-                    </div>
-
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        1,000 BCH
-                    </div>
-
-                    <div class="col-sm-7">
-                        {{getMembers(100000000000)}} members
-                    </div>
-
-                </div>
-
-                <!-- <pre v-html="poolInfo" /> -->
             </div>
         </div>
 
@@ -134,8 +84,12 @@
 </template>
 
 <script>
+/* Initialize vuex. */
+import { mapActions, mapGetters } from 'vuex'
+
 /* Import modules. */
-import superagent from 'superagent'
+import numeral from 'numeral'
+import QRCode from 'qrcode'
 
 export default {
     components: {
@@ -143,59 +97,109 @@ export default {
     },
     data: () => {
         return {
-            poolInfo: null,
+            //
         }
     },
     computed: {
-        //
-    },
-    methods: {
-        async updatePoolInfo() {
-            /* Set target. */
-            const target = `https://shuffle.servo.cash:8080/stats`
+        ...mapGetters('wallet', [
+            'getAddress',
+            'getCoins',
+        ]),
 
-            /* Request pool info. */
-            const results = await superagent.get(target)
-            console.log('POOL INFO', results)
+        balance() {
+            /* Validate coins. */
+            if (this.getCoins) {
+                /* Initialize balance total. */
+                let total = 0
 
-            this.poolInfo = results.body
+                Object.keys(this.getCoins).forEach(coinid => {
+                    /* Add satoshis. */
+                    total += this.getCoins[coinid].satoshis
+                })
 
-        },
-
-        getMembers(_poolid) {
-            /* Find pool. */
-            const pool = this.poolInfo.pools
-                .find(pool => pool.amount === _poolid && pool.version === 300)
-
-            /* Validate pool. */
-            if (pool) {
-                return pool.members
+                /* Return balance total. */
+                return total
             } else {
                 return 0
             }
         },
 
+        displayAddress() {
+            const address = this.getAddress('deposit')
+
+            return address.slice(12, 20) + ' ... ' + address.slice(-12)
+        },
+
+        displayBalance() {
+            // const formatted = numeral(this.balance).format('$0.00')
+            const formatted = numeral(this.balance).format('0,0')
+
+            return formatted + ' sats'
+        },
+
+        qr() {
+            if (!this.getAddress('deposit')) {
+                return null
+            }
+
+            /* Initialize (string) value. */
+            let strValue = ''
+
+            /* Initialize scanner parameters. */
+            const params = {
+                type: 'svg',
+                width: 250,
+                height: 250,
+                color: {
+                    dark: '#000',
+                    light: '#fff'
+                }
+            }
+
+            QRCode.toString(this.getAddress('deposit'), params, (err, value) => {
+                if (err) {
+                    return console.error('QR Code ERROR:', err)
+                }
+
+                /* Set (string) value. */
+                strValue = value
+            })
+
+            /* Return (string) value. */
+            return strValue
+        },
+
+    },
+    methods: {
+        ...mapActions('utils', [
+            'toast',
+        ]),
+
+        displayStatus(_coin) {
+            switch(_coin.status) {
+            case 'active':
+                return 'ready to spend'
+            default:
+                return 'unknown'
+            }
+        },
+
+        formattedValue(_coin) {
+            return numeral(_coin.satoshis).format('0,0') + ' sats'
+        },
+
     },
     created: function () {
-        /* Update pool info. */
-        this.updatePoolInfo()
+        //
     },
     mounted: function () {
         //
-    },
-    beforeDestroy() {
-        console.log('Stopping pool updates..')
-        // TODO: Stop refreshing pool data.
-
     },
 }
 </script>
 
 <style scoped>
-.mode-select, .coin-select {
-    font-size: 2.0em;
-}
-.mode-select-container {
-    margin-top: -30px;
+.address-win h5 {
+    margin-top: -20px;
 }
 </style>

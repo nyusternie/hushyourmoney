@@ -38,7 +38,6 @@
                     <div class="col-xs-8 col-xs-offset-2">
                         <div class="picture-container">
                             <div class="picture">
-                                <!-- <img src="assets/img/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" /> -->
                                 <img :src="dataUrl" class="picture-src" title="" />
 
                                 <input
@@ -285,7 +284,7 @@ export default {
         this.hasPrivacy = true
 
         /* Initialize image data. */
-        this.dataUrl = 'assets/img/default-avatar.jpg'
+        this.dataUrl = require('@/assets/missing-avatar.jpg')
     },
     mounted: function () {
         //

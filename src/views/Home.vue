@@ -26,20 +26,20 @@
                 </li>
 
                 <li :class="{ active: tabIndex === 1 }">
-                    <a href="javascript://" @click="showWallet">
+                    <a href="javascript://" @click="showShuffler">
                         <div class="icon-circle" :class="{ checked: tabIndex === 1 }">
-                            <i class="ti-wallet"></i>
+                            <i class="ti-control-shuffle"></i>
                         </div>
-                        Wallet
+                        Shuffler
                     </a>
                 </li>
 
                 <li :class="{ active: tabIndex === 2 }">
-                    <a href="javascript://" @click="showShuffler">
+                    <a href="javascript://" @click="showAnalysis">
                         <div class="icon-circle" :class="{ checked: tabIndex === 2 }">
-                            <i class="ti-control-shuffle"></i>
+                            <i class="ti-receipt"></i>
                         </div>
-                        Shuffler
+                        Analysis
                     </a>
                 </li>
             </ul>
@@ -47,8 +47,8 @@
 
         <div class="win-content">
             <Identity v-if="tabIndex === 0" />
-            <Wallet v-if="tabIndex === 1" />
-            <Shuffler v-if="tabIndex === 2" />
+            <Shuffler v-if="tabIndex === 1" />
+            <Analysis v-if="tabIndex === 2" />
         </div>
 
         <div class="wizard-footer">
@@ -67,9 +67,9 @@
                     <input
                         v-if="tabIndex === 1"
                         type="button"
-                        class="btn btn-burn btn-danger btn-wd"
-                        value="Burn Wallet"
-                        @click="burn"
+                        class="btn btn-options btn-warning btn-wd"
+                        value="Options"
+                        @click="showOptions"
                     />
                 </div>
 
@@ -77,18 +77,10 @@
                     <input
                         v-if="tabIndex !== 2"
                         type="button"
-                        class="btn btn-next btn-fill btn-warning btn-wd"
+                        class="btn btn-next btn-fill btn-primary btn-wd"
                         value="Next"
                         @click="next"
                     />
-
-                    <!-- <input
-                        v-if="tabIndex === 2"
-                        type="button"
-                        class="btn btn-finish btn-fill btn-warning btn-wd"
-                        value="Finish"
-                        @click="finish"
-                    /> -->
                 </div>
             </div>
 
@@ -102,15 +94,15 @@
 import { mapActions, mapGetters } from 'vuex'
 
 /* Import components. */
+import Analysis from './Analysis'
 import Identity from './Identity'
 import Shuffler from './Shuffler'
-import Wallet from './Wallet'
 
 export default {
     components: {
+        Analysis,
         Identity,
         Shuffler,
-        Wallet,
     },
     data: () => {
         return {
@@ -137,9 +129,9 @@ export default {
         next() {
             switch(this.tabIndex) {
             case 0:
-                return this.showWallet()
-            case 1:
                 return this.showShuffler()
+            case 1:
+                return this.showAnalysis()
             }
         },
 
@@ -148,7 +140,7 @@ export default {
             case 1:
                 return this.showIdentity()
             case 2:
-                return this.showWallet()
+                return this.showShuffler()
             }
         },
 
@@ -156,8 +148,8 @@ export default {
             this.toast(['Done!', 'You shuffle session is complete', 'success'])
         },
 
-        burn() {
-            this.toast(['Oops!', 'Your wallet is NOT empty', 'error'])
+        showOptions() {
+            this.toast(['Oops!', 'This feature is not ready yet', 'error'])
 
             const coins = this.getCoins
             console.log('COINS', coins)
@@ -181,9 +173,9 @@ export default {
         },
 
         /**
-         * Show Wallet
+         * Show Shuffler
          */
-        showWallet() {
+        showShuffler() {
             /* Validate master seed. */
             if (!this.getMasterSeed) {
                 return this.toast(['Oops!', 'Please select a photo from your device', 'error'])
@@ -201,14 +193,9 @@ export default {
         },
 
         /**
-         * Show Shuffler
+         * Show Analysis
          */
-        showShuffler() {
-            /* Validate master seed. */
-            if (!this.getMasterSeed) {
-                return this.toast(['Oops!', 'Please select a photo from your device', 'error'])
-            }
-
+        showAnalysis() {
             /* Set tab index. */
             this.tabIndex = 2
 
