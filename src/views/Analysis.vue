@@ -71,164 +71,43 @@
             </div>
 
             <div class="col-xs-8">
-                <div class="info-text coin-select">
-                    {{menuTitle}}
-                </div>
-
-                <div class="row" v-if="poolInfo">
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        Connections
-                    </div>
-
-                    <div class="col-sm-7">
-                        {{poolInfo.connections}}
-                    </div>
-
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        Pool Size
-                    </div>
-
-                    <div class="col-sm-7">
-                        {{poolInfo.poolSize}}
-                    </div>
-
-                    <br /><br /><hr />
-
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        0.0001 BCH
-                    </div>
-
-                    <div class="col-sm-7">
-                        {{getMembers(10000)}} members
-                    </div>
-
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        0.001 BCH
-                    </div>
-
-                    <div class="col-sm-7">
-                        {{getMembers(100000)}} members
-                    </div>
-
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        0.01 BCH
-                    </div>
-
-                    <div class="col-sm-7">
-                        {{getMembers(1000000)}} members
-                    </div>
-
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        0.1 BCH
-                    </div>
-
-                    <div class="col-sm-7">
-                        {{getMembers(10000000)}} members
-                    </div>
-
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        <strong class="text-danger">1 BCH</strong>
-                    </div>
-
-                    <div class="col-sm-7">
-                        <strong class="text-danger">{{getMembers(100000000)}} members</strong>
-                    </div>
-
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        10 BCH
-                    </div>
-
-                    <div class="col-sm-7">
-                        {{getMembers(1000000000)}} members
-                    </div>
-
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        100 BCH
-                    </div>
-
-                    <div class="col-sm-7">
-                        {{getMembers(10000000000)}} members
-                    </div>
-
-                    <div class="col-sm-3 col-sm-offset-2 text-right">
-                        1,000 BCH
-                    </div>
-
-                    <div class="col-sm-7">
-                        {{getMembers(100000000000)}} members
-                    </div>
-
-                </div>
-
-                <!-- <pre v-html="poolInfo" /> -->
+                <Privacy v-if="menuIndex === 0" />
+                <Mapper v-if="menuIndex === 1" />
+                <Stats v-if="menuIndex === 2" />
+                <Info v-if="menuIndex === 3" />
             </div>
+
         </div>
 
     </main>
 </template>
 
 <script>
-/* Import modules. */
-import superagent from 'superagent'
+/* Import components. */
+import Info from './Analysis/Info'
+import Mapper from './Analysis/Mapper'
+import Privacy from './Analysis/Privacy'
+import Stats from './Analysis/Stats'
 
 export default {
     components: {
-        //
+        Info,
+        Mapper,
+        Privacy,
+        Stats,
     },
     data: () => {
         return {
-            poolInfo: null,
             menuIndex: null,
         }
     },
     computed: {
-        menuTitle() {
-            switch(this.menuIndex) {
-            case 0:
-                return 'Privacy Score'
-            case 1:
-                return 'Transaction Mapper'
-            case 2:
-                return 'Network Statistics'
-            case 3:
-                return 'Information Center'
-            }
-
-            return null
-        },
-
+        //
     },
     methods: {
-        async updatePoolInfo() {
-            /* Set target. */
-            const target = `https://shuffle.servo.cash:8080/stats`
-
-            /* Request pool info. */
-            const results = await superagent.get(target)
-            console.log('POOL INFO', results)
-
-            this.poolInfo = results.body
-
-        },
-
-        getMembers(_poolid) {
-            /* Find pool. */
-            const pool = this.poolInfo.pools
-                .find(pool => pool.amount === _poolid && pool.version === 300)
-
-            /* Validate pool. */
-            if (pool) {
-                return pool.members
-            } else {
-                return 0
-            }
-        },
-
+        //
     },
     created: function () {
-        /* Update pool info. */
-        this.updatePoolInfo()
-
         /* Set menu index. */
         this.menuIndex = 2
     },
@@ -236,15 +115,13 @@ export default {
         //
     },
     beforeDestroy() {
-        console.log('Stopping pool updates..')
-        // TODO: Stop refreshing pool data.
-
+        //
     },
 }
 </script>
 
 <style scoped>
-.mode-select, .coin-select {
+.mode-select, .menu-title {
     font-size: 2.0em;
 }
 .mode-select-container {
