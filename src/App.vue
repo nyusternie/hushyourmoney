@@ -1,5 +1,5 @@
 <template>
-    <div class="image-container set-full-height" style="background-image: url('assets/img/eric-prouzet.jpg');">
+    <div class="image-container set-full-height" :style="{ backgroundImage: 'url(' + backgroundImg + ')' }">
         <router-link to="help" class="made-with-pk">
             <div class="brand">???</div>
             <div class="made-with">Need help?</div>
@@ -56,6 +56,7 @@ export default {
     data: () => {
         return {
             blockchain: null,
+            backgroundImg: null,
         }
     },
     watch: {
@@ -64,7 +65,7 @@ export default {
 
             if (_coins) {
                 /* Start monitoring accounts. */
-                this.monitorAccounts()
+                // this.monitorAccounts()
 
             }
         },
@@ -75,7 +76,7 @@ export default {
             /* Validate seed. */
             if (_seed) {
                 /* Start monitoring accounts. */
-                this.monitorAccounts()
+                // this.monitorAccounts()
 
             }
         },
@@ -140,7 +141,8 @@ export default {
 
     },
     created: function () {
-        //
+        /* Set background image. */
+        this.backgroundImg = require('@/assets/background.jpg')
     },
     mounted: function () {
         // Wizard Initialization
