@@ -5,29 +5,32 @@
 
             <div class="col-xs-7">
 
+                <p class="intro mt-2">
+                    Hush Your Money is the <strong>open source</strong> and <strong>non-custodial</strong> solution for <strong>trustless anonymity management</strong> of your <strong class="text-success">Bitcoin Cash (BCH)</strong> using the leading standards in decentralized protocols.
+                    <small><a href="javascript://" class="text-danger">(learn more)</a></small>
+                </p>
+
+                <hr />
+
                 <div class="info-text easy">
-                    Shuffling is as easy as <span class="text-success">1-2-3</span>
+                    Shuffling is as easy as <span class="text-primary">1-2-3</span>
                 </div>
 
-                <div>
-                    Start by selecting a <strong class="text-primary">UNIQUE</strong> photo or image file from your device.
-                    If you're on a mobile device, we recommend using your device's camera to take a new photo now.
+                <div class="easy-steps">
+                    <sup class="text-primary">1 <i class="fa fa-long-arrow-right"></i></sup>
+                    Click the smiley face to select a <strong class="text-primary">UNIQUE</strong> photo or image file from your device's library.
+                    If you're using a camera-enabled device, we recommend taking a new photo now.
+                </div>
 
-                    <hr />
+                <div class="easy-steps mt-2">
+                    <sup class="text-primary">2 <i class="fa fa-long-arrow-right"></i></sup>
+                    Next, send one or more coin(s) to the deposit address(es) shown in the Shuffler.
+                </div>
 
-                    <div class="text-danger text-center warning">
-                        !!! WARNING !!! WARNING !!! WARNING !!!
-                    </div>
-
-                    <div class="warning-msg">
-                        To protect the security of your wallet, <strong>DO NOT</strong> use a <strong>PUBLIC</strong> photo or image, ie. one you have:
-                    </div>
-
-                    <ol>
-                        <li>downloaded online</li>
-                        <li>previously published online</li>
-                        <li>plans to publish online</li>
-                    </ol>
+                <div class="easy-steps mt-2">
+                    <sup class="text-primary">3 <i class="fa fa-long-arrow-right"></i></sup>
+                    After shuffling, spend your coins wisely or try a more advanced mixing solution like CashFusion.
+                    <small><a href="javascript://" class="text-danger">(learn more)</a></small>
                 </div>
 
             </div>
@@ -36,15 +39,16 @@
 
                 <div class="row">
                     <div class="col-xs-8 col-xs-offset-2">
-                        <div class="picture-container">
+                        <div class="picture-container" @click="selectIdentity">
                             <div class="picture">
                                 <img :src="dataUrl" class="picture-src" title="" />
 
-                                <input
+                                <!-- <input
+                                    ref="fileInput"
                                     type="file"
                                     id="wizard-picture"
                                     @change="readURL"
-                                />
+                                /> -->
                             </div>
                         </div>
                     </div>
@@ -97,6 +101,13 @@
 
         </div>
 
+        <!-- hidden input -->
+        <input
+            ref="fileInput"
+            type="file"
+            id="wizard-picture"
+            @change="readURL"
+        />
     </main>
 </template>
 
@@ -264,6 +275,27 @@ export default {
             }
         },
 
+        selectIdentity() {
+            Swal.fire({
+                title: '!!! WARNING !!!',
+                text: `To protect the security of your wallet, DO NOT use a PUBLIC photo or image, ie. one you have: <br />(1) downloaded online, \n(2) previously published online, (3) plans to publish online`,
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay, I got it!',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                cancelButtonText: `No, I'll leave`,
+            }).then((result) => {
+                if (result.value) {
+                    this.$refs.fileInput.click()
+                } else if (result.isDismissed) {
+                    // if (result.dismiss === 'cancel') { // backdrop | cancel | esc
+                        // window.open('https://wallet.bitcoin.com')
+                    // }
+                }
+            })
+        },
+
     },
     created: function () {
         /* Set privacy flag. */
@@ -271,6 +303,7 @@ export default {
 
         /* Initialize image data. */
         this.dataUrl = require('@/assets/missing-avatar.jpg')
+
     },
     mounted: function () {
         //
@@ -279,8 +312,17 @@ export default {
 </script>
 
 <style scoped>
+.intro {
+    font-size: 0.9em;
+    color: rgba(30, 30, 30, 0.5);
+}
+
 .easy {
     font-size: 1.6em;
+}
+.easy-steps sup {
+    font-weight: 600;
+    /* font-size: 1.6em; */
 }
 
 .warning {
@@ -292,5 +334,9 @@ export default {
 
 .btn-privacy {
     cursor: pointer;
+}
+
+#wizard-picture {
+    display: none;
 }
 </style>

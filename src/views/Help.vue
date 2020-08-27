@@ -9,6 +9,12 @@
             We'll provide this service for free as we hope it'd help Bitcoin users to take some of their privacy back.
         </p>
 
+        <h4>ROADMAP</h4>
+
+        <ol>
+            <li>Full transaction history</li>
+        </ol>
+
         <p>
             The rapid evolution of the cryptocurrency industry continues to hold the attention of governments and regulators worldwide.
             Cypherpunks' dream of free and independent payment methods seems be a notion from light years ago.

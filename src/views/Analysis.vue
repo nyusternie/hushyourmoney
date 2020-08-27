@@ -2,47 +2,21 @@
     <main class="tab-pane" id="shuffler">
 
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col-xs-12 col-sm-4">
 
-                <div class="info-text mode-select">
+                <!-- <div class="info-text mode-select">
                     Menu
-                </div>
+                </div> -->
 
                 <div class="row mode-select-container">
 
                     <div class="col-sm-12 col-sm-offset-0">
 
-                        <div class="col-sm-6">
+                        <div class="col-xs-12 col-sm-6">
                             <div
                                 class="choice"
                                 :class="{ active: menuIndex === 0 }"
                                 @click="menuIndex = 0"
-                            >
-                                <div class="card card-checkboxes card-hover-effect">
-                                    <i class="fa fa-user-secret"></i>
-                                    <p>Privacy</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div
-                                class="choice"
-                                :class="{ active: menuIndex === 1 }"
-                                @click="menuIndex = 1"
-                            >
-                                <div class="card card-checkboxes card-hover-effect">
-                                    <i class="fa fa-sitemap"></i>
-                                    <p>Mapper</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div
-                                class="choice"
-                                :class="{ active: menuIndex === 2 }"
-                                @click="menuIndex = 2"
                             >
                                 <div class="card card-checkboxes card-hover-effect">
                                     <i class="fa fa-bar-chart"></i>
@@ -51,15 +25,28 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-xs-12 col-sm-6">
                             <div
                                 class="choice"
-                                :class="{ active: menuIndex === 3 }"
-                                @click="menuIndex = 3"
+                                :class="{ active: menuIndex === 1 }"
+                                @click="menuIndex = 1"
                             >
                                 <div class="card card-checkboxes card-hover-effect">
-                                    <i class="fa fa-info-circle"></i>
-                                    <p>Info</p>
+                                    <i class="fa fa-trophy"></i>
+                                    <p>Score</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6">
+                            <div
+                                class="choice"
+                                :class="{ active: menuIndex === 2 }"
+                                @click="menuIndex = 2"
+                            >
+                                <div class="card card-checkboxes card-hover-effect">
+                                    <i class="fa fa-sitemap"></i>
+                                    <p>Mapper</p>
                                 </div>
                             </div>
                         </div>
@@ -70,11 +57,10 @@
 
             </div>
 
-            <div class="col-xs-8">
-                <Privacy v-if="menuIndex === 0" />
-                <Mapper v-if="menuIndex === 1" />
-                <Stats v-if="menuIndex === 2" />
-                <Info v-if="menuIndex === 3" />
+            <div class="col-xs-12 col-sm-8">
+                <Stats v-if="menuIndex === 0" />
+                <Score v-if="menuIndex === 1" />
+                <Mapper v-if="menuIndex === 2" />
             </div>
 
         </div>
@@ -84,16 +70,14 @@
 
 <script>
 /* Import components. */
-import Info from './Analysis/Info'
 import Mapper from './Analysis/Mapper'
-import Privacy from './Analysis/Privacy'
+import Score from './Analysis/Score'
 import Stats from './Analysis/Stats'
 
 export default {
     components: {
-        Info,
         Mapper,
-        Privacy,
+        Score,
         Stats,
     },
     data: () => {
@@ -109,7 +93,7 @@ export default {
     },
     created: function () {
         /* Set menu index. */
-        this.menuIndex = 2
+        this.menuIndex = 0
     },
     mounted: function () {
         //

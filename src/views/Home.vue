@@ -217,7 +217,7 @@ export default {
         showShuffler() {
             /* Validate master seed. */
             if (!this.getMasterSeed) {
-                return this.toast(['Oops!', 'Please select a photo from your device', 'error'])
+                return this.toast(['Oops!', 'Please choose an Identity to use with Shuffler', 'error'])
             }
 
             /* Set tab index. */

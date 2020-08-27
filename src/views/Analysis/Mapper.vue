@@ -4,9 +4,22 @@
             Transaction Mapper
         </div>
 
-        <p>
-            Mapping here..
-        </p>
+        <small class="text-muted">
+            Quickly and trustlessly discover the full transaction history of ANY "bitcoin" (ie UTXO) back to its original coinbase.
+        </small>
+
+        <div class="form-group mt-2">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Enter a transaction id to begin mapping"
+                v-model="txid"
+            />
+        </div>
+
+        <div>
+            waiting for results...
+        </div>
     </main>
 </template>
 
@@ -21,6 +34,7 @@ export default {
     data: () => {
         return {
             poolInfo: null,
+            txid: null,
         }
     },
     computed: {

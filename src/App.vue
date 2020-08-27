@@ -39,6 +39,7 @@ import { mapActions, mapGetters } from 'vuex'
 
 /* Import modules. */
 import Nito from 'nitojs'
+import Swal from 'sweetalert2'
 
 /* Import jQuery. */
 // FIXME: Remove ALL jQuery dependencies.
@@ -48,6 +49,9 @@ const $ = window.jQuery
  * Delay (Execution)
  */
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+
+/* Set campaign delay. */
+const CAMPAIGN_DELAY = 60000
 
 export default {
     components: {
@@ -139,10 +143,45 @@ export default {
 
         },
 
+        initCampaign() {
+            setTimeout(() => {
+                Swal.fire({
+                    title: 'Do you have a moment?',
+                    text: `Our team is currently running a Flipstarter campaign to help us with development for our current Roadmap.`,
+                    icon: 'warning',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, show me',
+                    showCancelButton: true,
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'No, not now',
+                }).then((result) => {
+                    if (result.value) {
+                        window.open('https://causes.cash/@BCHPlease/hush-your-money-60aabe8b')
+                    } else if (result.isDismissed) {
+                        // if (result.dismiss === 'cancel') { // backdrop | cancel | esc
+                            Swal.fire({
+                                title: 'Okay, but before you go...',
+                                text: 'Check out the help page anytime by clicking on the icon in the bottom right of the screen.',
+                                icon: 'info',
+                                showConfirmButton: false,
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                timer: 5000,
+                                timerProgressBar: true,
+                            })
+                        // }
+                    }
+                })
+            }, CAMPAIGN_DELAY)
+        },
+
     },
     created: function () {
         /* Set background image. */
         this.backgroundImg = require('@/assets/background.jpg')
+
+        /* Initialize campaign reminder. */
+        this.initCampaign()
     },
     mounted: function () {
         // Wizard Initialization
@@ -170,5 +209,28 @@ export default {
 .brand i {
     display: block;
     font-size: 33px;
+}
+
+/* Until we upgrade to Bootstrap v4 */
+.mt-0 {
+    margin-top: 0;
+}
+.mt-1 {
+    margin-top: 10px;
+}
+.mt-2 {
+    margin-top: 15px;
+}
+.mt-3 {
+    margin-top: 30px;
+}
+.mt-n1 {
+    margin-top: -10px;
+}
+.mt-n2 {
+    margin-top: -15px;
+}
+.mt-n3 {
+    margin-top: -30px;
 }
 </style>
