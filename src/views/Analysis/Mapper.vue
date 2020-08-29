@@ -15,11 +15,29 @@
                 placeholder="Enter a transaction id to begin mapping"
                 v-model="txid"
             />
+
+            <input
+                v-if="showResults"
+                type="button"
+                class="btn btn-danger mt-1"
+                value="Stop mapping"
+                @click="showResults = !showResults"
+            />
+            <input
+                type="button"
+                class="btn mt-1"
+                :class="{ 'btn-warning': showResults, 'btn-primary': !showResults }"
+                :value="showResults ? 'Reset all' : 'Start mapping'"
+                @click="showResults = !showResults"
+            />
         </div>
 
-        <div>
-            waiting for results...
+        <div v-if="showResults">
+            <div>
+                waiting for results...
+            </div>
         </div>
+
     </main>
 </template>
 
@@ -35,6 +53,7 @@ export default {
         return {
             poolInfo: null,
             txid: null,
+            showResults: null,
         }
     },
     computed: {

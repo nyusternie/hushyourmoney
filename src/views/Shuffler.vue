@@ -6,7 +6,7 @@
 
                 <div class="row">
                     <div class="form-group col-sm-7">
-                        <select name="country" class="form-control ">
+                        <select class="form-control ">
                             <option value="BCH"> Bitcoin Cash (BCH) </option>
                             <option value="USDT"> Tether (USDt) </option>
                             <option value="USDH"> Honest Coin (USDH) </option>

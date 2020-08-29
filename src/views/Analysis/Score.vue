@@ -15,40 +15,110 @@
                 placeholder="Enter an (address, txid or xpub) to begin"
                 v-model="search"
             />
+
+            <input
+                v-if="showResults"
+                type="button"
+                class="btn btn-danger mt-1"
+                value="Stop searching"
+                @click="showResults = !showResults"
+            />
+            <input
+                type="button"
+                class="btn mt-1"
+                :class="{ 'btn-warning': showResults, 'btn-primary': !showResults }"
+                :value="showResults ? 'Reset all' : 'Start scoring'"
+                @click="showResults = !showResults"
+            />
         </div>
 
-        <div class="row">
-            <div class="col-xs-12">
-                Current Balance
+        <div v-if="showResults">
+            <div class="row">
+                <div class="col-xs-12">
+                    Current Balance
+                </div>
+
+                <div class="col-xs-12">
+                    <h3 class="mt-0">3.42891212 BCH</h3>
+                </div>
+
+                <div class="col-xs-6">
+                    USD Value:
+                </div>
+                <div class="col-xs-6 text-right">
+                    $7,341.30
+                </div>
             </div>
 
-            <div class="col-xs-12">
-                <h3 class="mt-0">3.42891212 BCH</h3>
+            <hr />
+
+            <div class="row mt-3">
+                <div class="col-xs-12">
+                    Total Transactions
+                </div>
+
+                <div class="col-xs-12">
+                    <h3 class="mt-0">70</h3>
+                </div>
+
+                <div class="col-xs-6">
+                    Turnover
+                </div>
+                <div class="col-xs-6 text-right">
+                    128.294130 <small>BCH</small>
+                </div>
+
+                <div class="col-xs-6">
+                    Total Inflow
+                </div>
+                <div class="col-xs-6 text-right">
+                    65.861521 <small>BCH</small>
+                </div>
+
+                <div class="col-xs-6">
+                    Total Outflow
+                </div>
+                <div class="col-xs-6 text-right">
+                    62.432609 <small>BCH</small>
+                </div>
             </div>
 
-            <div class="col-xs-6">
-                USD Value:
-            </div>
-            <div class="col-xs-6 text-right">
-                $7,341.30
+            <hr />
+
+            <div class="row mt-3">
+                <div class="col-xs-6">
+                    Total Inputs
+
+                    <div class="row">
+                        <div class="col-xs-5">
+                            Avg Inflow
+                        </div>
+                        <div class="col-xs-7 text-right">
+                            1.829487 <small>BCH</small>
+                        </div>
+
+                        <div class="col-xs-5">
+                            Biggest
+                        </div>
+                        <div class="col-xs-7 text-right">
+                            14.505463 <small>BCH</small>
+                        </div>
+
+                        <div class="col-xs-5">
+                            Smallest
+                        </div>
+                        <div class="col-xs-7 text-right">
+                            0.020000 <small>BCH</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
+                    Total Outputs
+                </div>
             </div>
         </div>
 
-        <div class="row mt-3">
-            <div class="col-xs-12">
-                Total Transactions
-            </div>
-        </div>
-
-        <div class="row mt-3">
-            <div class="col-xs-6">
-                Total Inputs
-            </div>
-
-            <div class="col-xs-6">
-                Total Outputs
-            </div>
-        </div>
     </main>
 </template>
 
@@ -64,6 +134,7 @@ export default {
         return {
             poolInfo: null,
             search: null,
+            showResults: null,
         }
     },
     computed: {
@@ -99,6 +170,9 @@ export default {
     created: function () {
         /* Update pool info. */
         this.updatePoolInfo()
+
+        /* Set results flag. */
+        this.showResults = false
 
     },
     mounted: function () {

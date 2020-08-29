@@ -4,6 +4,24 @@
             History &amp; Statistics
         </div>
 
+        <div class="row">
+            <div class="col-xs-7">
+                <small class="text-muted">
+                    Everything you need to know about keeping your privacy safe on-chain is at your fingertips.
+                </small>
+            </div>
+
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <select class="form-control ">
+                        <option value="cashfusion"> CashFusion </option>
+                        <option value="cashshuffle"> CashShuffle </option>
+                        <option value="serverless"> Serverless </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <div class="row" v-if="poolInfo">
             <div class="col-sm-3 col-sm-offset-2 text-right">
                 Connections
