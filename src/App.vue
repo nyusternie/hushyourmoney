@@ -146,8 +146,8 @@ export default {
         initCampaign() {
             setTimeout(() => {
                 Swal.fire({
-                    title: 'Got a second?',
-                    text: `Our team is currently running a Flipstarter campaign to help us with development for our current Roadmap. Do you have a couple minutes to take a look?`,
+                    title: 'Just a moment!',
+                    text: `Our team is currently running a fundraiser to help speed up development of our current Roadmap. Do you have a minute to take a look?`,
                     icon: 'warning',
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Yes, show me',

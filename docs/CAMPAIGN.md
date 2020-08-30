@@ -1,6 +1,4 @@
-<strong class="text-danger">Hush Your Money introduces SLP/token anonymity to Bitcoin Cash</strong>
-
-Our team is seeking an initial __75 BCH (~$20k)__ to develop the (front & back-end) infrastructure plus p2p protocols for a __serverless, trustless__ shuffling network with native support for the __Uncensorable Tether (USDt) SLP__ tokens.
+Hush Your Money introduces SLP/token anonymity to Bitcoin Cash. Our team is seeking an initial 75 BCH (~$20k) to develop the (front & back-end) infrastructure plus p2p protocols for a serverless, trustless shuffling network with native support for the "Uncensorable" Tether (USDt) SLP tokens.
 
 ---
 

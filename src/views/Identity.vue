@@ -277,21 +277,17 @@ export default {
 
         selectIdentity() {
             Swal.fire({
-                title: '!!! WARNING !!!',
-                text: `To protect the security of your wallet, DO NOT use a PUBLIC photo or image, ie. one you have: <br />(1) downloaded online, \n(2) previously published online, (3) plans to publish online`,
+                title: '!!! SECURITY WARNING !!!',
+                text: `To maximize the protection of your coin wallet, DO NOT use a PUBLIC photo or image, ie. one you have: (1) downloaded online, \n(2) previously published online, (3) plans to publish online`,
                 icon: 'error',
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Okay, I got it!',
                 showCancelButton: true,
                 cancelButtonColor: '#d33',
-                cancelButtonText: `No, I'll leave`,
+                cancelButtonText: `Cancel`,
             }).then((result) => {
                 if (result.value) {
                     this.$refs.fileInput.click()
-                } else if (result.isDismissed) {
-                    // if (result.dismiss === 'cancel') { // backdrop | cancel | esc
-                        // window.open('https://wallet.bitcoin.com')
-                    // }
                 }
             })
         },

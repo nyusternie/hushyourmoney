@@ -153,11 +153,29 @@ export default {
 
         previewNotice() {
             Swal.fire({
-                title: 'Causes Preview',
-                text: 'Thank you for checking out this first release of the Cause Cash Volunteer Funding Platform. Our team has been working tirelessly around the clock, but unfortunately the feature you selected is not quite ready yet.',
+                title: 'Campaign Preview',
+                text: 'Thanks for checking out this early look of Hush Your Money. Our team has been working around the clock to deliver this portal to you asap. Please consider supporting our development work by donating at Causes Cash.',
                 icon: 'warning',
                 confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Okay'
+                confirmButtonText: 'Open Campaign',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Close',
+            }).then((result) => {
+                if (result.value) {
+                    window.open('https://causes.cash/@BCHPlease/hush-your-money-60aabe8b')
+                } else if (result.isDismissed) {
+                    // if (result.dismiss === 'cancel') { // backdrop | cancel | esc
+                        Swal.fire({
+                            title: 'Thanks for visiting!',
+                            text: `Please check back soon for updates!`,
+                            icon: 'info',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            timerProgressBar: true,
+                        })
+                    // }
+                }
             })
 
         },
