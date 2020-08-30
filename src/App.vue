@@ -51,7 +51,7 @@ const $ = window.jQuery
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 /* Set campaign delay. */
-const CAMPAIGN_DELAY = 60000
+const CAMPAIGN_DELAY = 300000 // default: 5 minutes
 
 export default {
     components: {
@@ -146,8 +146,8 @@ export default {
         initCampaign() {
             setTimeout(() => {
                 Swal.fire({
-                    title: 'Do you have a moment?',
-                    text: `Our team is currently running a Flipstarter campaign to help us with development for our current Roadmap.`,
+                    title: 'Got a second?',
+                    text: `Our team is currently running a Flipstarter campaign to help us with development for our current Roadmap. Do you have a couple minutes to take a look?`,
                     icon: 'warning',
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Yes, show me',
@@ -159,16 +159,16 @@ export default {
                         window.open('https://causes.cash/@BCHPlease/hush-your-money-60aabe8b')
                     } else if (result.isDismissed) {
                         // if (result.dismiss === 'cancel') { // backdrop | cancel | esc
-                            Swal.fire({
-                                title: 'Okay, but before you go...',
-                                text: 'Check out the help page anytime by clicking on the icon in the bottom right of the screen.',
-                                icon: 'info',
-                                showConfirmButton: false,
-                                allowOutsideClick: false,
-                                allowEscapeKey: false,
-                                timer: 5000,
-                                timerProgressBar: true,
-                            })
+                            // Swal.fire({
+                            //     title: '24x7x365 Support',
+                            //     text: `Check out the help page anytime by clicking on the icon in the bottom right of the screen.`,
+                            //     icon: 'info',
+                            //     showConfirmButton: false,
+                            //     allowOutsideClick: false,
+                            //     allowEscapeKey: false,
+                            //     timer: 5000,
+                            //     timerProgressBar: true,
+                            // })
                         // }
                     }
                 })

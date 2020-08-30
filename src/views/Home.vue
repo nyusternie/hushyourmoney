@@ -97,6 +97,7 @@ import { mapActions, mapGetters } from 'vuex'
 import Analysis from './Analysis'
 import Identity from './Identity'
 import Shuffler from './Shuffler'
+import Swal from 'sweetalert2'
 
 export default {
     components: {
@@ -150,6 +151,17 @@ export default {
             'toast',
         ]),
 
+        previewNotice() {
+            Swal.fire({
+                title: 'Causes Preview',
+                text: 'Thank you for checking out this first release of the Cause Cash Volunteer Funding Platform. Our team has been working tirelessly around the clock, but unfortunately the feature you selected is not quite ready yet.',
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Okay'
+            })
+
+        },
+
         next() {
             switch(this.tabIndex) {
             case 0:
@@ -200,35 +212,39 @@ export default {
          * Show Analysis
          */
         showAnalysis() {
+            return this.previewNotice()
+
             /* Set tab index. */
-            this.tabIndex = 1
+            // this.tabIndex = 1
 
             /* Update progress. */
-            let move_distance = 100 / 3
-            move_distance = move_distance * this.tabIndex + move_distance / 2
+            // let move_distance = 100 / 3
+            // move_distance = move_distance * this.tabIndex + move_distance / 2
 
             /* Set progress bar width. */
-            this.pbWidth = `${move_distance}%`
+            // this.pbWidth = `${move_distance}%`
         },
 
         /**
          * Show Shuffler
          */
         showShuffler() {
+            return this.previewNotice()
+
             /* Validate master seed. */
-            if (!this.getMasterSeed) {
-                return this.toast(['Oops!', 'Please choose an Identity to use with Shuffler', 'error'])
-            }
+            // if (!this.getMasterSeed) {
+            //     return this.toast(['Oops!', 'Please choose an Identity to use with Shuffler', 'error'])
+            // }
 
             /* Set tab index. */
-            this.tabIndex = 2
+            // this.tabIndex = 2
 
             /* Update progress. */
-            let move_distance = 100 / 3
-            move_distance = move_distance * this.tabIndex + move_distance / 2
+            // let move_distance = 100 / 3
+            // move_distance = move_distance * this.tabIndex + move_distance / 2
 
             /* Set progress bar width. */
-            this.pbWidth = `${move_distance}%`
+            // this.pbWidth = `${move_distance}%`
         },
 
     },

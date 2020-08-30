@@ -8,7 +8,7 @@ Our team is seeking an initial __75 BCH (~$20k)__ to develop the (front & back-e
 
 ![Homepage Screenshot](https://i.imgur.com/szVoydy.jpg)
 
-(source: __https://hushyourmoney.com__)
+(source: __[https://hushyourmoney.com](https://hushyourmoney.com)__)
 
 <div class="p-3 text-secondary">
 
@@ -22,13 +22,15 @@ Launching a new platform sometimes comes with one or more false starts. After a 
 
 <p class="text-right"><em>— <a href="https://twitter.com/ShomariPrince" target="_blank" class="text-primary">Shomari (@nyusternie)</a></em></p>
 
-### CASE STUDY #2: Hush Your Money
+## CASE STUDY #2: Hush Your Money
 
-This is __NOT__ just another Flipstarter. It's the inaugural campaign of a __Volunteer Funding Platform__ for fund raising and accountability of Bitcoin Cash (BCH). Causes Cash is where __Patreon__ meets __Open Collective,__ wrapped in the trustless assurance of Flipstarter.
+This is __NOT__ just another Flipstarter. It's the inaugural campaign of a __Volunteer Funding Platform__ for the open fund raising and accountability of Bitcoin Cash (BCH). Causes Cash is where __Patreon__ meets __Open Collective,__ wrapped in the trustless assurance of Flipstarter.
 
-For better or worse, __$6,001,007.56 Tether (USDt)__ have been recently added as SLP tokens. Most notably, these Tether SLP tokens __CANNOT__ be censored (with address blocking) like their Ethereum counterparts. This alone presents an exciting opportunity for migrating Ethereum's current __$8,617,328,861.70__ (or 64% of ALL Tether tokens) over to Bitcoin Cash; and with it the migration of its users. (source: https://wallet.tether.to/transparency)
+### A simple value propostion
 
-Unfortunately, __blockchain analysis may still result in censorship,__ especially when dealing with centralized and/or custodial service providers (eg. exchanges). All Tether tokens in circulation today suffer from a __lack of fungibility;__ fortunately this is a problem that __ONLY__ Bitcoin Cash is ready to solve.
+For better or worse, __$6,001,007.56 Tether (USDt)__ have been recently minted as SLP tokens. Most notably, these Tether SLP tokens __CANNOT__ be censored (with address blocking) like their Ethereum counterparts. This alone presents an exciting opportunity for migrating Ethereum's current __$8,617,328,861.70__ (or 64% of ALL Tether tokens) over to Bitcoin Cash; and with it the migration of its users. (source: https://wallet.tether.to/transparency)
+
+Unfortunately, __advanced blockchain analysis can still result in targeted censorship attacks;__ especially when dealing with centralized and/or custodial service providers (eg. exchanges). All Tether tokens in circulation today suffer from a __total lack of fungibility;__ fortunately this is a problem that __ONLY__ Bitcoin Cash is ready to solve.
 
 __Now is the perfect time to introduce CashShuffle & CashFusion for SLP tokens.__
 
@@ -39,35 +41,13 @@ __Now is the perfect time to introduce CashShuffle & CashFusion for SLP tokens._
 
 <br />![Project Goals](https://i.imgur.com/eGbmTF6.png)
 
-This project was chosen specifically because our team believes it offers the greatest potential for __driving the most adoption__ during this latest bull run cycle. __Our long-term goal is to make SLP the default protocol for ALL stablecoin money transfers.__ Ambitious from the start, this project has __3 main goals__ along with 4 stretch goals:
+This project was chosen specifically because our team believes it offers the greatest potential for __driving the most adoption__ during this impending bull run cycle. __Our long-term goal is to make SLP the default protocol for ALL stablecoin money transfers.__ Ambitious from the start, this project has __3 main goals__ along with 3 stretch goals:
 
-1. Introduce __[Tether (USDt)](https://explorer.bitcoin.com/bch/tx/9fc89d6b7d5be2eac0b3787c5b8236bca5de641b5bafafc8f450727b63615c11)__ token shuffling
+1. Introduce __[Tether (USDt)](https://explorer.bitcoin.com/bch/tx/9fc89d6b7d5be2eac0b3787c5b8236bca5de641b5bafafc8f450727b63615c11)__ SLP token shuffling
 
-2. Introduce a __serverless communications__ protocols for CashShuffle & CashFusion
+2. Introduce __serverless communications__ protocols for CashShuffle & CashFusion
 
-3. Introduce __instant shuffling__ using anonymous liquidity pools
-
-### Value proposition
-
-1. Incentivizes Tether users from other blockchains (eg. Ethereum ERC-20) to Bitcoin Cash SLP.
-2. Serverless communications makes shuffling __UNSTOPPABLE__ (like BitTorrent).
-3. Largest liquidity pool w/ the combined contribution of __ALL__ node providers.
-
-### Comparison to CashFusion
-
-1. Will work in __ANY__ web browser and be supported by __ALL__ mobile devices.
-2. Average shuffle completion time of __under 10 seconds__ vs. 5+ minutes on CF.
-3. Doesn't require __TOR__ for anonymity protection.
-
-Decentralized Finance (DeFi) has taken off and with it the majority of the money and talent.
-
-As Decentralized Finance (DeFi) takes over the entire crypto world, Bitcoin Cash is sorely lagging behind in keeping up with the latest/hottest trends.
-
-2nd layer privacy protocols CashShuffle and CashFusion should be the stars of the network, however, they're both being dramatically underutilized today due to the their limited accessibility by way of desktop-based Electron Cash.
-
-With greater access to privacy protocols and expanded use to SLP tokens, we believe we can migrate a portion of the Tether's current Ethereum user-base to Bitcoin Cash.
-
-Now that stablecoins are being added to the SLP protocol, it's time to consider the privacy of your token in addition to your coins.
+3. Introduce __instant shuffling (< 5sec)__ using trustless liquidity providers
 
 
 <!-- ######################################## -->
@@ -76,7 +56,7 @@ Now that stablecoins are being added to the SLP protocol, it's time to consider 
 
 <br />![Timeline](https://i.imgur.com/OR6NTaV.png)
 
-Our team aims to develop and deploy this platform (as alpha) in 8 weeks.
+Our team aims to develop and deploy this platform (as alpha) in 6 weeks.
 
 Start time: __Tuesday, Sept 15th 2020__
 
@@ -90,6 +70,10 @@ Est completion time: __"Shuffle" Saturday, Oct 31st 2020__
 <br />![Tether (USDt)](https://i.imgur.com/oijwlUS.png)
 
 Similar to the current CashShuffle protocol, there will be 8 pools for USDt shufflers to choose from.
+
+### Value proposition
+
+Incentivizes Tether users from other blockchains (eg. Ethereum ERC-20) to Bitcoin Cash SLP.
 
 | Tier # | Tier Value (in USDt) | Min Shuffle Transaction (in USD) |
 | :-------------: | :-------------: | :----------: |
@@ -111,17 +95,35 @@ Similar to the current CashShuffle protocol, there will be 8 pools for USDt shuf
 
 <br />![Serverless](https://i.imgur.com/VZhZ3xV.png)
 
-__UNSTOPPABLE.__ That is what CashShuffle will be regarded as once this new serverless network is deployed and adoption begins.
+__UNSTOPPABLE PEER-TO-PEER__
 
+Just like BitTorrent before it, CashShuffle and CashFusion should aim to be the __MOST__ unstoppable anonymity protocols of ALL the blockchains.
+
+That is what CashShuffle will be regarded as once this new serverless network is deployed and adoption begins.
+
+### Value proposition for CashFusion
+
+1. Will work in __ANY__ web browser and be supported by __ALL__ mobile devices.
+2. Average shuffle completion time of __under 10 seconds__ vs. 5+ minutes on CF.
+3. Doesn't require __TOR__ for anonymity protection.
+
+### Value proposition for CashShuffle
+
+1. Will work in __ANY__ web browser and be supported by __ALL__ mobile devices.
+2. Average shuffle completion time of __under 10 seconds__ vs. 5+ minutes on CF.
+3. Doesn't require __TOR__ for anonymity protection.
 
 <!-- ######################################## -->
-<!-- Dynamic Tiers -->
+<!-- Instant CashShuffle -->
 <!-- ######################################## -->
 
-<br />![Dynamic Tiers](https://i.imgur.com/oPFKxSI.png)
+<br />![Instant CashShuffle](https://i.imgur.com/ai7CcKq.png)
 
 Currently each pool is restricted to just 5 players, no more, no less. This network would allow for participants to decide the number of "minimum" participants they prefer, allowing for fast shuffle times even during times of lower liquidity.
 
+### Value proposition
+
+Largest liquidity pool w/ the combined contribution of __ALL__ node providers.
 
 <!-- ######################################## -->
 <!-- Use of funds -->
@@ -129,7 +131,7 @@ Currently each pool is restricted to just 5 players, no more, no less. This netw
 
 <br />![Use of funds](https://i.imgur.com/zlFdWPv.png)
 
-1. All funds received will be split 50/50 into 2 treasuries of Bitcoin Cash (BCH) and various stable coins.
+1. All funds received will be split 70/30 into 2 treasuries of Bitcoin Cash (BCH) and various stablecoins.
 2. BCH-friendly providers will be prioritized for ALL 3rd-party services required.
 3. ONLY BCH-friendly contractors will be used during development.
 
@@ -143,18 +145,18 @@ Accountability:
 
 Funds will be stored in a publicly auditable wallet. We publish a monthly report covering that month’s progress, issues, spending.
 
-In return for community support in the amount of ~$20k (65 BCH), our team will allocate the received funds as follows:
+In return for community support in the amount of ~$20k (75 BCH), our team will allocate the received funds as follows:
 
 | Description | Amount (in BCH) | Amount (in USD) |
 | :------------- | :----------: | :----------: |
-| Serverless development | 35 | ~10,500 |
-| Front-end development | 10 | ~3,000 |
-| Protocol Development | 8 | ~2,400 |
-| Documentation & translations | 4 | ~1,200 |
-| Bootstrap optimal BCH/SLP liquidity for the first 5 of 8 tiers | 3 | ~900 |
-| Media development | 3 | ~900 |
-| Misc | 2 | ~600 |
-| __Total__ | __65__ | __~19,500__ |
+| Serverless development | 40 | ~10.6k |
+| Front-end development | 12 | ~3.2k |
+| Protocol Development | 10 | ~2.7k |
+| Bootstrap optimal BCH/SLP liquidity for the first 5 of 8 tiers | 5 | ~1k |
+| Documentation & translations | 4 | ~1k |
+| Media development | 3 | ~800 |
+| Misc | 2 | ~500 |
+| __Total__ | __75__ | __~20k__ |
 
 
 <!-- ######################################## -->
@@ -167,10 +169,9 @@ In return for community support in the amount of ~$20k (65 BCH), our team will a
 
 | Goal # | Description | Duration | Amount<br/>(in BCH) | Amount<br/>(in USD) |
 | :-------------: | :---------- | :----------: | :----------: | :----------: |
-| 1 | Serverless __CashShuffle__ into at least one SLP mobile wallet | 6 weeks | 50 | ~15k |
-| 2 | Serverless communications network for __CashFusion__ | 6 weeks | 50 | ~15k |
-| 3 | Serverless __CashFusion__ into at least one SLP mobile wallet | 8 weeks | 65 | ~20k |
-| 4 | Comprehensive __security audit__ plus optimize pool __liquidity__ | 8 / 12 weeks | 100 / 175 | ~$30k / ~$50k |
+| 1 | __Serverless CashShuffle__ into at least one SLP mobile wallet | 6 weeks | 55 | ~15k |
+| 2 | __Serverless CashFusion__ into at least one SLP mobile wallet | 8 weeks | 75 | ~20k |
+| 3 | Comprehensive __security audit__ plus optimize pool __liquidity__ | 8 / 12 weeks | 115 / 190 | ~$30k / ~$50k |
 
 <br/>
 
@@ -178,15 +179,11 @@ In return for community support in the amount of ~$20k (65 BCH), our team will a
 
 It would be advantageous to have an unstoppable shuffling platform, in the event that any of the current CashShuffle & CashFusion server(s) were ever "forcibly" shut down.
 
-### GOAL 2: Serverless communications network for CashFusion
-
-...
-
-### GOAL 3: Serverless CashFusion into at least one SLP mobile wallet
+### GOAL 2: Serverless CashFusion into at least one SLP mobile wallet
 
 The goal here is to integrate the CashShuffle protocol into at least one leading mobile wallet (ie. Bitcoin.com, Crescent, Badger, etc)
 
-### GOAL 4a: Comprehensive security audit
+### GOAL 3a: Comprehensive security audit
 
 For your safety, we would like to conduct a full security audit of our code and procedures to minimize the risk of loss of funds.
 
@@ -194,7 +191,7 @@ For your safety, we would like to conduct a full security audit of our code and 
 
 2. Intrusion detection
 
-### GOAL 4b: Optimization of pool liquidity
+### GOAL 3b: Optimization of pool liquidity
 
 Many would argue that the #1 benefit of the CashShuffle protocol is the __SPEED__ at which it completes its process from start to finish. Most of our liquidity tests saw speeds averaging under 10 seconds per shuffle.
 
@@ -221,6 +218,12 @@ Note that due to the risk of running a hot wallet, only the first 6 tiers are su
 
 <br />![Shuffle.cash](https://i.imgur.com/GeXsLsu.png)
 
+Our team strongly believes in OSS and the right to Not Be Tracked online. However, this sometimes works contrary to best practices for application developers, including:
+
+- error monitoring &amp; reporting (eg. __[Bugsnag](https://www.bugsnag.com/)__)
+- real-time traffic analysis (eg. __[Matomo](https://matomo.org/)__)
+- data privacy / GDPR compliance (eg. __[Osano](https://www.osano.com/)__)
+
 __Shuffle.cash will be the bare-metal cousin of HushYourMoney.com,__ with the ability to run __"locally"__ from a folder on your PC. To maintain the highest level of security for your coins, we recommended you download the latest release directly for your __GitLab repo,__ or clone the repo and run the __`index.html`__ file right from a folder on your PC.
 
 Check out the site — __https://shuffle.cash__  
@@ -246,30 +249,47 @@ The following 2 projects represent the closest examples of the code and technolo
 
 - __https://app.nitojs.org__ — A reference app for the Nito JS Library and SDK.
 
-[![Join us on Slack](https://i.imgur.com/dzi0IWb.jpg)](https://join.slack.com/t/bchplease/shared_invite/zt-e7jj03j5-vJbe47kNrPBjTgTXwLNRkA)
+
+<!-- ######################################## -->
+<!-- Questions? -->
+<!-- ######################################## -->
+
+<br />![References](https://i.imgur.com/tGPwQLE.png)
+
+Below we've addressed the most common questions supporters have asked, however, please don't hesitate to reach out to our team directly on Slack for additional information.
+
+<div class="text-center">
+<a href="https://join.slack.com/t/bchplease/shared_invite/zt-e7jj03j5-vJbe47kNrPBjTgTXwLNRkA">
+<img src="https://i.imgur.com/XhlpW6A.png" alt="Join us on Slack"></a>
+</div>
+
+1. __What happens if the fundraiser target is not reached?__    
+Then Bitcoin Cash Please asks everyone who is willing, to donate directly to our "official" donation address. __[bitcoincash:qrz4zlgjsqu0gu9xaayrrrlrttyv85xxzslp43veu6](https://explorer.bitcoin.com/bch/address/bitcoincash:qrz4zlgjsqu0gu9xaayrrrlrttyv85xxzslp43veu6)__
+
+2. __Is there a legal entity or company associated with Bitcoin Cash Please?__  
+Not at this time, however, we are looking into registering as a 501(c)(3) organization.
+
+3. __Where will you keep the funds?__  
+40% of the funds will be kept in one or more "liquid" multi-sig wallets for immediate use in mobilizing for the tasks at hand; 30% of the funds received will be stored on a Ledger HW wallet; the remaining 30% will be stored in a basket of stablecoins (incl. Tether, USDH, USDC and Dai).
+
+4. __Will we get to see how it is spent?__  
+Yes, absolutely! All on-chain transactions will be accompanied with a ledger entry, including all supporting documents related to the transaction.
+
+5. __What if the BCH price rises significantly? What will you do with the money?__  
+Any excess funds at the completion of this project will be applied to one or more liquidity pools, and used to keep the supported anonymity protocols running smooth.
+
+6. __What if your intended goals are not completed on time?__  
+There exists the possibility that our timeline will need to be adjusted during the course of development. In this case, all relevant information will be made public and community input will be considered in final decisions.
+
+7. __How can I help your project in ways other than donating money?__  
+As this project is an "official" case study of the Causes Cash platform, the feedback of your experiences here are invaluable to our team.
 
 ---
 
-# How to keep your coins private
+# Privacy guide
 
 > Be aware that Bitcoin privacy is NOT built-in to the protocol. This is why it is important to understand the best practices to maintaining your on-chain privacy.
 
 ## Introduction to UTXO 101
 
 Your coins are spent as entries in the blockchain. It is NOT possible to spend a partial entry, so any remaining value is added to a NEW blockchain entry.
-
-1. begin
-2. continue
-3. complete
-
----
-
-## Questions and answers
-
-We welcome your questions and comments. Please feel free to reach out directly to our team.
-
-[![Join us on Slack](https://i.imgur.com/dzi0IWb.jpg)](https://join.slack.com/t/bchplease/shared_invite/zt-e7jj03j5-vJbe47kNrPBjTgTXwLNRkA)
-
-### Q: Why serverless communications?
-
-__A:__ It would be advantageous to have an unstoppable shuffling platform, in the event that any of the current CashShuffle & CashFusion server(s) were ever "forcibly" shut down.
