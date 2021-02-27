@@ -9,8 +9,6 @@
                         <select class="form-control ">
                             <option value="BCH"> Bitcoin Cash (BCH) </option>
                             <option value="USDT"> Tether (USDt) </option>
-                            <option value="USDH"> Honest Coin (USDH) </option>
-                            <option value="SPICE"> Spice (SPICE) </option>
                         </select>
                     </div>
 

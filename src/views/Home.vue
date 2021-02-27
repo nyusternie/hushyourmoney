@@ -51,40 +51,36 @@
             <Shuffler v-if="tabIndex === 2" />
         </div>
 
-        <div class="wizard-footer">
-            <div class="row">
-                <div class="col-xs-4 text-left">
-                    <input
-                        v-if="tabIndex !== 0"
-                        type="button"
-                        class="btn btn-previous btn-default btn-wd"
-                        :value="lblPrevious"
-                        @click="previous"
-                    />
-                </div>
-
-                <div class="col-xs-4 text-center">
-                    <input
-                        v-if="tabIndex === 2"
-                        type="button"
-                        class="btn btn-options btn-warning btn-wd"
-                        value="Options"
-                        @click="showOptions"
-                    />
-                </div>
-
-                <div class="col-xs-4 text-right">
-                    <input
-                        v-if="tabIndex !== 2"
-                        type="button"
-                        class="btn btn-next btn-fill btn-primary btn-wd"
-                        :value="lblNext"
-                        @click="next"
-                    />
-                </div>
+        <div class="wizard-footer flex">
+            <div class="footer-item">
+                <input
+                    v-if="tabIndex !== 0"
+                    type="button"
+                    class="btn btn-previous btn-default btn-wd"
+                    :value="lblPrevious"
+                    @click="previous"
+                />
             </div>
 
-            <div class="clearfix"></div>
+            <div class="footer-item">
+                <input
+                    v-if="tabIndex === 2"
+                    type="button"
+                    class="btn btn-options btn-warning btn-wd"
+                    value="Options"
+                    @click="showOptions"
+                />
+            </div>
+
+            <div class="footer-item">
+                <input
+                    v-if="tabIndex !== 2"
+                    type="button"
+                    class="btn btn-next btn-fill btn-primary btn-wd"
+                    :value="lblNext"
+                    @click="next"
+                />
+            </div>
         </div>
     </form>
 </template>
@@ -97,7 +93,7 @@ import { mapActions, mapGetters } from 'vuex'
 import Analysis from './Analysis'
 import Identity from './Identity'
 import Shuffler from './Shuffler'
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 
 export default {
     components: {
@@ -151,34 +147,34 @@ export default {
             'toast',
         ]),
 
-        previewNotice() {
-            Swal.fire({
-                title: 'Campaign Preview',
-                text: 'Thanks for checking out this early look of Hush Your Money. Our team has been working around the clock to deliver this portal to you asap. Please consider supporting our development work by donating at Causes Cash.',
-                icon: 'warning',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Open Campaign',
-                showCancelButton: true,
-                cancelButtonColor: '#d33',
-                cancelButtonText: 'Close',
-            }).then((result) => {
-                if (result.value) {
-                    window.open('https://causes.cash/@BCHPlease/hush-your-money-60aabe8b')
-                } else if (result.isDismissed) {
-                    // if (result.dismiss === 'cancel') { // backdrop | cancel | esc
-                        Swal.fire({
-                            title: 'Thanks for visiting!',
-                            text: `Please check back soon for updates!`,
-                            icon: 'info',
-                            showConfirmButton: false,
-                            timer: 5000,
-                            timerProgressBar: true,
-                        })
-                    // }
-                }
-            })
-
-        },
+        // previewNotice() {
+        //     Swal.fire({
+        //         title: 'Campaign Preview',
+        //         text: 'Thanks for checking out this early look of Hush Your Money. Our team has been working around the clock to deliver this portal to you asap. Please consider supporting our development work by donating at Causes Cash.',
+        //         icon: 'warning',
+        //         confirmButtonColor: '#3085d6',
+        //         confirmButtonText: 'Open Campaign',
+        //         showCancelButton: true,
+        //         cancelButtonColor: '#d33',
+        //         cancelButtonText: 'Close',
+        //     }).then((result) => {
+        //         if (result.value) {
+        //             window.open('https://hushyourmoney.com')
+        //         } else if (result.isDismissed) {
+        //             // if (result.dismiss === 'cancel') { // backdrop | cancel | esc
+        //                 Swal.fire({
+        //                     title: 'Thanks for visiting!',
+        //                     text: `Please check back soon for updates!`,
+        //                     icon: 'info',
+        //                     showConfirmButton: false,
+        //                     timer: 5000,
+        //                     timerProgressBar: true,
+        //                 })
+        //             // }
+        //         }
+        //     })
+        //
+        // },
 
         next() {
             switch(this.tabIndex) {
@@ -230,39 +226,39 @@ export default {
          * Show Analysis
          */
         showAnalysis() {
-            return this.previewNotice()
+            // return this.previewNotice()
 
             /* Set tab index. */
-            // this.tabIndex = 1
+            this.tabIndex = 1
 
             /* Update progress. */
-            // let move_distance = 100 / 3
-            // move_distance = move_distance * this.tabIndex + move_distance / 2
+            let move_distance = 100 / 3
+            move_distance = move_distance * this.tabIndex + move_distance / 2
 
             /* Set progress bar width. */
-            // this.pbWidth = `${move_distance}%`
+            this.pbWidth = `${move_distance}%`
         },
 
         /**
          * Show Shuffler
          */
         showShuffler() {
-            return this.previewNotice()
+            // return this.previewNotice()
 
             /* Validate master seed. */
-            // if (!this.getMasterSeed) {
-            //     return this.toast(['Oops!', 'Please choose an Identity to use with Shuffler', 'error'])
-            // }
+            if (!this.getMasterSeed) {
+                return this.toast(['Oops!', 'Please choose an Identity to use with Shuffler', 'error'])
+            }
 
             /* Set tab index. */
-            // this.tabIndex = 2
+            this.tabIndex = 2
 
             /* Update progress. */
-            // let move_distance = 100 / 3
-            // move_distance = move_distance * this.tabIndex + move_distance / 2
+            let move_distance = 100 / 3
+            move_distance = move_distance * this.tabIndex + move_distance / 2
 
             /* Set progress bar width. */
-            // this.pbWidth = `${move_distance}%`
+            this.pbWidth = `${move_distance}%`
         },
 
     },
@@ -285,4 +281,13 @@ export default {
     padding: 105px 20px 10px;
 }
 
+.flex {
+    display: flex;
+}
+
+.footer-item {
+    flex-basis: 100%;
+    text-align: center;
+    padding: 0 5px;
+}
 </style>

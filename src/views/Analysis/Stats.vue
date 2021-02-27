@@ -14,9 +14,9 @@
             <div class="col-xs-5">
                 <div class="form-group">
                     <select class="form-control ">
-                        <option value="cashfusion"> CashFusion </option>
-                        <option value="cashshuffle"> CashShuffle </option>
-                        <option value="serverless"> Serverless </option>
+                        <option value="fusion">CashFusion</option>
+                        <option value="shuffle">CashShuffle</option>
+                        <option value="blender">Nito Blender</option>
                     </select>
                 </div>
             </div>

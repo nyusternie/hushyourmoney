@@ -9,25 +9,19 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2">
-
                     <div class="wizard-container">
                         <div class="card wizard-card" data-color="green" id="wizardProfile">
-
                             <router-view/>
-
                         </div>
                     </div>
-
-                </div>
-            </div>
-            <!-- end row -->
-        </div>
-        <!--  big container -->
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+        </div> <!--  big container -->
 
         <div class="footer">
             <div class="container text-center">
-                Made with <i class="fa fa-heart heart"></i> by <a href="https://bchplease.org" target="_blank">Bitcoin Cash Please</a>.
-                &copy; 2020. All rights reserved.
+                Made with <i class="fa fa-heart heart"></i> by <a href="https://bchplease.org" target="_blank">Bitcoin Please</a>.
+                <br />&copy; {{curYear}}. All rights reserved.
             </div>
         </div>
     </div>
@@ -38,6 +32,7 @@
 import { mapActions, mapGetters } from 'vuex'
 
 /* Import modules. */
+import moment from 'moment'
 import Nito from 'nitojs'
 import Swal from 'sweetalert2'
 
@@ -93,6 +88,10 @@ export default {
             'getCoins',
             'getMasterSeed',
         ]),
+
+        curYear() {
+            return moment().format('YYYY')
+        },
 
     },
     methods: {
@@ -156,7 +155,7 @@ export default {
                     cancelButtonText: 'No, not now',
                 }).then((result) => {
                     if (result.value) {
-                        window.open('https://causes.cash/@BCHPlease/hush-your-money-60aabe8b')
+                        window.open('https://hushyourmoney.com')
                     } else if (result.isDismissed) {
                         // if (result.dismiss === 'cancel') { // backdrop | cancel | esc
                             // Swal.fire({

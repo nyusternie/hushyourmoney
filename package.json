@@ -1,8 +1,8 @@
 {
   "name": "shuffle.cash",
-  "version": "20.8.17",
+  "version": "21.2.17",
   "description": "Spend Your Cash Privately. Fearlessly!",
-  "author": "Bitcoin Cash Please <support@bchplease.org>",
+  "author": "Bitcoin Please <support@bchplease.org>",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "core-js": "3.6.5",
+    "ipfs-core": "0.5.2",
     "moment": "2.27.0",
     "nitojs": "gitlab:bchplease/nitojs",
     "numeral": "2.0.6",

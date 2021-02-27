@@ -3,11 +3,11 @@
 
         <div class="row">
 
-            <div class="col-xs-7">
+            <div class="col-xs-12 col-sm-7">
 
                 <p class="intro mt-2">
                     Hush Your Money is the <strong>open source</strong> and <strong>non-custodial</strong> solution for <strong>trustless anonymity management</strong> of your <strong class="text-success">Bitcoin Cash (BCH)</strong> using the leading standards in decentralized protocols.
-                    <small><a href="javascript://" class="text-danger">(learn more)</a></small>
+                    <br /><small><a href="javascript://" class="text-danger">(learn more)</a></small>
                 </p>
 
                 <hr />
@@ -35,7 +35,7 @@
 
             </div>
 
-            <div class="col-xs-5">
+            <div class="col-xs-12 col-sm-5">
 
                 <div class="row">
                     <div class="col-xs-8 col-xs-offset-2">
@@ -334,5 +334,9 @@ export default {
 
 #wizard-picture {
     display: none;
+}
+
+.picture {
+    margin-top: 20px;
 }
 </style>
