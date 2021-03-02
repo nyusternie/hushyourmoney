@@ -1,5 +1,5 @@
 <template>
-    <main class="tab-pane" id="shuffler">
+    <main class="tab-pane">
 
         <div class="row">
             <div class="col-xs-12 col-sm-4">

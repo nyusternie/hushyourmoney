@@ -61,6 +61,9 @@ const addCoin = ({ commit, getters }, _pkg) => {
         /* Initialize coins. */
         const coins = new Audio(require('@/assets/audio/coins.wav'))
 
+        /* Set volume to lower level. */
+        coins.volume = 0.2
+
         /* Play coins. */
         // WARNING: This action may fail on several browsers;
         //          so it's best to do this last to avoid any

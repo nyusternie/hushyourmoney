@@ -21,14 +21,14 @@
                 type="button"
                 class="btn btn-danger mt-1"
                 value="Stop searching"
-                @click="showResults = !showResults"
+                @click="stop"
             />
             <input
                 type="button"
                 class="btn mt-1"
                 :class="{ 'btn-warning': showResults, 'btn-primary': !showResults }"
                 :value="showResults ? 'Reset all' : 'Start scoring'"
-                @click="showResults = !showResults"
+                @click="start"
             />
         </div>
 
@@ -123,6 +123,9 @@
 </template>
 
 <script>
+/* Initialize vuex. */
+import { mapActions } from 'vuex'
+
 /* Import modules. */
 import superagent from 'superagent'
 
@@ -141,6 +144,10 @@ export default {
         //
     },
     methods: {
+        ...mapActions('utils', [
+            'toast',
+        ]),
+
         async updatePoolInfo() {
             /* Set target. */
             const target = `https://shuffle.servo.cash:8080/stats`
@@ -164,6 +171,14 @@ export default {
             } else {
                 return 0
             }
+        },
+
+        start() {
+            this.toast(['Oops!', 'This feature is not ready yet', 'error'])
+        },
+
+        stop() {
+            this.showResults = !this.showResults
         },
 
     },

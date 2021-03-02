@@ -66,7 +66,7 @@
                 <input
                     v-if="tabIndex === 2"
                     type="button"
-                    class="btn btn-options btn-warning btn-wd"
+                    class="btn btn-warning btn-wd"
                     value="Options"
                     @click="showOptions"
                 />
@@ -93,7 +93,6 @@ import { mapActions, mapGetters } from 'vuex'
 import Analysis from './Analysis'
 import Identity from './Identity'
 import Shuffler from './Shuffler'
-// import Swal from 'sweetalert2'
 
 export default {
     components: {
@@ -146,35 +145,6 @@ export default {
         ...mapActions('utils', [
             'toast',
         ]),
-
-        // previewNotice() {
-        //     Swal.fire({
-        //         title: 'Campaign Preview',
-        //         text: 'Thanks for checking out this early look of Hush Your Money. Our team has been working around the clock to deliver this portal to you asap. Please consider supporting our development work by donating at Causes Cash.',
-        //         icon: 'warning',
-        //         confirmButtonColor: '#3085d6',
-        //         confirmButtonText: 'Open Campaign',
-        //         showCancelButton: true,
-        //         cancelButtonColor: '#d33',
-        //         cancelButtonText: 'Close',
-        //     }).then((result) => {
-        //         if (result.value) {
-        //             window.open('https://hushyourmoney.com')
-        //         } else if (result.isDismissed) {
-        //             // if (result.dismiss === 'cancel') { // backdrop | cancel | esc
-        //                 Swal.fire({
-        //                     title: 'Thanks for visiting!',
-        //                     text: `Please check back soon for updates!`,
-        //                     icon: 'info',
-        //                     showConfirmButton: false,
-        //                     timer: 5000,
-        //                     timerProgressBar: true,
-        //                 })
-        //             // }
-        //         }
-        //     })
-        //
-        // },
 
         next() {
             switch(this.tabIndex) {

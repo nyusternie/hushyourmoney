@@ -1,5 +1,5 @@
 <template>
-    <main class="tab-pane" id="identity">
+    <main class="tab-pane">
 
         <div class="row">
 
@@ -131,14 +131,42 @@ export default {
     },
     data: () => {
         return {
+            blockchain: null,
             hasPrivacy: null,
             dataUrl: null,
             password: null,
         }
     },
+    watch: {
+        getCoins: function (_coins) {
+            // console.log('COINS HAS CHANGED', _coins)
+
+            if (_coins) {
+                /* Update balance. */
+                this.updateBalance()
+            }
+        },
+
+        getMasterSeed: function (_seed) {
+            // console.log('MASTER SEED HAS CHANGED', _seed)
+
+            /* Validate seed. */
+            if (_seed) {
+                /* Update balance. */
+                this.updateBalance()
+            }
+        },
+
+        // TODO: Watch shuffle queue from here
+    },
     computed: {
+        ...mapGetters('utils', [
+            'getFormattedValue',
+        ]),
+
         ...mapGetters('wallet', [
-            'getAccounts',
+            'getAddress',
+            'getCoins',
             'getMasterSeed',
             'getMnemonic',
         ]),
@@ -163,8 +191,87 @@ export default {
 
         ...mapActions('wallet', [
             'initWallet',
+            'updateCoins',
             'updateMasterSeed',
         ]),
+
+        /**
+         * Initialize Blockchain
+         */
+        initBlockchain() {
+            /* Initialize Nito blockchain. */
+            this.blockchain = new Nito.Blockchain()
+            // console.log('NITO BLOCKCHAIN', this.blockchain)
+
+            if (this.getAddress('deposit')) {
+                /* Subscribe to address updates. */
+                this.blockchain
+                    .subscribe('address', this.getAddress('deposit'))
+            }
+
+            /* Handle blockchain updates. */
+            this.blockchain.on('update', (_msg) => {
+                console.info('Blockchain update (msg):', _msg) // eslint-disable-line no-console
+
+                /* Update coins. */
+                // FIXME: Why is this blocking the entire initial UI setup??
+                this.updateCoins()
+
+                /* Update balance. */
+                this.updateBalance()
+            })
+
+            /* Update coins. */
+            // FIXME: Why is this blocking the entire initial UI setup??
+            // this.updateCoins()
+        },
+
+        /**
+         * Update Balance
+         */
+        async updateBalance() {
+            /* Retreive wallet balance. */
+            // this.balance = await this
+            //     .getBalance('USD')
+            //     .catch(err => {
+            //         console.error(err) // eslint-disable-line no-console
+            //
+            //         /* Report error. */
+            //         this.report(err)
+            //     })
+            // console.log('DEPOSIT (balance):', this.balance)
+
+            /* Initialize wallet balance. */
+            let balance = 0
+
+            /* Validate coins. */
+            if (this.getCoins) {
+                /* Initialize coins. */
+                const coins = this.getCoins
+
+                Object.keys(coins).forEach(async coinId => {
+                    /* Initialize coin. */
+                    const coin = coins[coinId]
+                    // console.log('COINS (coin):', coin)
+
+                    if (coin.status === 'active' || coin.status === 'locked') {
+                        /* Add satoshis. */
+                        balance += coin.satoshis
+                    }
+                })
+            }
+
+            /* Retrieve market price. */
+            const marketPrice = await Nito.Markets.getTicker('BCH', 'USD')
+            console.info(`Market price (USD)`, marketPrice) // eslint-disable-line no-console
+
+            const formattedBalance =
+                this.getFormattedValue(balance, marketPrice, 'USD')
+            // console.log('NEW BALANCE IS', formattedBalance)
+
+            /* Set wallet balance. */
+            this.balance = formattedBalance
+        },
 
         /**
          * Toggle Privacy
@@ -262,6 +369,12 @@ export default {
                     /* Initialize wallet. */
                     this.initWallet()
 
+                    /* Initialize blockchain. */
+                    this.initBlockchain()
+
+                    /* Update balance. */
+                    this.updateBalance()
+
                     /* Set data URL. */
                     // NOTE: We do this last, as it will update the UI.
                     this.dataUrl = dataUrl
@@ -303,6 +416,17 @@ export default {
     },
     mounted: function () {
         //
+    },
+    beforeDestroy() {
+        console.info('Destroying Shuffle idendity..')
+
+        /* Validate blockchain. */
+        if (this.blockchain) {
+            console.info('Unsubscribing from blockchain..')
+
+            /* Stop blockchain. */
+            this.blockchain.unsubscribe()
+        }
     },
 }
 </script>

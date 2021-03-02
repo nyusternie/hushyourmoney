@@ -53,12 +53,8 @@ const getBalanceBySessionId = (
             continue
         }
 
-        /* Check unconfirmed flag. */
-        if (rootGetters['getFlags'].unconfirmed) {
-            balance += (balances.confirmed + balances.unconfirmed)
-        } else {
-            balance += balances.confirmed
-        }
+        /* Add balance. */
+        balance += balances.confirmed + balances.unconfirmed
     }
 
     /* Retrieve market price. */

@@ -5,17 +5,17 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-7">
+            <div class="col-xs-12 col-sm-7">
                 <small class="text-muted">
                     Everything you need to know about keeping your privacy safe on-chain is at your fingertips.
                 </small>
             </div>
 
-            <div class="col-xs-5">
+            <div class="col-xs-12 col-sm-5 mt-1">
                 <div class="form-group">
-                    <select class="form-control ">
+                    <select class="form-control" disabled>
                         <option value="fusion">CashFusion</option>
-                        <option value="shuffle">CashShuffle</option>
+                        <option value="shuffle" selected>CashShuffle</option>
                         <option value="blender">Nito Blender</option>
                     </select>
                 </div>
@@ -23,85 +23,85 @@
         </div>
 
         <div class="row" v-if="poolInfo">
-            <div class="col-sm-3 col-sm-offset-2 text-right">
+            <div class="col-xs-6 text-right">
                 Connections
             </div>
 
-            <div class="col-sm-7">
+            <div class="col-xs-6">
                 {{poolInfo.connections}}
             </div>
 
-            <div class="col-sm-3 col-sm-offset-2 text-right">
+            <div class="col-xs-6 text-right">
                 Pool Size
             </div>
 
-            <div class="col-sm-7">
+            <div class="col-xs-6">
                 {{poolInfo.poolSize}}
             </div>
 
             <br /><br /><hr />
 
-            <div class="col-sm-3 col-sm-offset-2 text-right">
+            <div class="col-xs-6 text-right">
                 0.0001 BCH
             </div>
 
-            <div class="col-sm-7">
+            <div class="col-xs-6">
                 {{getMembers(10000)}} members
             </div>
 
-            <div class="col-sm-3 col-sm-offset-2 text-right">
+            <div class="col-xs-6 text-right">
                 0.001 BCH
             </div>
 
-            <div class="col-sm-7">
+            <div class="col-xs-6">
                 {{getMembers(100000)}} members
             </div>
 
-            <div class="col-sm-3 col-sm-offset-2 text-right">
+            <div class="col-xs-6 text-right">
                 0.01 BCH
             </div>
 
-            <div class="col-sm-7">
+            <div class="col-xs-6">
                 {{getMembers(1000000)}} members
             </div>
 
-            <div class="col-sm-3 col-sm-offset-2 text-right">
+            <div class="col-xs-6 text-right">
                 0.1 BCH
             </div>
 
-            <div class="col-sm-7">
+            <div class="col-xs-6">
                 {{getMembers(10000000)}} members
             </div>
 
-            <div class="col-sm-3 col-sm-offset-2 text-right">
+            <div class="col-xs-6 text-right">
                 <strong class="text-danger">1 BCH</strong>
             </div>
 
-            <div class="col-sm-7">
+            <div class="col-xs-6">
                 <strong class="text-danger">{{getMembers(100000000)}} members</strong>
             </div>
 
-            <div class="col-sm-3 col-sm-offset-2 text-right">
+            <div class="col-xs-6 text-right">
                 10 BCH
             </div>
 
-            <div class="col-sm-7">
+            <div class="col-xs-6">
                 {{getMembers(1000000000)}} members
             </div>
 
-            <div class="col-sm-3 col-sm-offset-2 text-right">
+            <div class="col-xs-6 text-right">
                 100 BCH
             </div>
 
-            <div class="col-sm-7">
+            <div class="col-xs-6">
                 {{getMembers(10000000000)}} members
             </div>
 
-            <div class="col-sm-3 col-sm-offset-2 text-right">
+            <div class="col-xs-6 text-right">
                 1,000 BCH
             </div>
 
-            <div class="col-sm-7">
+            <div class="col-xs-6">
                 {{getMembers(100000000000)}} members
             </div>
 

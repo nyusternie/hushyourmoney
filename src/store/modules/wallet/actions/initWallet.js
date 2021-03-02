@@ -38,7 +38,6 @@ const initWallet = ({ commit, getters }) => {
      *
      * Deposit     : m/44'/145'/0'/0/<index>
      * Change      : m/44'/145'/0'/1/<index>
-     * Causes Cash : m/44'/145'/0'/6767/<index>
      * Nito Cash   : m/44'/145'/0'/7867/<index>
      */
     const indicesModel = {
@@ -53,7 +52,7 @@ const initWallet = ({ commit, getters }) => {
     /* Initialize accounts. */
     // NOTE: These accounts are cached for quick access in the wallet.
     const accounts = getters.getAccounts
-    console.info('Caching accounts..', accounts) // eslint-disable-line no-console
+    console.info('Wallet accounts..', accounts) // eslint-disable-line no-console
 
     /* Return success. */
     return true

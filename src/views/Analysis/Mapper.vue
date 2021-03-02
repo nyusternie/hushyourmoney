@@ -21,14 +21,14 @@
                 type="button"
                 class="btn btn-danger mt-1"
                 value="Stop mapping"
-                @click="showResults = !showResults"
+                @click="stop"
             />
             <input
                 type="button"
                 class="btn mt-1"
                 :class="{ 'btn-warning': showResults, 'btn-primary': !showResults }"
                 :value="showResults ? 'Reset all' : 'Start mapping'"
-                @click="showResults = !showResults"
+                @click="start"
             />
         </div>
 
@@ -42,8 +42,8 @@
 </template>
 
 <script>
-/* Import modules. */
-// import superagent from 'superagent'
+/* Initialize vuex. */
+import { mapActions } from 'vuex'
 
 export default {
     components: {
@@ -60,7 +60,18 @@ export default {
         //
     },
     methods: {
-        //
+        ...mapActions('utils', [
+            'toast',
+        ]),
+
+        start() {
+            this.toast(['Oops!', 'This feature is not ready yet', 'error'])
+        },
+
+        stop() {
+            this.showResults = !this.showResults
+        },
+
     },
     created: function () {
         //

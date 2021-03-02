@@ -42,7 +42,7 @@ const updateStatus = (_coins, dispatch) => {
 const updateCoins = async ({ dispatch, getters }) => {
     /* Set coins. */
     const coins = getters.getCoins
-    // console.log('UPDATE COINS (coins)', coins)
+    console.log('UPDATE COINS (coins)', coins)
 
     /* Validate coins. */
     if (!coins) {
