@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 
 /* Import (local) modules. */
 import profile from './modules/profile'
+import system from './modules/system'
 import utils from './modules/utils'
 import wallet from './modules/wallet'
 
@@ -13,6 +14,7 @@ Vue.use(Vuex)
 /* Set modules. */
 const modules = {
     profile,
+    system,
     utils,
     wallet,
 }

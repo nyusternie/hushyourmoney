@@ -132,6 +132,7 @@ import Nito from 'nitojs'
 import numeral from 'numeral'
 import QRCode from 'qrcode'
 import Swal from 'sweetalert2'
+import { v4 as uuidv4 } from 'uuid'
 
 export default {
     components: {
@@ -154,7 +155,7 @@ export default {
     },
     computed: {
         ...mapGetters('system', [
-            'getIpfs',
+            'getRequests',
         ]),
 
         ...mapGetters('utils', [
@@ -296,6 +297,10 @@ export default {
 
     },
     methods: {
+        ...mapActions('system', [
+            'updateRequests',
+        ]),
+
         ...mapActions('utils', [
             'toast',
         ]),
@@ -444,22 +449,57 @@ export default {
             this.previewNotice()
         },
 
+        /**
+         * Start Shuffle
+         */
         async startShuffle() {
-            console.log('this.getIpfs', this.getIpfs)
-            const message = 'START THE SHUFFLE!'
+            /* Set verification key. */
+            const verificationKey = 'verificationKey'
 
-            /* Set message buffer. */
-            const msgBuf = Buffer.from(JSON.stringify(message))
+            /* Set outpoint. */
+            // NOTE: UTXO + tx position.
+            const outpoint = 'outpoint'
 
-            try {
-                // Publish the message to the pubsub channel.
-                await this.getIpfs.pubsub.publish(this.roomName, msgBuf)
+            /* Set signature. */
+            // NOTE: Used to verify coin owner.
+            const sig = 'sig'
 
-                console.log(`Published message to ${this.roomName}\n`)
-            } catch (err) {
-                console.error('Error in sendMessage()')
-                throw err
+            /* Set pool. */
+            const pool = []
+
+            /* Add ourselves to the pool. */
+            // NOTE: Sorted by verification key.
+            pool.push({
+                verificationKey,
+            })
+
+            const pkg = {
+                id: uuidv4(),
+                verificationKey,
+                outpoint,
+                sig,
+                pool,
             }
+            console.log('SHUFFLE PACKAGE', pkg)
+
+            // FIXME: FOR DEV ONLY
+            this.updateRequests(pkg)
+
+            console.log('this.getIpfs', this.getIpfs)
+            // const message = 'START THE SHUFFLE!'
+
+            // /* Set message buffer. */
+            // const msgBuf = Buffer.from(JSON.stringify(message))
+            //
+            // try {
+            //     // Publish the message to the pubsub channel.
+            //     await this.getIpfs.pubsub.publish(this.roomName, msgBuf)
+            //
+            //     console.log(`Published message to ${this.roomName}\n`)
+            // } catch (err) {
+            //     console.error('Error in startShuffle()')
+            //     throw err
+            // }
         },
 
     },
@@ -476,6 +516,8 @@ export default {
         /* Request BCH/USD market price. */
         this.usd = await Nito.Markets.getTicker('BCH', 'USD')
         console.log('USD', this.usd)
+    },
+    mounted: async function () {
 
         // const balance = this.getBalance
         const balance = await this
@@ -491,9 +533,10 @@ export default {
         /* Set balance. */
         this.balance = balance
 
-    },
-    mounted: function () {
-        //
+        /* Retrieve requests. */
+        const requests = this.getRequests
+        console.log('REQUESTS', requests)
+
     },
 }
 </script>
