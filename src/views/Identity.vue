@@ -42,13 +42,6 @@
                         <div class="picture-container" @click="selectIdentity">
                             <div class="picture">
                                 <img :src="dataUrl" class="picture-src" title="" />
-
-                                <!-- <input
-                                    ref="fileInput"
-                                    type="file"
-                                    id="wizard-picture"
-                                    @change="readURL"
-                                /> -->
                             </div>
                         </div>
                     </div>
@@ -160,6 +153,10 @@ export default {
         // TODO: Watch shuffle queue from here
     },
     computed: {
+        ...mapGetters('profile', [
+            'getDataUrl',
+        ]),
+
         ...mapGetters('utils', [
             'getFormattedValue',
         ]),
@@ -185,6 +182,10 @@ export default {
         },
     },
     methods: {
+        ...mapActions('profile', [
+            'updateDataUrl',
+        ]),
+
         ...mapActions('utils', [
             'toast',
         ]),
@@ -326,6 +327,9 @@ export default {
                     /* Set data URL. */
                     const dataUrl = e.target.result
 
+                    /* Update store. */
+                    this.updateDataUrl(dataUrl)
+
                     /* Calculate password. */
                     // NOTE: Due to concern over "extra-large" image/file
                     //       sizes, we will hash the data URL before
@@ -415,7 +419,10 @@ export default {
 
     },
     mounted: function () {
-        //
+        /* Validate data URL. */
+        if (this.getDataUrl) {
+            this.dataUrl = this.getDataUrl
+        }
     },
     beforeDestroy() {
         console.info('Destroying Shuffle idendity..')
