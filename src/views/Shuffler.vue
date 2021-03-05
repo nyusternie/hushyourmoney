@@ -148,12 +148,15 @@ export default {
                 notes: null,
             },
 
-            isBitcoinWalletApi: null,
-
             showMnemonic: null,
+            roomName: null,
         }
     },
     computed: {
+        ...mapGetters('system', [
+            'getIpfs',
+        ]),
+
         ...mapGetters('utils', [
             'getFormattedValue',
         ]),
@@ -441,8 +444,22 @@ export default {
             this.previewNotice()
         },
 
-        startShuffle() {
-            this.previewNotice()
+        async startShuffle() {
+            console.log('this.getIpfs', this.getIpfs)
+            const message = 'START THE SHUFFLE!'
+
+            /* Set message buffer. */
+            const msgBuf = Buffer.from(JSON.stringify(message))
+
+            try {
+                // Publish the message to the pubsub channel.
+                await this.getIpfs.pubsub.publish(this.roomName, msgBuf)
+
+                console.log(`Published message to ${this.roomName}\n`)
+            } catch (err) {
+                console.error('Error in sendMessage()')
+                throw err
+            }
         },
 
     },
@@ -452,6 +469,9 @@ export default {
 
         /* Initialize mnemonic flag. */
         this.showMnemonic = false
+
+        // Pubsub channel that nodes will use to coordinate.
+        this.roomName = 'af84de592984f9403c9539c1049a01369e6302f08043b79db783bd34ad344190' // #lobby:nitoblender.com
 
         /* Request BCH/USD market price. */
         this.usd = await Nito.Markets.getTicker('BCH', 'USD')

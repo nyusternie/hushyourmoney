@@ -28,6 +28,9 @@
 </template>
 
 <script>
+/* Initialize vuex. */
+import { mapActions } from 'vuex'
+
 /* Import modules. */
 import moment from 'moment'
 import IPFS from 'ipfs-core'
@@ -39,6 +42,9 @@ const $ = window.jQuery
 
 /* Set campaign delay. */
 const CAMPAIGN_DELAY = 300000 // default: 5 minutes
+
+/* Set global variable. */
+let ipfs
 
 export default {
     components: {
@@ -57,6 +63,10 @@ export default {
 
     },
     methods: {
+        ...mapActions('system', [
+            'saveIpfs',
+        ]),
+
         /**
          * Initialize Flipstarter
          */
@@ -123,27 +133,27 @@ export default {
                 console.log('Setting up instance of IPFS...')
 
                 /* Create new IPFS instance. */
-                this.ipfs = await IPFS.create()
+                ipfs = await IPFS.create()
 
                 // Pass the IPFS instance to the window object. Makes it easy to debug IPFS
                 // issues in the browser console.
                 if (typeof window !== 'undefined') {
-                    window.ipfs = this.ipfs
+                    window.ipfs = ipfs
                 }
 
                 /* Initialize IPFS. */
                 await this.initIpfs()
 
                 // Get this nodes IPFS ID
-                const id = await this.ipfs.id()
+                const id = await ipfs.id()
 
-                this.ipfsid = id.id
-                console.log(`This IPFS node ID: ${this.ipfsid}`)
+                const ipfsid = id.id
+                console.log(`This IPFS node ID: ${ipfsid}`)
 
                 console.log('IPFS node setup complete.')
 
                 // Subscribe to the pubsub room.
-                await this.ipfs.pubsub.subscribe(this.roomName, msg => {
+                await ipfs.pubsub.subscribe(this.roomName, msg => {
                     // print out any messages recieved.
                     console.log(msg.data.toString())
                 })
@@ -156,7 +166,7 @@ export default {
                     // Date-stamped connection information.
                     const connectionInfo = {
                         date: now.toLocaleString(),
-                        ipfsid: this.ipfsid,
+                        ipfsid,
                         message: `Message from Shuffle Cash app @ ${now.toLocaleString()}`
                     }
 
@@ -179,9 +189,6 @@ export default {
          */
         async initIpfs() {
             try {
-                this.ipfs = await this.ipfs
-                console.info('IPFS node has been initialized!')
-
                 /* Periodically renew connection to the bootstrap nodes. */
                 const bootstrapIntervalHandle = setInterval(() => {
                     this.connectToBootstrapNodes()
@@ -210,7 +217,7 @@ export default {
                     const multiaddr = this.bootstrapNodes[i].multiaddr
 
                     try {
-                        await this.ipfs.swarm.connect(multiaddr)
+                        await ipfs.swarm.connect(multiaddr)
                         // console.log('...IPFS node connected PSF node!')
                         console.log(
                             `${now.toLocaleString()} - Successfully connected to ${name}`
@@ -240,7 +247,7 @@ export default {
                 const msgBuf = Buffer.from(JSON.stringify(_message))
 
                 // Publish the message to the pubsub channel.
-                await this.ipfs.pubsub.publish(this.roomName, msgBuf)
+                await ipfs.pubsub.publish(this.roomName, msgBuf)
 
                 console.log(`Published message to ${this.roomName}\n`)
             } catch (err) {
@@ -259,7 +266,7 @@ export default {
                 const circuitRelay = this.bootstrapNodes.filter(elem => elem.hasConnected)
 
                 /* Connect to node via circuit relay. */
-                await this.ipfs.swarm.connect(
+                await ipfs.swarm.connect(
                     `${circuitRelay[0].multiaddr}/p2p-circuit/p2p/${this.nodeid}`
                 )
                 console.log(`Connected to messaging peer [ ${this.nodeid} ]`)
@@ -273,7 +280,7 @@ export default {
             const msgBuf = Buffer.from(`hi there! [ ${new Date()} ]`)
 
             // Publish the message to the pubsub channel.
-            await this.ipfs.pubsub.publish(this.roomName, msgBuf)
+            await ipfs.pubsub.publish(this.roomName, msgBuf)
         },
 
     },
