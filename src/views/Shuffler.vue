@@ -124,11 +124,14 @@
 </template>
 
 <script>
+/* global ipfs */
+
 /* Initialize vuex. */
 import { mapActions, mapGetters } from 'vuex'
 
 /* Import modules. */
 import Nito from 'nitojs'
+import moment from 'moment'
 import numeral from 'numeral'
 import QRCode from 'qrcode'
 import Swal from 'sweetalert2'
@@ -332,6 +335,26 @@ export default {
             return numeral(_coin.satoshis / 100).format('0,0[.]00') + ' bits'
         },
 
+        /**
+         * Send Message
+         *
+         * Broadcast the connection information for this IPFS node.
+         */
+        async sendMessage(_message) {
+            try {
+                /* Set message buffer. */
+                const msgBuf = Buffer.from(JSON.stringify(_message))
+
+                // Publish the message to the pubsub channel.
+                await ipfs.pubsub.publish(this.roomName, msgBuf)
+
+                console.log(`Published message to ${this.roomName}\n`)
+            } catch (err) {
+                console.error('Error in sendMessage()')
+                throw err
+            }
+        },
+
         async send(_coin) {
             // console.log('SENDING COIN', _coin)
             if (!this.output.address) {
@@ -452,40 +475,90 @@ export default {
         /**
          * Start Shuffle
          */
-        async startShuffle() {
-            /* Set verification key. */
-            const verificationKey = 'verificationKey'
+        async startShuffle(_coin) {
+            /* Set coin signature. */
+            // NOTE: This is a signature of the `requestid` by the private key
+            //       of the player's submitted UTXO.
+            const verificationKey = _coin
 
             /* Set outpoint. */
             // NOTE: UTXO + tx position.
             const outpoint = 'outpoint'
 
+            /* Set destination. */
+            const destination = 'destination'
+
             /* Set signature. */
             // NOTE: Used to verify coin owner.
-            const sig = 'sig'
+            // const sig = 'sig'
 
-            /* Set pool. */
-            const pool = []
+            /* Set players. */
+            const players = []
 
-            /* Add ourselves to the pool. */
-            // NOTE: Sorted by verification key.
-            pool.push({
-                verificationKey,
-            })
-
-            const pkg = {
-                id: uuidv4(),
+            /* Set ourselves. */
+            const me = {
                 verificationKey,
                 outpoint,
-                sig,
-                pool,
+                destination,
+                // sig,
+                isValid: null, // NOTE: This is just a placeholder and must be verified by each player
+                createdAt: moment().valueOf(),
+                updatedAt: moment().valueOf(),
             }
-            console.log('SHUFFLE PACKAGE', pkg)
+
+/**
+
+I AM the last player
+
+1. take all the encryption signatures from the other players
+2. wrap our desitnation address in an onion (p1 .. p?) of `isValid` outpoints
+3. send that package to (p?)
+   that player will then unwrap our layer, make a copy and replace our destination with theirs
+   (p1) will then unwrap (p2) layer and add their destination to the bunch
+
+I'm NOT the last player
+
+1. wait until i see the player after me add their sigs.
+
+*/
+
+            /* Add ourselves to the players. */
+            // FIXME: Sort by verification key.
+            players.push(me)
+
+            /* Set request id. */
+            const requestid = uuidv4()
+
+            /* Initialize transaction manager. */
+            const txManager = {
+                covertAddrs: {
+                    players: [],
+                    nextPlayer: null,
+                },
+                changeAddrs: [], // NOTE: These addresses are "toxic" and NOT safe for re-use.
+                sigs: [], // NOTE: Signatures for each of the "source" UTXOs.
+            }
+
+            /* Calculate players hash. */
+            // FIXME: We need to concatenate all player's `verificationKey`, then sha256.
+            const playersHash = 'sha256-hash-goes-here'
+
+            /* Build (request) package. */
+            const pkg = {
+                requestid,
+                txManager,
+                players,
+                playersHash,
+                createdAt: moment().valueOf(),
+                updatedAt: null,
+                completedAt: null,
+            }
+            console.log('REQUEST PACKAGE', pkg)
 
             // FIXME: FOR DEV ONLY
             this.updateRequests(pkg)
+            this.sendMessage(pkg)
 
-            console.log('this.getIpfs', this.getIpfs)
             // const message = 'START THE SHUFFLE!'
 
             // /* Set message buffer. */
@@ -500,6 +573,13 @@ export default {
             //     console.error('Error in startShuffle()')
             //     throw err
             // }
+        },
+
+        /**
+         * Stop Shuffle
+         */
+        stopShuffle(_coin) {
+            console.log('STOPPING SHUFFLE FOR:', _coin)
         },
 
     },

@@ -107,7 +107,8 @@ export default {
          */
         bumpInit() {
             // Run the node.js app first and get it's IPFS ID.
-            this.nodeid = 'QmcLnv6wdstv5pVnUqLuS38NGUPpvorfFMn3VqkXHayH38' // nito.exchange (blenderd)
+            // this.nodeid = 'QmcLnv6wdstv5pVnUqLuS38NGUPpvorfFMn3VqkXHayH38' // nito.exchange (blenderd)
+            this.nodeid = 'QmaEHjs39TudZ5AF5d1CDPM7YcmChLdXV9Nv4NRbxD3V5h' // FOR (localhost) TESTING ONLY
 
             // Pubsub channel that nodes will use to coordinate.
             this.roomName = 'af84de592984f9403c9539c1049a01369e6302f08043b79db783bd34ad344190' // #lobby:nitoblender.com
@@ -160,18 +161,18 @@ export default {
                 console.log(`Subscribed to BUMP (pubsub) room ${this.roomName}`)
 
                 // Periodically broadcast identity on the pubsub channel
-                setInterval(async () => {
-                    const now = new Date()
-
-                    // Date-stamped connection information.
-                    const connectionInfo = {
-                        date: now.toLocaleString(),
-                        ipfsid,
-                        message: `Message from Shuffle Cash app @ ${now.toLocaleString()}`
-                    }
-
-                    await this.sendMessage(connectionInfo)
-                }, 15000)
+                // setInterval(async () => {
+                //     const now = new Date()
+                //
+                //     // Date-stamped connection information.
+                //     const connectionInfo = {
+                //         date: now.toLocaleString(),
+                //         ipfsid,
+                //         message: `Message from Shuffle Cash app @ ${now.toLocaleString()}`
+                //     }
+                //
+                //     await this.sendMessage(connectionInfo)
+                // }, 15000)
 
                 // Periodically renew connections to other pubsub channel peers
                 setInterval(async () => {
@@ -188,6 +189,40 @@ export default {
          * bootstrap node(s).
          */
         async initIpfs() {
+            // window.indexedDB.databases().then((_db) => {
+            //     for (var i = 0; i < _db.length; i++) {
+            //         const dbName = _db[i].name
+            //         console.log('DATABASE NAME', dbName)
+            //     }
+            // })
+
+/*
+
+PROPER EXAMPLE
+
+var req = indexedDB.deleteDatabase(databaseName);
+req.onsuccess = function () {
+    console.log("Deleted database successfully");
+};
+req.onerror = function () {
+    console.log("Couldn't delete database");
+};
+req.onblocked = function () {
+    console.log("Couldn't delete database due to the operation being blocked");
+};
+
+*/
+
+            // window.indexedDB.deleteDatabase('ipfs')
+            // window.indexedDB.deleteDatabase('ipfs/blocks')
+            // window.indexedDB.deleteDatabase('ipfs/datastore')
+            // window.indexedDB.deleteDatabase('ipfs/keys')
+            // window.indexedDB.deleteDatabase('ipfs/pins')
+            // FIXME: Auto-detect these databases
+            // window.indexedDB.deleteDatabase('level-js-orbitdb/QmZD1c7sNgFdF7DgG9kFFnjfMCJKpUzFkpeaj4wv7NfhWB/cache')
+            // window.indexedDB.deleteDatabase('level-js-orbitdb/QmZD1c7sNgFdF7DgG9kFFnjfMCJKpUzFkpeaj4wv7NfhWB/keystore')
+            // console.log('DELETED DATABASES!')
+
             try {
                 /* Periodically renew connection to the bootstrap nodes. */
                 const bootstrapIntervalHandle = setInterval(() => {
@@ -212,11 +247,16 @@ export default {
                 const now = new Date()
 
                 for (let i = 0; i < this.bootstrapNodes.length; i++) {
+                    /* Set name. */
                     const name = this.bootstrapNodes[i].name
+                    console.log('connectToBootstrapNodes (name):', name)
 
+                    /* Set multi-address. */
                     const multiaddr = this.bootstrapNodes[i].multiaddr
+                    console.log('connectToBootstrapNodes (multiaddr):', multiaddr)
 
                     try {
+                        // FIXME: The IPFS ID has to be reset before each request.
                         await ipfs.swarm.connect(multiaddr)
                         // console.log('...IPFS node connected PSF node!')
                         console.log(
@@ -264,6 +304,7 @@ export default {
 
                 /* Find a circuit relay that has successfully connected. */
                 const circuitRelay = this.bootstrapNodes.filter(elem => elem.hasConnected)
+                console.log('connectToPeers (circuitRelay):', circuitRelay)
 
                 /* Connect to node via circuit relay. */
                 await ipfs.swarm.connect(
