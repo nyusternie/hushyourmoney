@@ -8,11 +8,9 @@ Vue.use(VueRouter)
 
 const routes = [{
     path: '/',
-    name: 'Home',
     component: Home,
 }, {
     path: '/help',
-    name: 'About',
     component: Help,
 }]
 
@@ -24,9 +22,7 @@ const router = new VueRouter({
             return { x: 0, y: 0 }
         }
     },
-    // mode: process.env.BASE_URL === '/' ? 'history': 'hash',
-    // mode: 'hash',
-    mode: 'history',
+    mode: 'hash',
     base: process.env.BASE_URL,
     routes,
 })
