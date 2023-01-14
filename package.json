@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "core-js": "3.6.5",
-    "ipfs-core": "0.5.2",
     "moment": "2.27.0",
     "nitojs": "https://github.com/nyusternie/nitojs",
     "numeral": "2.0.6",

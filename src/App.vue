@@ -20,7 +20,7 @@
 
         <div class="footer">
             <div class="container text-center">
-                Made with <i class="fa fa-heart heart"></i> by <a href="https://bchplease.org" target="_blank">Bitcoin Please</a>.
+                Made with <i class="fa fa-heart heart"></i> by <a href="https://twitter.com/0xShomari" target="_blank">0xShomari</a>.
                 <br />&copy; {{curYear}}. All rights reserved.
             </div>
         </div>
@@ -33,23 +33,10 @@ import { mapActions } from 'vuex'
 
 /* Import modules. */
 import moment from 'moment'
-import IPFS from 'ipfs-core'
-import Swal from 'sweetalert2'
 
 /* Import jQuery. */
 // FIXME: Remove ALL jQuery dependencies.
 const $ = window.jQuery
-
-/* Set campaign delay. */
-const CAMPAIGN_DELAY = 300000 // default: 5 minutes
-
-/* Set global variable. */
-let ipfs
-
-/**
- * Delay (Execution)
- */
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 export default {
     components: {
@@ -69,220 +56,8 @@ export default {
     },
     methods: {
         ...mapActions('system', [
-            'saveIpfs',
+            // 'saveIpfs',
         ]),
-
-        /**
-         * Initialize Flipstarter
-         */
-        initFlipstarter() {
-            setTimeout(() => {
-                Swal.fire({
-                    title: 'Just a moment!',
-                    text: `Our team is currently running a fundraiser to help speed up development of our current Roadmap. Do you have a minute to take a look?`,
-                    icon: 'warning',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'Yes, show me',
-                    showCancelButton: true,
-                    cancelButtonColor: '#d33',
-                    cancelButtonText: 'No, not now',
-                }).then((result) => {
-                    if (result.value) {
-                        window.open('https://hushyourmoney.com')
-                    } else if (result.isDismissed) {
-                        // if (result.dismiss === 'cancel') { // backdrop | cancel | esc
-                            // Swal.fire({
-                            //     title: '24x7x365 Support',
-                            //     text: `Check out the help page anytime by clicking on the icon in the bottom right of the screen.`,
-                            //     icon: 'info',
-                            //     showConfirmButton: false,
-                            //     allowOutsideClick: false,
-                            //     allowEscapeKey: false,
-                            //     timer: 5000,
-                            //     timerProgressBar: true,
-                            // })
-                        // }
-                    }
-                })
-            }, CAMPAIGN_DELAY)
-        },
-
-        /**
-         * BUMP Initialization
-         */
-        bumpInit() {
-            // Run the node.js app first and get it's IPFS ID.
-            // this.nodeid = 'QmcLnv6wdstv5pVnUqLuS38NGUPpvorfFMn3VqkXHayH38' // nito.exchange (blenderd)
-            this.nodeid = 'QmaEHjs39TudZ5AF5d1CDPM7YcmChLdXV9Nv4NRbxD3V5h' // FOR (localhost) TESTING ONLY
-
-            // Pubsub channel that nodes will use to coordinate.
-            this.roomName = 'af84de592984f9403c9539c1049a01369e6302f08043b79db783bd34ad344190' // #lobby:nitoblender.com
-
-            // Known IPFS nodes to connect to for bootstrapping.
-            this.bootstrapNodes = [
-                {
-                  name: 'relay.devops.cash',
-                  multiaddr: `/dns4/relay.devops.cash/tcp/443/wss/p2p/12D3KooWRpNvnBDVQ5NVwjxPuj7EY5u42kmFQaP8y5jYfcCpCGSW`,
-                  hasConnected: false
-                }
-            ]
-
-        },
-
-        /**
-         * Start IPFS
-         *
-         * Top level function for controlling the IPFS node.
-         */
-        async startIpfs() {
-            try {
-                console.log('Setting up instance of IPFS...')
-
-                /* Create new IPFS instance. */
-                ipfs = await IPFS.create()
-
-                // Pass the IPFS instance to the window object. Makes it easy to debug IPFS
-                // issues in the browser console.
-                if (typeof window !== 'undefined') {
-                    window.ipfs = ipfs
-                }
-
-                /* Initialize IPFS. */
-                await this.initIpfs()
-
-                // Get this nodes IPFS ID
-                const id = await ipfs.id()
-
-                const ipfsid = id.id
-                console.log(`This IPFS node ID: ${ipfsid}`)
-
-                console.log('IPFS node setup complete.')
-
-                // Subscribe to the pubsub room.
-                await ipfs.pubsub.subscribe(this.roomName, msg => {
-                    // print out any messages recieved.
-                    console.log(msg.data.toString())
-                })
-                console.log(`Subscribed to BUMP (pubsub) room ${this.roomName}`)
-
-                // Periodically broadcast identity on the pubsub channel
-                // setInterval(async () => {
-                //     const now = new Date()
-                //
-                //     // Date-stamped connection information.
-                //     const connectionInfo = {
-                //         date: now.toLocaleString(),
-                //         ipfsid,
-                //         message: `Message from Shuffle Cash app @ ${now.toLocaleString()}`
-                //     }
-                //
-                //     await this.sendMessage(connectionInfo)
-                // }, 15000)
-
-                // Periodically renew connections to other pubsub channel peers
-                setInterval(async () => {
-                    await this.connectToPeers()
-                }, 30000)
-            } catch (err) {
-                console.error('Error in startIpfs(): ', err)
-                console.log('Error trying to initialize IPFS node!')
-            }
-        },
-
-        /**
-         * Initialize the IPFS node and try to connect to the Cash DevOps
-         * bootstrap node(s).
-         */
-        async initIpfs() {
-            // window.indexedDB.databases().then((_db) => {
-            //     for (var i = 0; i < _db.length; i++) {
-            //         const dbName = _db[i].name
-            //         console.log('DATABASE NAME', dbName)
-            //     }
-            // })
-
-/*
-
-PROPER EXAMPLE
-
-var req = indexedDB.deleteDatabase(databaseName);
-req.onsuccess = function () {
-    console.log("Deleted database successfully");
-};
-req.onerror = function () {
-    console.log("Couldn't delete database");
-};
-req.onblocked = function () {
-    console.log("Couldn't delete database due to the operation being blocked");
-};
-
-*/
-
-            // window.indexedDB.deleteDatabase('ipfs')
-            // window.indexedDB.deleteDatabase('ipfs/blocks')
-            // window.indexedDB.deleteDatabase('ipfs/datastore')
-            // window.indexedDB.deleteDatabase('ipfs/keys')
-            // window.indexedDB.deleteDatabase('ipfs/pins')
-            // FIXME: Auto-detect these databases
-            // window.indexedDB.deleteDatabase('level-js-orbitdb/QmZD1c7sNgFdF7DgG9kFFnjfMCJKpUzFkpeaj4wv7NfhWB/cache')
-            // window.indexedDB.deleteDatabase('level-js-orbitdb/QmZD1c7sNgFdF7DgG9kFFnjfMCJKpUzFkpeaj4wv7NfhWB/keystore')
-            // console.log('DELETED DATABASES!')
-
-            /* Delay 2 seconds. */
-            delay(2000)
-
-            try {
-                /* Periodically renew connection to the bootstrap nodes. */
-                const bootstrapIntervalHandle = setInterval(() => {
-                    this.connectToBootstrapNodes()
-                }, 15000)
-
-                /* Connect to bootstrap nodes. */
-                await this.connectToBootstrapNodes()
-
-                /* Return handle. */
-                return bootstrapIntervalHandle
-            } catch (err) {
-                console.error('Error in initIpfs()')
-                throw err
-            }
-        },
-
-        // Attempt to connect to the bootstrap nodes. Cycles through each node in the
-        // bootstrapNodes array.
-        async connectToBootstrapNodes() {
-            try {
-                const now = new Date()
-
-                for (let i = 0; i < this.bootstrapNodes.length; i++) {
-                    /* Set name. */
-                    const name = this.bootstrapNodes[i].name
-                    console.log('connectToBootstrapNodes (name):', name)
-
-                    /* Set multi-address. */
-                    const multiaddr = this.bootstrapNodes[i].multiaddr
-                    console.log('connectToBootstrapNodes (multiaddr):', multiaddr)
-
-                    try {
-                        // FIXME: The IPFS ID has to be reset before each request.
-                        await ipfs.swarm.connect(multiaddr)
-                        // console.log('...IPFS node connected PSF node!')
-                        console.log(
-                            `${now.toLocaleString()} - Successfully connected to ${name}`
-                        )
-                        this.bootstrapNodes[i].hasConnected = true
-                    } catch (err) {
-                        console.log(
-                            `${now.toLocaleString()} - Failed to connect to ${name} - ${multiaddr}`
-                        )
-                        this.bootstrapNodes[i].hasConnected = false
-                    }
-                }
-            } catch (err) {
-                console.error('Error in connectToBootstrapNodes()')
-                throw err
-            }
-        },
 
         /**
          * Send Message
@@ -290,14 +65,15 @@ req.onblocked = function () {
          * Broadcast the connection information for this IPFS node.
          */
         async sendMessage(_message) {
+            console.log('MESSAGE', _message)
             try {
                 /* Set message buffer. */
-                const msgBuf = Buffer.from(JSON.stringify(_message))
+                // const msgBuf = Buffer.from(JSON.stringify(_message))
 
                 // Publish the message to the pubsub channel.
-                await ipfs.pubsub.publish(this.roomName, msgBuf)
+                // await ipfs.pubsub.publish(this.roomName, msgBuf)
 
-                console.log(`Published message to ${this.roomName}\n`)
+                // console.log(`Published message to ${this.roomName}\n`)
             } catch (err) {
                 console.error('Error in sendMessage()')
                 throw err
@@ -306,30 +82,30 @@ req.onblocked = function () {
 
         // Renew connections to pubsub room peers.
         async connectToPeers() {
-            try {
-                // TODO: In the future this should use an array of objects to cycle through
-                // any new peers that connect to the pubsub channel.
-
-                /* Find a circuit relay that has successfully connected. */
-                const circuitRelay = this.bootstrapNodes.filter(elem => elem.hasConnected)
-                console.log('connectToPeers (circuitRelay):', circuitRelay)
-
-                /* Connect to node via circuit relay. */
-                await ipfs.swarm.connect(
-                    `${circuitRelay[0].multiaddr}/p2p-circuit/p2p/${this.nodeid}`
-                )
-                console.log(`Connected to messaging peer [ ${this.nodeid} ]`)
-            } catch (err) {
-                console.error('Error in connectToPeers()')
-                throw err
-            }
+            // try {
+            //     // TODO: In the future this should use an array of objects to cycle through
+            //     // any new peers that connect to the pubsub channel.
+            //
+            //     /* Find a circuit relay that has successfully connected. */
+            //     const circuitRelay = this.bootstrapNodes.filter(elem => elem.hasConnected)
+            //     console.log('connectToPeers (circuitRelay):', circuitRelay)
+            //
+            //     /* Connect to node via circuit relay. */
+            //     await ipfs.swarm.connect(
+            //         `${circuitRelay[0].multiaddr}/p2p-circuit/p2p/${this.nodeid}`
+            //     )
+            //     console.log(`Connected to messaging peer [ ${this.nodeid} ]`)
+            // } catch (err) {
+            //     console.error('Error in connectToPeers()')
+            //     throw err
+            // }
         },
 
         async sendTest() {
-            const msgBuf = Buffer.from(`hi there! [ ${new Date()} ]`)
-
-            // Publish the message to the pubsub channel.
-            await ipfs.pubsub.publish(this.roomName, msgBuf)
+            // const msgBuf = Buffer.from(`hi there! [ ${new Date()} ]`)
+            //
+            // // Publish the message to the pubsub channel.
+            // await ipfs.pubsub.publish(this.roomName, msgBuf)
         },
 
     },
@@ -338,12 +114,12 @@ req.onblocked = function () {
         this.backgroundImg = require('@/assets/background.jpg')
 
         /* Initialize campaign reminder. */
-        this.initFlipstarter()
+        // this.initFlipstarter()
 
-        this.bumpInit()
+        // this.bumpInit()
 
         /* Start IPFS. */
-        await this.startIpfs()
+        // await this.startIpfs()
     },
     mounted: function () {
         // Wizard Initialization
