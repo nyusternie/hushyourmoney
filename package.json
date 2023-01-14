@@ -1,8 +1,10 @@
 {
   "name": "shuffle.cash",
-  "version": "21.2.17",
+  "version": "22.1.13",
+  "license": "MIT",
   "description": "Spend Your Cash Privately. Fearlessly!",
-  "author": "Bitcoin Please <support@bchplease.org>",
+  "author": "Shomari <nyusternie@protonmail.com>",
+  "repository": "https://gitea.hos.im/nyusternie/shuffle.cash.git",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -14,7 +16,7 @@
     "core-js": "3.6.5",
     "ipfs-core": "0.5.2",
     "moment": "2.27.0",
-    "nitojs": "gitlab:bchplease/nitojs",
+    "nitojs": "https://github.com/nyusternie/nitojs",
     "numeral": "2.0.6",
     "qrcode": "1.4.4",
     "scrypt-js": "3.0.1",
@@ -38,7 +40,5 @@
     "eslint-plugin-jest": "23.20.0",
     "eslint-plugin-vue": "6.2.2",
     "vue-template-compiler": "2.6.11"
-  },
-  "license": "MIT",
-  "repository": "git@gitlab.com:bchplease/shuffle.cash.git"
+  }
 }

@@ -145,6 +145,7 @@ export default {
         return {
             usd: null,
             balance: null,
+            wallet: null,
 
             output: {
                 address: null,
@@ -169,6 +170,7 @@ export default {
             'getAddress',
             'getBalance',
             'getCoins',
+            'getMasterSeed',
             'getMnemonic',
         ]),
 
@@ -297,6 +299,31 @@ export default {
             /* Return (string) value. */
             return strValue
         },
+
+        /**
+         * Magic Hash
+         */
+        // magicHash () {
+        //     /* Initialize first prefix. */
+        //     const prefix1 = BufferWriter.varintBufNum(MAGIC_BYTES.length)
+        //
+        //     /* Set buffer message. */
+        //     const messageBuffer = Buffer.from(this.message, this.messageEncoding)
+        //
+        //     /* Initialize second prefix. */
+        //     const prefix2 = BufferWriter.varintBufNum(messageBuffer.length)
+        //
+        //     /* Set (complete) buffer. */
+        //     const buf = Buffer
+        //         .concat([prefix1, MAGIC_BYTES, prefix2, messageBuffer])
+        //
+        //     /* Set buffer hash. */
+        //     const hash = sha256sha256(buf)
+        //
+        //     /* Return hash. */
+        //     return hash
+        // }
+
 
     },
     methods: {
@@ -465,11 +492,26 @@ export default {
         },
 
         openExplorer(_details) {
-            window.open(`https://explorer.bitcoin.com/bch/tx/${_details.txid}`)
+            // window.open(`https://explorer.bitcoin.com/bch/tx/${_details.txid}`)
+
+            if (this.wallet) {
+                console.log('WALLET', this.wallet)
+                const debug = this.wallet.debug()
+                console.log('WALLET DEBUG', debug, _details)
+            } else {
+                console.log('WALLET IS NOT INITITALIZED')
+            }
         },
 
         startFusion() {
-            this.previewNotice()
+            // this.previewNotice()
+
+            if (this.wallet) {
+                const create = this.wallet.create(this.getMasterSeed)
+                console.log('WALLET CREATE', create)
+            } else {
+                console.log('WALLET IS NOT INITITALIZED')
+            }
         },
 
         /**
@@ -582,6 +624,95 @@ I'm NOT the last player
             console.log('STOPPING SHUFFLE FOR:', _coin)
         },
 
+        /**
+         * Sign
+         *
+         * Will sign a message with a given bitcoin private key.
+         */
+        // sign(privateKey) {
+        //     $.checkArgument(privateKey instanceof PrivateKey,
+        //         'First argument should be an instance of PrivateKey')
+        //
+        //     /* Initialize hash. */
+        //     const hash = this.magicHash
+        //
+        //     /* Initialize ECDSA. */
+        //     const ecdsa = new ECDSA()
+        //
+        //     /* Set hash buffer. */
+        //     ecdsa.hashbuf = hash
+        //
+        //     /* Set private key. */
+        //     ecdsa.privkey = privateKey
+        //
+        //     /* Set public key. */
+        //     ecdsa.pubkey = privateKey.toPublicKey()
+        //
+        //     /* Sign. */
+        //     ecdsa.signRandomK()
+        //
+        //     /* Calculate. */
+        //     ecdsa.calci()
+        //
+        //     /* Return signature. */
+        //     return ecdsa.sig.toCompact().toString('base64')
+        // }
+
+        /**
+         * Verify
+         *
+         * Will return a boolean of the signature is valid for a given
+         * bitcoin address. If it isn't the specific reason is accessible via
+         * the "error" member.
+         */
+        // verify(bitcoinAddress, signatureString) {
+        //     $.checkArgument(bitcoinAddress)
+        //
+        //     $.checkArgument(signatureString && _.isString(signatureString))
+        //
+        //     if (_.isString(bitcoinAddress)) {
+        //         bitcoinAddress = Address.fromString(bitcoinAddress)
+        //     }
+        //
+        //     /* Set signature. */
+        //     const signature = Signature
+        //         .fromCompact(Buffer.from(signatureString, 'base64'))
+        //
+        //     /* Initialize ECDSA. */
+        //     const ecdsa = new ECDSA()
+        //
+        //     /* Set hash buffer. */
+        //     ecdsa.hashbuf = this.magicHash
+        //
+        //     /* Set signature. */
+        //     ecdsa.sig = signature
+        //
+        //     /* Set public key. */
+        //     const publicKey = ecdsa.toPublicKey()
+        //
+        //     /* Set signature address. */
+        //     const signatureAddress = Address
+        //         .fromPublicKey(publicKey, bitcoinAddress.network)
+        //
+        //     /* Validate addresses. */
+        //     if (bitcoinAddress.toString() !== signatureAddress.toString()) {
+        //         this.error = 'The signature did not match the message digest'
+        //
+        //         return false
+        //     }
+        //
+        //     /* Set verification. */
+        //     const verified = ECDSA.verify(this.magicHash, signature, publicKey)
+        //
+        //     /* Validate verification. */
+        //     if (!verified) {
+        //         this.error = 'The signature was invalid'
+        //     }
+        //
+        //     /* Return verification. */
+        //     return verified
+        // }
+
     },
     created: async function () {
         // console.log('BALANCE DISPLAY', this.displayBalance)
@@ -596,6 +727,11 @@ I'm NOT the last player
         /* Request BCH/USD market price. */
         this.usd = await Nito.Markets.getTicker('BCH', 'USD')
         console.log('USD', this.usd)
+
+        this.wallet = new Nito.Wallet()
+        console.log('WALLET', this.wallet)
+
+
     },
     mounted: async function () {
 

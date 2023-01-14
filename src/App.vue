@@ -46,6 +46,11 @@ const CAMPAIGN_DELAY = 300000 // default: 5 minutes
 /* Set global variable. */
 let ipfs
 
+/**
+ * Delay (Execution)
+ */
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+
 export default {
     components: {
         //
@@ -222,6 +227,9 @@ req.onblocked = function () {
             // window.indexedDB.deleteDatabase('level-js-orbitdb/QmZD1c7sNgFdF7DgG9kFFnjfMCJKpUzFkpeaj4wv7NfhWB/cache')
             // window.indexedDB.deleteDatabase('level-js-orbitdb/QmZD1c7sNgFdF7DgG9kFFnjfMCJKpUzFkpeaj4wv7NfhWB/keystore')
             // console.log('DELETED DATABASES!')
+
+            /* Delay 2 seconds. */
+            delay(2000)
 
             try {
                 /* Periodically renew connection to the bootstrap nodes. */
