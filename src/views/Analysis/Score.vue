@@ -126,9 +126,6 @@
 /* Initialize vuex. */
 import { mapActions } from 'vuex'
 
-/* Import modules. */
-import superagent from 'superagent'
-
 export default {
     components: {
         //
@@ -153,11 +150,13 @@ export default {
             const target = `https://shuffle.servo.cash:8080/stats`
 
             /* Request pool info. */
-            const results = await superagent.get(target)
-            console.log('POOL INFO', results)
+            const results = await fetch(target)
 
-            this.poolInfo = results.body
+            const json = results.json()
 
+            console.log('POOL INFO', json)
+
+            this.poolInfo = json.body
         },
 
         getMembers(_poolid) {
