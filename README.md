@@ -1,4 +1,4 @@
-# Shuffle Cash
+# Hush Your Money
 
 ### https://shuffle.cash
 
