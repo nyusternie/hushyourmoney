@@ -2,4 +2,4 @@
 
 ### https://shuffle.cash
 
-Spend Your Cash Privately. Fearlessly!
+Spend Privately. Fearlessly!

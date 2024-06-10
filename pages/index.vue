@@ -10,7 +10,7 @@
             </h1>
 
             <h1 class="text-5xl text-lime-600 font-light italic">
-                Spend Your Cash Privately. Fearlessly!
+                Spend Privately. Fearlessly!
             </h1>
         </div>
     </main>

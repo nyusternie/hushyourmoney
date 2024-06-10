@@ -6,7 +6,7 @@
             </h3>
 
             <p class="category">
-                Spend Your Cash Privately. Fearlessly!
+                Spend Privately. Fearlessly!
             </p>
         </div>
 

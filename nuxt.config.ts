@@ -8,7 +8,7 @@ export default defineNuxtConfig({
             viewport: 'width=device-width, initial-scale=1',
             title: `Hush Your Money`,
             meta: [
-                { name: 'description', content: `Spend Your Cash Privately. Fearlessly!` },
+                { name: 'description', content: `Spend Privately. Fearlessly!` },
             ],
             link: [
                 { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -24,7 +24,7 @@ export default defineNuxtConfig({
         manifest: {
             name: 'Hush Your Money',
             short_name: 'Hush Your Money',
-            description: `Spend Your Cash Privately. Fearlessly!`,
+            description: `Spend Privately. Fearlessly!`,
             lang: 'en',
             theme_color: '#518c96',
             background_color: '#518c96',
@@ -32,7 +32,7 @@ export default defineNuxtConfig({
         },
         meta: {
             name: 'Hush Your Money',
-            description: `Spend Your Cash Privately. Fearlessly!`,
+            description: `Spend Privately. Fearlessly!`,
             author: `Nexa contributors`,
         },
         // icon: false, // disables the icon module

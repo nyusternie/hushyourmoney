@@ -2,7 +2,7 @@
   "name": "shuffle-cash",
   "version": "24.6.6",
   "license": "MIT",
-  "description": "Spend Your Cash Privately. Fearlessly!",
+  "description": "Spend Privately. Fearlessly!",
   "author": "Shomari <nyusternie@protonmail.com>",
   "repository": "https://gogs.hos.im/nyusternie/shuffle.cash.git",
   "scripts": {
