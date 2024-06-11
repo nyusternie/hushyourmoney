@@ -87,19 +87,19 @@
 
 <script>
 /* Initialize vuex. */
-import { mapActions, mapGetters } from 'vuex'
+// import { mapActions, mapGetters } from 'vuex'
 
 /* Import components. */
-import Analysis from './Analysis'
-import Identity from './Identity'
-import Shuffler from './Shuffler'
+// import Analysis from './Analysis'
+// import Identity from './Identity'
+// import Shuffler from './Shuffler'
 
 export default {
-    components: {
-        Analysis,
-        Identity,
-        Shuffler,
-    },
+    // components: {
+    //     Analysis,
+    //     Identity,
+    //     Shuffler,
+    // },
     data: () => {
         return {
             pbWidth: '21%',
@@ -107,10 +107,10 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('wallet', [
-            'getCoins',
-            'getMasterSeed',
-        ]),
+        // ...mapGetters('wallet', [
+        //     'getCoins',
+        //     'getMasterSeed',
+        // ]),
 
         lblPrevious() {
             if (this.tabIndex === 1) {
@@ -138,13 +138,13 @@ export default {
 
     },
     methods: {
-        ...mapActions('wallet', [
-            'updateCoins',
-        ]),
+        // ...mapActions('wallet', [
+        //     'updateCoins',
+        // ]),
 
-        ...mapActions('utils', [
-            'toast',
-        ]),
+        // ...mapActions('utils', [
+        //     'toast',
+        // ]),
 
         next() {
             switch(this.tabIndex) {

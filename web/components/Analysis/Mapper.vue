@@ -43,7 +43,7 @@
 
 <script>
 /* Initialize vuex. */
-import { mapActions } from 'vuex'
+// import { mapActions } from 'vuex'
 
 export default {
     components: {
@@ -60,9 +60,9 @@ export default {
         //
     },
     methods: {
-        ...mapActions('utils', [
-            'toast',
-        ]),
+        // ...mapActions('utils', [
+        //     'toast',
+        // ]),
 
         start() {
             this.toast(['Oops!', 'This feature is not ready yet', 'error'])

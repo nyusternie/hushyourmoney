@@ -127,10 +127,10 @@
 /* global ipfs */
 
 /* Initialize vuex. */
-import { mapActions, mapGetters } from 'vuex'
+// import { mapActions, mapGetters } from 'vuex'
 
 /* Import modules. */
-import Nito from 'nitojs'
+import Nexa from 'nexajs'
 import moment from 'moment'
 import numeral from 'numeral'
 import QRCode from 'qrcode'
@@ -158,21 +158,21 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('system', [
-            'getRequests',
-        ]),
+        // ...mapGetters('system', [
+        //     'getRequests',
+        // ]),
 
-        ...mapGetters('utils', [
-            'getFormattedValue',
-        ]),
+        // ...mapGetters('utils', [
+        //     'getFormattedValue',
+        // ]),
 
-        ...mapGetters('wallet', [
-            'getAddress',
-            'getBalance',
-            'getCoins',
-            'getMasterSeed',
-            'getMnemonic',
-        ]),
+        // ...mapGetters('wallet', [
+        //     'getAddress',
+        //     'getBalance',
+        //     'getCoins',
+        //     'getMasterSeed',
+        //     'getMnemonic',
+        // ]),
 
         displayAddress() {
             const address = this.getAddress('deposit')
@@ -327,17 +327,17 @@ export default {
 
     },
     methods: {
-        ...mapActions('system', [
-            'updateRequests',
-        ]),
+        // ...mapActions('system', [
+        //     'updateRequests',
+        // ]),
 
-        ...mapActions('utils', [
-            'toast',
-        ]),
+        // ...mapActions('utils', [
+        //     'toast',
+        // ]),
 
-        ...mapActions('wallet', [
-            'updateCoins',
-        ]),
+        // ...mapActions('wallet', [
+        //     'updateCoins',
+        // ]),
 
         /**
          * Coin Value Display
@@ -399,7 +399,7 @@ export default {
             /* Set auto fee (flag). */
             const autoFee = true
 
-            const results = await Nito.Transaction
+            const results = await Nexa.Transaction
                 .sendCoin(_coin, receivers, autoFee)
                 .catch(err => {
                     console.error(err) // eslint-disable-line no-console
@@ -725,10 +725,10 @@ I'm NOT the last player
         this.roomName = 'af84de592984f9403c9539c1049a01369e6302f08043b79db783bd34ad344190' // #lobby:nitoblender.com
 
         /* Request BCH/USD market price. */
-        this.usd = await Nito.Markets.getTicker('BCH', 'USD')
+        this.usd = await Nexa.Markets.getTicker('BCH', 'USD')
         console.log('USD', this.usd)
 
-        this.wallet = new Nito.Wallet()
+        this.wallet = new Nexa.Wallet()
         console.log('WALLET', this.wallet)
 
 

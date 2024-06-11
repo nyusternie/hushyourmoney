@@ -106,10 +106,10 @@
 
 <script>
 /* Initialize vuex. */
-import { mapActions, mapGetters } from 'vuex'
+// import { mapActions, mapGetters } from 'vuex'
 
 /* Import modules. */
-import Nito from 'nitojs'
+import Nexa from 'nexajs'
 import scrypt from 'scrypt-js'
 import Swal from 'sweetalert2'
 
@@ -153,20 +153,20 @@ export default {
         // TODO: Watch shuffle queue from here
     },
     computed: {
-        ...mapGetters('profile', [
-            'getDataUrl',
-        ]),
+        // ...mapGetters('profile', [
+        //     'getDataUrl',
+        // ]),
 
-        ...mapGetters('utils', [
-            'getFormattedValue',
-        ]),
+        // ...mapGetters('utils', [
+        //     'getFormattedValue',
+        // ]),
 
-        ...mapGetters('wallet', [
-            'getAddress',
-            'getCoins',
-            'getMasterSeed',
-            'getMnemonic',
-        ]),
+        // ...mapGetters('wallet', [
+        //     'getAddress',
+        //     'getCoins',
+        //     'getMasterSeed',
+        //     'getMnemonic',
+        // ]),
 
         /**
          * Display Seed Phrase
@@ -182,26 +182,26 @@ export default {
         },
     },
     methods: {
-        ...mapActions('profile', [
-            'updateDataUrl',
-        ]),
+        // ...mapActions('profile', [
+        //     'updateDataUrl',
+        // ]),
 
-        ...mapActions('utils', [
-            'toast',
-        ]),
+        // ...mapActions('utils', [
+        //     'toast',
+        // ]),
 
-        ...mapActions('wallet', [
-            'initWallet',
-            'updateCoins',
-            'updateMasterSeed',
-        ]),
+        // ...mapActions('wallet', [
+        //     'initWallet',
+        //     'updateCoins',
+        //     'updateMasterSeed',
+        // ]),
 
         /**
          * Initialize Blockchain
          */
         initBlockchain() {
-            /* Initialize Nito blockchain. */
-            this.blockchain = new Nito.Blockchain()
+            /* Initialize Nexa blockchain. */
+            this.blockchain = new Nexa.Blockchain()
             // console.log('NITO BLOCKCHAIN', this.blockchain)
 
             if (this.getAddress('deposit')) {
@@ -263,7 +263,7 @@ export default {
             }
 
             /* Retrieve market price. */
-            const marketPrice = await Nito.Markets.getTicker('BCH', 'USD')
+            const marketPrice = await Nexa.Markets.getTicker('BCH', 'USD')
             console.info(`Market price (USD)`, marketPrice) // eslint-disable-line no-console
 
             const formattedBalance =
@@ -334,11 +334,11 @@ export default {
                     // NOTE: Due to concern over "extra-large" image/file
                     //       sizes, we will hash the data URL before
                     //       feeding it as the password for Scrypt.
-                    const password = Nito.Crypto.hash(dataUrl, 'sha512')
+                    const password = Nexa.Crypto.hash(dataUrl, 'sha512')
                     // console.log('PASSWORD', password)
 
                     /* Calculate salt. */
-                    const salt = Nito.Crypto.hash(dataUrl, 'sha256')
+                    const salt = Nexa.Crypto.hash(dataUrl, 'sha256')
                     // console.log('SALT', salt)
 
                     /* Set CPU (memory) cost. */
@@ -415,7 +415,8 @@ export default {
         this.hasPrivacy = true
 
         /* Initialize image data. */
-        this.dataUrl = require('@/assets/missing-avatar.jpg')
+        // this.dataUrl = require('../assets/missing-avatar.jpg')
+        this.dataUrl = 'https://nexa.garden/missing-avatar.jpg'
 
     },
     mounted: function () {

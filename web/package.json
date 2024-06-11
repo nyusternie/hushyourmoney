@@ -16,7 +16,10 @@
     "@pinia/nuxt": "0.4.7",
     "nexajs": "23.12.5",
     "nuxt": "3.0.0",
-    "pinia": "2.0.32"
+    "pinia": "2.0.32",
+    "qrcode": "^1.5.3",
+    "scrypt-js": "^3.0.1",
+    "sweetalert2": "^11.11.1"
   },
   "devDependencies": {
     "@kevinmarrec/nuxt-pwa": "0.17.0",

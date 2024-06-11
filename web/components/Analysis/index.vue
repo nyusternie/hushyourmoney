@@ -58,9 +58,9 @@
             </div>
 
             <div class="col-xs-12 col-sm-8">
-                <Stats v-if="menuIndex === 0" />
-                <Score v-if="menuIndex === 1" />
-                <Mapper v-if="menuIndex === 2" />
+                <AnalysisStats v-if="menuIndex === 0" />
+                <AnalysisScore v-if="menuIndex === 1" />
+                <AnalysisMapper v-if="menuIndex === 2" />
             </div>
 
         </div>
@@ -70,16 +70,16 @@
 
 <script>
 /* Import components. */
-import Mapper from './Analysis/Mapper'
-import Score from './Analysis/Score'
-import Stats from './Analysis/Stats'
+// import Mapper from './Analysis/Mapper'
+// import Score from './Analysis/Score'
+// import Stats from './Analysis/Stats'
 
 export default {
-    components: {
-        Mapper,
-        Score,
-        Stats,
-    },
+    // components: {
+    //     Mapper,
+    //     Score,
+    //     Stats,
+    // },
     data: () => {
         return {
             menuIndex: null,
