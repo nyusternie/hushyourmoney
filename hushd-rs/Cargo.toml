@@ -1,0 +1,6 @@
+[package]
+name = "hushd"
+version = "24.6.10"
+edition = "2021"
+
+[dependencies]
