@@ -8,5 +8,8 @@ export default defineEventHandler((event) => {
     }
 
     /* Return wallet details. */
-    return wallet
+    // return wallet
+    return {
+        all: 'good!',
+    }
 })
