@@ -29,7 +29,7 @@
 
 <script>
 /* Initialize vuex. */
-import { mapActions } from 'vuex'
+// import { mapActions } from 'vuex'
 
 /* Import modules. */
 import moment from 'moment'
@@ -55,9 +55,9 @@ export default {
 
     },
     methods: {
-        ...mapActions('system', [
-            // 'saveIpfs',
-        ]),
+        // ...mapActions('system', [
+        //     // 'saveIpfs',
+        // ]),
 
         /**
          * Send Message
