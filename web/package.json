@@ -15,7 +15,7 @@
   "dependencies": {
     "@pinia/nuxt": "0.4.7",
     "nexajs": "23.12.5",
-    "nuxt": "3.12.1",
+    "nuxt": "3.7.4",
     "pinia": "2.0.32",
     "qrcode": "1.5.3",
     "scrypt-js": "3.0.1",
