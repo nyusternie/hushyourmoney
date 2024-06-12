@@ -69,37 +69,15 @@
 </template>
 
 <script>
-/* Import components. */
-// import Mapper from './Analysis/Mapper'
-// import Score from './Analysis/Score'
-// import Stats from './Analysis/Stats'
-
 export default {
-    // components: {
-    //     Mapper,
-    //     Score,
-    //     Stats,
-    // },
     data: () => {
         return {
             menuIndex: null,
         }
     },
-    computed: {
-        //
-    },
-    methods: {
-        //
-    },
     created: function () {
         /* Set menu index. */
         this.menuIndex = 0
-    },
-    mounted: function () {
-        //
-    },
-    beforeDestroy() {
-        //
     },
 }
 </script>

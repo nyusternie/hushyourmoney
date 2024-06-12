@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@pinia/nuxt": "0.4.7",
-    "nexajs": "23.12.5",
+    "nexajs": "23.12.29",
     "nuxt": "3.7.4",
     "pinia": "2.0.32",
     "qrcode": "1.5.3",
@@ -26,6 +26,6 @@
     "@nuxtjs/i18n": "8.0.0-rc.2",
     "@nuxtjs/plausible": "1.0.0",
     "@nuxtjs/tailwindcss": "6.4.1",
-    "postcss-custom-properties": "^13.3.10"
+    "postcss-custom-properties": "13.3.10"
   }
 }

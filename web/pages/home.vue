@@ -86,20 +86,7 @@
 </template>
 
 <script>
-/* Initialize vuex. */
-// import { mapActions, mapGetters } from 'vuex'
-
-/* Import components. */
-// import Analysis from './Analysis'
-// import Identity from './Identity'
-// import Shuffler from './Shuffler'
-
 export default {
-    // components: {
-    //     Analysis,
-    //     Identity,
-    //     Shuffler,
-    // },
     data: () => {
         return {
             pbWidth: '21%',
@@ -231,12 +218,6 @@ export default {
             this.pbWidth = `${move_distance}%`
         },
 
-    },
-    created: function () {
-        //
-    },
-    mounted: function () {
-        //
     },
 }
 </script>

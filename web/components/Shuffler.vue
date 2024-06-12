@@ -124,13 +124,9 @@
 </template>
 
 <script>
-/* global ipfs */
-
-/* Initialize vuex. */
-// import { mapActions, mapGetters } from 'vuex'
-
 /* Import modules. */
-import Nexa from 'nexajs'
+// import Nexa from 'nexajs'
+let Nexa
 import moment from 'moment'
 import numeral from 'numeral'
 import QRCode from 'qrcode'
@@ -138,9 +134,6 @@ import Swal from 'sweetalert2'
 import { v4 as uuidv4 } from 'uuid'
 
 export default {
-    components: {
-        //
-    },
     data: () => {
         return {
             usd: null,
