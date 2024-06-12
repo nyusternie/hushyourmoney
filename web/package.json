@@ -1,10 +1,10 @@
 {
-  "name": "shuffle-cash",
-  "version": "24.6.6",
+  "name": "hushyourmoney",
+  "version": "24.6.11",
   "license": "MIT",
   "description": "Spend Privately. Fearlessly!",
   "author": "Shomari <nyusternie@protonmail.com>",
-  "repository": "https://gogs.hos.im/nyusternie/shuffle.cash.git",
+  "repository": "https://gogs.hos.im/nyusternie/hushyourmoney.git",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -15,15 +15,17 @@
   "dependencies": {
     "@pinia/nuxt": "0.4.7",
     "nexajs": "23.12.5",
-    "nuxt": "3.0.0",
+    "nuxt": "3.12.1",
     "pinia": "2.0.32",
-    "qrcode": "^1.5.3",
-    "scrypt-js": "^3.0.1",
-    "sweetalert2": "^11.11.1"
+    "qrcode": "1.5.3",
+    "scrypt-js": "3.0.1",
+    "sweetalert2": "11.11.1"
   },
   "devDependencies": {
     "@kevinmarrec/nuxt-pwa": "0.17.0",
     "@nuxtjs/i18n": "8.0.0-rc.2",
-    "@nuxtjs/tailwindcss": "6.4.1"
+    "@nuxtjs/plausible": "1.0.0",
+    "@nuxtjs/tailwindcss": "6.4.1",
+    "postcss-custom-properties": "^13.3.10"
   }
 }

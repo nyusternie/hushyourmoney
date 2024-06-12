@@ -6,15 +6,12 @@ export default defineNuxtConfig({
         head: {
             charset: 'utf-8',
             viewport: 'width=device-width, initial-scale=1',
-            title: `Hush Your Money`,
+            title: `Hush Your Money — Spend Privately. Fearlessly!`,
             meta: [
                 { name: 'description', content: `Spend Privately. Fearlessly!` },
             ],
             link: [
                 { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-            ],
-            script: [
-                { src: '/js/matomo.js' },
             ],
         },
     },
@@ -22,7 +19,7 @@ export default defineNuxtConfig({
     /* Progressive Web Application Settings */
     pwa: {
         manifest: {
-            name: 'Hush Your Money',
+            name: 'Hush Your Money — Spend Privately. Fearlessly!',
             short_name: 'Hush Your Money',
             description: `Spend Privately. Fearlessly!`,
             lang: 'en',
@@ -31,7 +28,7 @@ export default defineNuxtConfig({
             // useWebmanifestExtension: false,
         },
         meta: {
-            name: 'Hush Your Money',
+            name: 'Hush Your Money — Spend Privately. Fearlessly!',
             description: `Spend Privately. Fearlessly!`,
             author: `Nexa contributors`,
         },
@@ -50,12 +47,20 @@ export default defineNuxtConfig({
         /* Pinia */
         '@pinia/nuxt',
 
+        /* Plausible */
+        '@nuxtjs/plausible',
+
         /* Internationalization for Nuxt */
         '@nuxtjs/i18n',
 
         /* Progressive Web Application */
-        // '@kevinmarrec/nuxt-pwa',
+        '@kevinmarrec/nuxt-pwa',
     ],
+
+    /* Plausible */
+    plausible: {
+        apiHost: 'https://plausible.hos.im',
+    },
 
     /* Route Rules */
     routeRules: {
