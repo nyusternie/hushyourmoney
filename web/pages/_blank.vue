@@ -1,8 +1,8 @@
 <script setup lang="ts">
 useHead({
-    title: `Blank — Nexa Studio`,
+    title: `Blank — Hush Your Money`,
     meta: [
-        { name: 'description', content: `Nexa Studio makes building your next BIG idea effortless.` }
+        { name: 'description', content: `Hush Your Money makes spending your money money safu.` }
     ],
 })
 
