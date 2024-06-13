@@ -26,7 +26,9 @@ onMounted(() => {
 <template>
     <main class="w-screen h-screen flex flex-col bg-gradient-to-r from-lime-200 to-lime-100">
         <div class="h-full flex flex-col justify-center pb-32 items-center gap-5 sm:gap-8">
-            <img src="~/assets/icon.png" class="w-24 sm:w-32 lg:w-40" />
+            <NuxtLink to="/home">
+                <img src="~/assets/icon.png" class="w-24 sm:w-32 lg:w-40" />
+            </NuxtLink>
 
             <h1 class="text-4xl sm:text-6xl lg:text-8xl text-lime-800 font-light italic">
                 Hush Your Money
