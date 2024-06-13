@@ -38,8 +38,22 @@ onMounted(() => {
 
         </div>
 
-        <small class="py-1 pr-2 flex justify-end text-rose-500 text-xs font-medium italic opacity-50">
-            block # {{ blockHeight }}
-        </small>
+        <footer class="px-2 py-1 flex flex-row justify-between">
+            <div class="flex flex-row gap-2 text-rose-500 text-xs font-medium opacity-50">
+                <NuxtLink to="/sponsors">
+                    sponsors
+                </NuxtLink>
+
+                |
+
+                <NuxtLink to="/donate">
+                    donate
+                </NuxtLink>
+            </div>
+
+            <NuxtLink to="https://nexa.sh/blocks" target="_blank" class="text-rose-500 text-xs font-medium italic opacity-50">
+                block # {{ blockHeight }}
+            </NuxtLink>
+        </footer>
     </main>
 </template>

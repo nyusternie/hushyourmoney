@@ -2,7 +2,7 @@
 useHead({
     title: `Blank — Hush Your Money`,
     meta: [
-        { name: 'description', content: `Hush Your Money makes spending your money money safu.` }
+        { name: 'description', content: `Hush Your Money makes spending safu.` }
     ],
 })
 
