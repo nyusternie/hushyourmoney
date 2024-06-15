@@ -1,6 +1,6 @@
 {
   "name": "hushyourmoney",
-  "version": "24.6.11",
+  "version": "24.6.14",
   "license": "MIT",
   "description": "Spend Privately. Fearlessly!",
   "author": "Shomari <nyusternie@protonmail.com>",
@@ -14,6 +14,8 @@
   },
   "dependencies": {
     "@pinia/nuxt": "0.4.7",
+    "bitcoinjs-lib": "6.1.6",
+    "mainnet-js": "2.3.13",
     "nexajs": "23.12.29",
     "nuxt": "3.7.4",
     "pinia": "2.0.32",
