@@ -41,9 +41,9 @@ onMounted(() => {
         </div>
 
         <footer class="px-2 py-1 flex flex-row justify-between">
-            <div class="flex flex-row gap-2 text-rose-500 text-xs font-medium opacity-50">
-                <NuxtLink to="/sponsors">
-                    sponsors
+            <div class="flex flex-row gap-2 text-rose-500 text-xs font-medium opacity-30">
+                <NuxtLink to="/sponsor">
+                    sponsor
                 </NuxtLink>
 
                 |
@@ -53,7 +53,7 @@ onMounted(() => {
                 </NuxtLink>
             </div>
 
-            <NuxtLink to="https://nexa.sh/blocks" target="_blank" class="text-rose-500 text-xs font-medium italic opacity-50">
+            <NuxtLink to="https://nexa.sh/blocks" target="_blank" class="text-rose-500 text-xs font-medium italic opacity-30">
                 block # {{ blockHeight }}
             </NuxtLink>
         </footer>

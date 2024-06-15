@@ -46,17 +46,18 @@ const System = useSystemStore()
 
             <div>
                 <h2 class="text-xl font-medium">
-                    IPFS "Self-hosted" Gateway
+                    IPFS "Self-hosted" Gateways
                 </h2>
 
                 <ol class="pl-10 list-decimal">
                     <li>Brave web browser</li>
+                    <li>Kubo (w/ HTTP enabled)</li>
                 </ol>
             </div>
 
             <div>
                 <h2 class="text-xl font-medium">
-                    IPFS "Trusted" Gateway
+                    IPFS "Trusted" Gateways
                 </h2>
 
                 <ol class="pl-10 list-decimal">
@@ -67,12 +68,14 @@ const System = useSystemStore()
 
             <div>
                 <h2 class="text-xl font-medium">
-                    Web Gateway
+                    Web Gateways
                 </h2>
 
                 <ol class="pl-10 list-decimal">
                     <li>hushyourmoney.com</li>
                     <li>hushyourmoney.app.runonflux.io</li>
+                    <li>shuffle.cash <em>(redirect)</em></li>
+                    <li>blender.cash <em>(redirect)</em></li>
                 </ol>
             </div>
 

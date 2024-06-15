@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-    title: `Our Sponsors — Hush Your Money`,
+    title: `Sponsor Us — Hush Your Money`,
     meta: [
         { name: 'description', content: `Hush Your Money developers greatly appreciate your support.` }
     ],
@@ -24,11 +24,11 @@ const System = useSystemStore()
 <template>
     <main class="max-w-5xl mx-auto py-5 flex flex-col gap-4">
         <h1 class="text-5xl font-medium">
-            Our Sponsors
+            Sponsor Us
         </h1>
 
         <p>
-            Your support is greatly appreciated!
+            Your support is SOOOO greatly appreciated!
         </p>
 
         <section>
