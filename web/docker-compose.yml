@@ -1,10 +1,8 @@
-version: '3.7'
-
 services:
-  shuffle-cash:
+  webapp:
     build: .
-    image: shuffle-cash
-    container_name: shuffle-cash
+    image: hushyourmoney
+    container_name: hushyourmoney
     restart: unless-stopped
     ports:
       - '127.0.0.1:3000:3000'
@@ -15,6 +13,4 @@ services:
         max-size: '10m'
     # env_file: .env
     environment:
-      - PROJECT_ID=${PROJECT_ID} # change to match your own environment
-      - PROJECT_NAME=${PROJECT_NAME} # change to match your own environment
-      - PROJECT_MNEMONIC=${PROJECT_MNEMONIC} # change to match your own environment
+      - MNEMONIC=${MNEMONIC}
