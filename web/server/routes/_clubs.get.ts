@@ -1,24 +1,17 @@
-/* Initialize pools list. */
-const pools = []
-
-const guests_nexa_00000001 = [
-    {
-        id: 'b19f512e-734c-459c-82a5-7ebb03264a65',
-        createdAt: 1723246952,
-        updatedAt: 1723246952,
-    }
-]
+/* Initialize clubs list. */
+const clubs = []
 
 /* Add Club Flux. */
-pools.push({
-    id: 'nexa.00000001',
-    guests: guests_nexa_00000001,
+clubs.push({
+    id: '6f765750-2267-4601-87be-80a416143a28',
+    name: 'Club Flux',
+    address: 'hushyourmoney.app.runonflux.io',
     createdAt: 1723245503,
     updatedAt: 1723245503,
 })
 
 /* Add Club DePIN. */
-pools.push({
+clubs.push({
     id: '4eff6293-60e9-4a5a-83de-4b91da1f7de4',
     name: 'DePIN Lounge',
     address: 'hushyourmoney.tbd',
@@ -35,6 +28,6 @@ export default defineEventHandler((event) => {
     //     mnemonic,
     // }
 
-    /* Return pools list. */
-    return pools
+    /* Return clubs list. */
+    return clubs
 })
