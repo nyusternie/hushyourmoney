@@ -15,7 +15,7 @@
   "dependencies": {
     "@pinia/nuxt": "0.4.7",
     "bitcoinjs-lib": "6.1.6",
-    "mainnet-js": "2.3.13",
+    "bitcore-lib-cash": "10.0.39",
     "nexajs": "24.7.20",
     "nuxt": "3.12.4",
     "pinia": "2.0.32",
