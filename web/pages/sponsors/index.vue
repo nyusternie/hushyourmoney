@@ -24,7 +24,7 @@ const System = useSystemStore()
 <template>
     <main class="max-w-5xl mx-auto py-5 flex flex-col gap-12">
         <h1 class="text-5xl font-medium">
-            Donate
+            Sponsors
             <span class="text-2xl text-sky-500">
                 To Our Continued Development...
             </span>
