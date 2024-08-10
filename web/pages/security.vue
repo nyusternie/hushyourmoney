@@ -81,6 +81,4 @@ const System = useSystemStore()
 
         </section>
     </main>
-
-    <Footer />
 </template>

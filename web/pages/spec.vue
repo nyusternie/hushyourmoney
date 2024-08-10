@@ -289,6 +289,4 @@ If everything goes well, all the clients will disconnect when shuffling is compl
 
 </pre>
     </main>
-
-    <Footer />
 </template>
