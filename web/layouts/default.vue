@@ -24,7 +24,8 @@ onBeforeMount(() => {
             return value
         })
 
-        Wallet.$state = JSON.parse(localStorage.getItem('wallet'), (key, value) => {
+        // NOTE: This is an "ephemeral" wallet, stored in the Session.
+        Wallet.$state = JSON.parse(sessionStorage.getItem('wallet'), (key, value) => {
             if (typeof value === 'string' && /^\d+n$/.test(value)) {
                 return BigInt(value.slice(0, value.length - 1))
             }
@@ -51,7 +52,8 @@ watch([Profile.$state, System.$state, Wallet.$state], (_state) => {
         )
     )
 
-    localStorage.setItem('wallet',
+    // NOTE: This is an "ephemeral" wallet, stored in the Session.
+    sessionStorage.setItem('wallet',
         JSON.stringify(_state[2], (key, value) =>
             typeof value === 'bigint' ? value.toString() + 'n' : value
         )
@@ -68,11 +70,10 @@ onMounted(() => {
     Wallet.init()
 })
 
-// onBeforeUnmount(() => {
-//     console.log('Before Unmount!')
-//     // Now is the time to perform all cleanup operations.
-// })
-
+onBeforeUnmount(() => {
+    console.log('TODO! Cleanup session.')
+    // Now is the time to perform all cleanup operations.
+})
 </script>
 
 <template>
