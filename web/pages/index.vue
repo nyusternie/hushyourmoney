@@ -2,6 +2,10 @@
 import { getTip } from '@nexajs/rostrum'
 import numeral from 'numeral'
 
+definePageMeta({
+    layout: 'fullscreen',
+})
+
 const blockHeight = ref(0)
 
 const init = async () => {
@@ -48,8 +52,8 @@ onMounted(() => {
 
                 |
 
-                <NuxtLink to="/donate">
-                    donate 💗
+                <NuxtLink to="/sponsors">
+                    sponsors 💗
                 </NuxtLink>
             </div>
 

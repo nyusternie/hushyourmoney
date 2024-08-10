@@ -32,7 +32,7 @@ const isMobileMenuOpen = ref(false)
                     <NuxtLink to="/">
                         <span class="sr-only">Hush Your Money</span>
                         <img
-                            class="h-10 w-auto" src="~/assets/icon.png" alt="Hush Your Money" />
+                            class="h-10 lg:h-14 w-auto" src="~/assets/icon.png" alt="Hush Your Money" />
                     </NuxtLink>
                 </div>
 
@@ -54,6 +54,7 @@ const isMobileMenuOpen = ref(false)
                     <div class="relative ml-4 flex-shrink-0">
                         <div>
                             <button
+                                @click="isMenuOpen = !isMenuOpen"
                                 type="button"
                                 class="relative flex rounded-full bg-white text-sm ring-2 ring-white ring-opacity-20 focus:outline-none focus:ring-opacity-100"
                                 id="user-menu-button"
@@ -95,9 +96,9 @@ const isMobileMenuOpen = ref(false)
                             </a>
 
                             <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">
+                            <NuxtLink to="/" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">
                                 Sign out
-                            </a>
+                            </NuxtLink>
                         </div>
                     </div>
                 </div>
@@ -151,9 +152,9 @@ const isMobileMenuOpen = ref(false)
                     <div class="col-span-2">
                         <nav class="flex space-x-4">
                             <!-- Current: "text-white", Default: "text-indigo-100" -->
-                            <a href="#" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium text-white hover:bg-opacity-10" aria-current="page">
-                                Home
-                            </a>
+                            <NuxtLink to="/lobby" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-xl font-medium text-white hover:bg-opacity-10" aria-current="page">
+                                Lobby
+                            </NuxtLink>
 
                             <a href="#" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-opacity-10">
                                 Profile
@@ -285,10 +286,12 @@ const isMobileMenuOpen = ref(false)
                             <div class="flex-shrink-0">
                                 <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
                             </div>
+
                             <div class="ml-3 min-w-0 flex-1">
                                 <div class="truncate text-base font-medium text-gray-800">Tom Cook</div>
                                 <div class="truncate text-sm font-medium text-gray-500">tom@example.com</div>
                             </div>
+
                             <button type="button" class="relative ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                 <span class="absolute -inset-1.5"></span>
                                 <span class="sr-only">View notifications</span>
@@ -301,10 +304,15 @@ const isMobileMenuOpen = ref(false)
                                 </svg>
                             </button>
                         </div>
+
                         <div class="mt-3 space-y-1 px-2">
                             <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Your Profile</a>
+
                             <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Settings</a>
-                            <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Sign out</a>
+
+                            <NuxtLink to="/" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">
+                                Sign out
+                            </NuxtLink>
                         </div>
                     </div>
                 </div>
