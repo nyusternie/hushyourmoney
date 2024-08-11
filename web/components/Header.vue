@@ -86,18 +86,18 @@ const isMobileMenuOpen = ref(false)
                             tabindex="-1"
                         >
                             <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
-                                Your Profile
-                            </a>
+                            <NuxtLink to="/treasury" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
+                                My Treasury
+                            </NuxtLink>
 
                             <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">
-                                Settings
-                            </a>
+                            <NuxtLink to="/settings" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">
+                                My Settings
+                            </NuxtLink>
 
                             <!-- Active: "bg-gray-100", Not Active: "" -->
                             <NuxtLink to="/" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">
-                                Sign out
+                                End Session
                             </NuxtLink>
                         </div>
                     </div>
@@ -164,10 +164,6 @@ const isMobileMenuOpen = ref(false)
                                 Resources
                             </a>
 
-                            <a href="#" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-opacity-10">
-                                Company Directory
-                            </a>
-
                             <NuxtLink to="/sponsors" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-xl font-medium text-rose-300 hover:bg-opacity-10">
                                 Sponsors
 
@@ -175,6 +171,11 @@ const isMobileMenuOpen = ref(false)
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"></path>
                                 </svg>
                             </NuxtLink>
+
+                            <a href="#" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-opacity-10">
+                                Company Directory
+                            </a>
+
                         </nav>
                     </div>
                     <div>
@@ -259,24 +260,20 @@ const isMobileMenuOpen = ref(false)
                                 </span>
                             </NuxtLink>
 
-                            <NuxtLink to="/profile" @click="isMobileMenuOpen = false" class="block rounded-md px-3 py-2 text-xl font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">
-                                My Profile
+                            <NuxtLink to="/clubs" @click="isMobileMenuOpen = false" class="block rounded-md px-3 py-2 text-xl font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">
+                                Clubs Directory
                             </NuxtLink>
 
-                            <NuxtLink to="/treasury" @click="isMobileMenuOpen = false" class="block rounded-md px-3 py-2 text-xl font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">
-                                My Treasury
-                            </NuxtLink>
-
-                            <NuxtLink to="/help" @click="isMobileMenuOpen = false" class="block rounded-md px-3 py-2 text-xl font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">
-                                Need help?
-                            </NuxtLink>
-
-                            <NuxtLink to="/sponsors" @click="isMobileMenuOpen = false" class="block rounded-md px-3 py-2 text-xl font-medium text-rose-600 hover:bg-gray-100 hover:text-rose-500">
+                            <NuxtLink to="/sponsors" @click="isMobileMenuOpen = false" class="block rounded-md px-3 py-2 text-xl font-medium text-rose-500 hover:bg-gray-100 hover:text-rose-500">
                                 Sponsors
 
                                 <svg class="inline h-6 w-auto" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"></path>
                                 </svg>
+                            </NuxtLink>
+
+                            <NuxtLink to="/help" @click="isMobileMenuOpen = false" class="block rounded-md px-3 py-2 text-xl font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">
+                                Need help?
                             </NuxtLink>
                         </div>
                     </div>
@@ -306,12 +303,20 @@ const isMobileMenuOpen = ref(false)
                         </div>
 
                         <div class="mt-3 space-y-1 px-2">
-                            <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Your Profile</a>
+                            <NuxtLink to="/treasury" @click="isMobileMenuOpen = false" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">
+                                My Treasury
+                            </NuxtLink>
 
-                            <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Settings</a>
+                            <NuxtLink to="/settings" @click="isMobileMenuOpen = false" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">
+                                My Settings
+                            </NuxtLink>
 
-                            <NuxtLink to="/" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">
-                                Sign out
+                            <NuxtLink to="/" @click="isMobileMenuOpen = false" class="block rounded-md px-3 py-2 text-base font-medium text-red-600 hover:bg-gray-100 hover:text-gray-800">
+                                End Session
+
+                                <svg class="inline h-6 w-auto" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25"></path>
+                                </svg>
                             </NuxtLink>
                         </div>
                     </div>

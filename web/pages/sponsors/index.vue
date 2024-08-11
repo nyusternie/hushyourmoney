@@ -23,26 +23,28 @@ const System = useSystemStore()
 
 <template>
     <main class="max-w-5xl mx-auto py-5 flex flex-col gap-12">
-        <h1 class="text-7xl font-light text-rose-400 tracking-widest italic">
-            Sponsors 💗
+        <h1 class="text-6xl lg:text-7xl font-light text-rose-400 tracking-widest italic leading-[60px]">
+            Sponsors <span class="hidden lg:inline">💗</span>
 
             <!-- <svg class="inline h-16 w-auto" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"></path>
             </svg> -->
         </h1>
 
-        <h3 class="-mt-10 pl-5 text-2xl text-rose-600 tracking-widest italic">
-            Covering The Costs Of A "Fair" FIGHT!
+        <h3 class="-mt-10 lg:pl-5 text-2xl text-rose-600 tracking-widest italic">
+            Backing the Cost of a "Fair" FIGHT!
         </h3>
 
-        <p class="-mt-8 w-4/5 text-xl text-sky-700 font-medium">
+        <p class="-mt-8 w-full lg:w-4/5 text-base lg:text-xl text-sky-700 font-medium leading-6 lg:leading-9">
             Your support is SOOOO greatly appreciated!
-            We're working around-the-clock to unlock NEW features across the leading UTXO-based L1 networks, including:
-            <NuxtLink to="https://bitcoin.org" target="_blank" class="text-yellow-500 text-2xl font-bold hover:text-yellow-400 hover:underline">Bitcoin</NuxtLink>,
-            <NuxtLink to="https://bitcoincash.org" target="_blank" class="text-lime-500 text-2xl font-bold hover:text-lime-400 hover:underline">Bitcoin Cash</NuxtLink>,
-            <NuxtLink to="https://nexa.org" target="_blank" class="text-amber-500 text-2xl font-bold hover:text-amber-400 hover:underline">Nexa</NuxtLink>
+            We're working <span class="font-bold text-sky-500">tirelessly &amp; fearlessly</span> around-the-clock to unlock NEW features across the leading UTXO-based L1 networks, including:
+            <NuxtLink to="https://bitcoin.org" target="_blank" class="text-yellow-500 text-lg lg:text-2xl font-bold hover:text-yellow-400 hover:underline">Bitcoin</NuxtLink>,
+            <NuxtLink to="https://bitcoincash.org" target="_blank" class="text-lime-500 text-lg lg:text-2xl font-bold hover:text-lime-400 hover:underline">Bitcoin Cash</NuxtLink>,
+            <NuxtLink to="https://nexa.org" target="_blank" class="text-amber-500 text-lg lg:text-2xl font-bold hover:text-amber-400 hover:underline">Nexa</NuxtLink>
             and many more...
         </p>
+
+        <SponsorHeading />
 
         <div>
             <h2 class="text-4xl font-medium">
@@ -64,7 +66,7 @@ const System = useSystemStore()
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-center text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow group-hover:bg-sky-700 group-hover:text-sky-100 group-hover:border-sky-300">
-                        <span class="text-2xl font-bold">0.1 BTC</span>
+                        <span class="text-2xl font-bold">0.100000 BTC</span>
                         <span class="block text-sm">remaining to unlock the next tier</span>
                     </h3>
                 </NuxtLink>
@@ -79,7 +81,7 @@ const System = useSystemStore()
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-center text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow group-hover:bg-sky-700 group-hover:text-sky-100 group-hover:border-sky-300">
-                        <span class="text-2xl font-bold">10 BCH</span>
+                        <span class="text-2xl font-bold">10.000000 BCH</span>
                         <span class="block text-sm">remaining to unlock the next tier</span>
                     </h3>
                 </NuxtLink>
@@ -94,7 +96,7 @@ const System = useSystemStore()
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow group-hover:bg-sky-700 group-hover:text-sky-100 group-hover:border-sky-300">
-                        <span class="text-2xl font-bold">1B NEXA</span> to unlock next tier
+                        <span class="text-2xl font-bold">1.00B NEXA</span> to unlock next tier
                     </h3>
                 </NuxtLink>
 
@@ -108,7 +110,7 @@ const System = useSystemStore()
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow">
-                        <span class="text-2xl font-bold">50 LTC</span> to unlock next tier
+                        <span class="text-2xl font-bold">50.000000 LTC</span> to unlock next tier
                     </h3>
                 </div>
 
@@ -122,7 +124,7 @@ const System = useSystemStore()
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow">
-                        <span class="text-2xl font-bold">5K FLUX</span> to unlock next tier
+                        <span class="text-2xl font-bold">5.00K FLUX</span> to unlock next tier
                     </h3>
                 </div>
 
@@ -136,7 +138,7 @@ const System = useSystemStore()
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow">
-                        <span class="text-2xl font-bold">5K XEC</span> to unlock next tier
+                        <span class="text-2xl font-bold">5.00K XEC</span> to unlock next tier
                     </h3>
                 </div>
 
@@ -159,9 +161,11 @@ const System = useSystemStore()
             <!-- TODO: ADD PLEDGE BUTTON -->
         </div>
 
+        <SponsorHeading />
+
         <div>
             <h2 class="text-4xl font-medium">
-                Privacy Masters - Wallet Integrations
+                Privacy Masters - Wallet Integrations + Dev Kits
             </h2>
 
             <p class="py-5">
@@ -321,9 +325,11 @@ const System = useSystemStore()
 
         </div>
 
+        <SponsorHeading />
+
         <div>
             <h2 class="text-4xl font-medium">
-                Privacy Gurus - Native Apps + SDKs
+                Privacy Gurus - Native Apps
             </h2>
 
             <p class="py-5">
