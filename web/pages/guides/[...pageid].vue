@@ -19,15 +19,20 @@ console.log('NETWORK ID', networkid)
 const guideid = route?.params?.pageid[1]
 console.log('GUIDE ID', guideid)
 
+let guide
+
 const init = () => {
     switch(networkid) {
     case 'bch':
         guide = 'lorem ipsum'
+        break
+    default:
+        // TODO
     }
 }
 
 onMounted(() => {
-    init()
+    // init()
 })
 
 // onBeforeUnmount(() => {

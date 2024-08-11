@@ -91,8 +91,8 @@ const isMobileMenuOpen = ref(false)
                             </NuxtLink>
 
                             <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <NuxtLink to="/settings" @click="isMenuOpen = false" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">
-                                My Settings
+                            <NuxtLink to="/profile" @click="isMenuOpen = false" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">
+                                My Profile
                             </NuxtLink>
 
                             <!-- Active: "bg-gray-100", Not Active: "" -->
@@ -309,8 +309,8 @@ const isMobileMenuOpen = ref(false)
                                 My Treasury
                             </NuxtLink>
 
-                            <NuxtLink to="/settings" @click="isMobileMenuOpen = false" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">
-                                My Settings
+                            <NuxtLink to="/profile" @click="isMobileMenuOpen = false" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">
+                                My Profile
                             </NuxtLink>
 
                             <NuxtLink to="/" @click="isMobileMenuOpen = false" class="block rounded-md px-3 py-2 text-base font-medium text-red-600 hover:bg-gray-100 hover:text-gray-800">
