@@ -12,7 +12,7 @@ let wallet
 const init = async () => {
     wallet = await Wallet.init()
         .catch(err => console.error(err))
-    console.log('WALLET', wallet)
+    // console.log('WALLET', wallet)
 }
 
 init()
@@ -26,10 +26,20 @@ export default defineEventHandler((event) => {
     //     mnemonic,
     // }
 
-    /* Return wallet details. */
-    // return wallet
-    return {
+    const walletPkg = {
         address: wallet.address,
+        assets: JSON.stringify(wallet.assets, (key, value) =>
+            typeof value === 'bigint' ? value.toString() + 'n' : value
+        ),
+        coins: JSON.stringify(wallet.coins, (key, value) =>
+            typeof value === 'bigint' ? value.toString() + 'n' : value
+        ),
         mnemonic: wallet.mnemonic,
+        tokens: JSON.stringify(wallet.tokens, (key, value) =>
+            typeof value === 'bigint' ? value.toString() + 'n' : value
+        ),
     }
+
+    /* Return wallet details. */
+    return walletPkg
 })

@@ -36,7 +36,8 @@ onMounted(() => {
         </h1>
 
         <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id eius voluptatem minus natus at eveniet dolorum eos mollitia, maxime animi excepturi harum omnis illum odit recusandae pariatur! Unde, explicabo molestias.
+            This is an "ephemeral" wallet used for various purposes in the operation of this Club.
+            Please DO NOT add funds to this wallet, as they will be LOST FOREVER at the end of this session.
         </p>
 
         <pre v-if="wallet">{{wallet}}</pre>

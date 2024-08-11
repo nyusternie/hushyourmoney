@@ -288,5 +288,22 @@ If everything goes well, all the clients will disconnect when shuffling is compl
 - Verification Key: The public key portion of the ephemeral keypair created to be used exclusively for signing and verifying protocol messages for a particular `CashShuffle` `Round`. The `Verification Key` and its corresponding `Signing Key` are both intended for one time use.
 
 </pre>
+
+        <p>
+            ONLY the Club Manager will receive BOTH:
+
+            <ol>
+                <li>List of Commitments</li>
+                <li>List of (blinded) Components</li>
+            </ol>
+        </p>
+
+        <p>
+            EARLY Guest will have an advantage for:
+
+            <ol>
+                <li>Greater (component) anonymity against the Club Manager</li>
+            </ol>
+        </p>
     </main>
 </template>
