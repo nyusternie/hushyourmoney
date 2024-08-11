@@ -29,8 +29,8 @@ const props = defineProps({
                     </div>
 
                     <div>
-                        <NuxtLink to="/terms" class="hover:text-sky-500">
-                            terms
+                        <NuxtLink to="/legal" class="hover:text-sky-500">
+                            legal
                         </NuxtLink>
 
                         |

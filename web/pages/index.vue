@@ -46,8 +46,8 @@ onMounted(() => {
 
         <footer class="px-2 py-1 flex flex-row justify-between">
             <div class="flex flex-row gap-2 text-rose-500 text-xs font-medium opacity-30">
-                <NuxtLink to="/terms">
-                    terms
+                <NuxtLink to="/legal">
+                    legal
                 </NuxtLink>
 
                 |

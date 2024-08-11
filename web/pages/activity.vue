@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-    title: `Terms of Service — Hush Your Money`,
+    title: `Activity — Hush Your Money`,
     meta: [
         { name: 'description', content: `Hush Your Money makes spending safu.` }
     ],
@@ -24,7 +24,7 @@ const System = useSystemStore()
 <template>
     <main class="max-w-5xl mx-auto py-5 flex flex-col gap-4">
         <h1 class="text-5xl font-medium">
-            Terms of Service
+            Activity
         </h1>
 
         <p>

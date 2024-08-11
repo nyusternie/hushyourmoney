@@ -38,7 +38,7 @@ const isMobileMenuOpen = ref(false)
 
                 <!-- Right section on desktop -->
                 <div class="hidden lg:ml-4 lg:flex lg:items-center lg:pr-0.5">
-                    <button type="button" class="relative flex-shrink-0 rounded-full p-1 text-indigo-200 hover:bg-white hover:bg-opacity-10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
+                    <NuxtLink to="/activity" type="button" class="relative flex-shrink-0 rounded-full p-1 text-indigo-200 hover:bg-white hover:bg-opacity-10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
                         <span class="absolute -inset-1.5"></span>
                         <span class="sr-only">View notifications</span>
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -48,7 +48,7 @@ const isMobileMenuOpen = ref(false)
                                 d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
                             />
                         </svg>
-                    </button>
+                    </NuxtLink>
 
                     <!-- Profile dropdown -->
                     <div class="relative ml-4 flex-shrink-0">
@@ -86,18 +86,22 @@ const isMobileMenuOpen = ref(false)
                             tabindex="-1"
                         >
                             <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <NuxtLink to="/treasury" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
+                            <NuxtLink to="/treasury" @click="isMenuOpen = false" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
                                 My Treasury
                             </NuxtLink>
 
                             <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <NuxtLink to="/settings" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">
+                            <NuxtLink to="/settings" @click="isMenuOpen = false" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">
                                 My Settings
                             </NuxtLink>
 
                             <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <NuxtLink to="/" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">
+                            <NuxtLink to="/" @click="isMenuOpen = false" class="block px-4 py-2 text-sm text-red-600" role="menuitem" tabindex="-1" id="user-menu-item-2">
                                 End Session
+
+                                <svg class="inline h-6 w-auto" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25"></path>
+                                </svg>
                             </NuxtLink>
                         </div>
                     </div>
@@ -156,13 +160,9 @@ const isMobileMenuOpen = ref(false)
                                 Lobby
                             </NuxtLink>
 
-                            <a href="#" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-opacity-10">
-                                Profile
-                            </a>
-
-                            <a href="#" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-opacity-10">
-                                Resources
-                            </a>
+                            <NuxtLink to="/treasury" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-xl font-medium text-white hover:bg-opacity-10" aria-current="page">
+                                Treasury
+                            </NuxtLink>
 
                             <NuxtLink to="/sponsors" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-xl font-medium text-rose-300 hover:bg-opacity-10">
                                 Sponsors
@@ -172,9 +172,9 @@ const isMobileMenuOpen = ref(false)
                                 </svg>
                             </NuxtLink>
 
-                            <a href="#" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-opacity-10">
-                                Company Directory
-                            </a>
+                            <NuxtLink to="/help" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-xl font-medium text-white hover:bg-opacity-10" aria-current="page">
+                                Need help?
+                            </NuxtLink>
 
                         </nav>
                     </div>

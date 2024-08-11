@@ -183,7 +183,7 @@ const System = useSystemStore()
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-center text-amber-900 font-medium border border-amber-400 rounded-lg shadow group-hover:bg-sky-700 group-hover:text-sky-100 group-hover:border-sky-300">
-                        <span class="block text-2xl font-bold">0.888 BTC</span>
+                        <span class="block text-2xl font-bold">0.888000 BTC</span>
                         <span class="text-sm">qualifies for a NEW 3<sup>rd</sup> party wallet integration</span>
                     </h3>
 
@@ -221,7 +221,7 @@ const System = useSystemStore()
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow">
-                        <span class="text-2xl font-bold">88.8 BCH</span> per 3rd-party wallet integration
+                        <span class="text-2xl font-bold">88.800000 BCH</span> per 3rd-party wallet integration
                     </h3>
 
                     <ol class="mt-3 pl-10 text-sm text-gray-700">
@@ -347,7 +347,7 @@ const System = useSystemStore()
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-center text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow">
-                        <span class="text-2xl font-bold">1.0 BTC</span>
+                        <span class="text-2xl font-bold">1.000000 BTC</span>
                         <span class="block text-sm">remaining to unlock the next release</span>
                     </h3>
 
@@ -371,7 +371,7 @@ const System = useSystemStore()
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-center text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow">
-                        <span class="text-2xl font-bold">100 BCH</span>
+                        <span class="text-2xl font-bold">100.000000 BCH</span>
                         <span class="block text-sm">remaining to unlock the next release</span>
                     </h3>
 
@@ -395,7 +395,7 @@ const System = useSystemStore()
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-center text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow">
-                        <span class="text-2xl font-bold">10B NEXA</span>
+                        <span class="text-2xl font-bold">10.00B NEXA</span>
                         <span class="block text-sm">remaining to unlock the next release</span>
                     </h3>
 

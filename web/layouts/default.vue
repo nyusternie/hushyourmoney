@@ -118,11 +118,13 @@ onBeforeUnmount(() => {
                                 <div class="p-6">
 
                                     <!-- Your content -->
-                                    TBD...
+                                    Wealth Diary
 
                                 </div>
                             </div>
                         </section>
+
+                        <ActivitySummary />
                     </div>
                 </div>
             </div>
