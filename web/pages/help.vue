@@ -1,6 +1,31 @@
+<script setup lang="ts">
+useHead({
+    title: `Support Center — Hush Your Money`,
+    meta: [
+        { name: 'description', content: `Hush Your Money makes spending safu.` }
+    ],
+})
+
+/* Initialize stores. */
+import { useSystemStore } from '@/stores/system'
+const System = useSystemStore()
+
+// onMounted(() => {
+//     console.log('Mounted!')
+//     // Now it's safe to perform setup operations.
+// })
+
+// onBeforeUnmount(() => {
+//     console.log('Before Unmount!')
+//     // Now is the time to perform all cleanup operations.
+// })
+</script>
+
 <template>
-    <main>
-        <h1>Support Center</h1>
+    <main class="flex flex-col gap-4">
+        <h1 class="text-sky-500 text-5xl font-light italic">
+            Support Center
+        </h1>
 
         <p>
             While Bitcoin is considered to be a privacy-oriented system, the blockchain is open to analyze by anyone, and there are numerous transaction tracing tools like Chainalysis, Coinfirm, Elliptic, CipherTrace, and Crystal.
@@ -21,41 +46,15 @@
             Here and now have to deal with the harsh reality.
             <strong>The regulation of cryptocurrencies is following suit of how the bank industry is being controlled.</strong>
         </p>
+
+        <hr />
+
+        <h2 class="text-gray-500 text-4xl font-bold">
+            Guides
+        </h2>
+
+        <NuxtLink to="/guides/bch/wallet-integration" class="text-blue-500 text-xl font-medium hover:text-blue-400 hover:underline">
+            Bitcoin Cash Wallet Integration
+        </NuxtLink>
     </main>
 </template>
-
-<script>
-export default {
-    components: {
-        //
-    },
-    data: () => {
-        return {
-            //
-        }
-    },
-    computed: {
-        //
-
-    },
-    methods: {
-        //
-
-    },
-    created: function () {
-        //
-    },
-    mounted: function () {
-        //
-    },
-    beforeDestroy() {
-        //
-    },
-}
-</script>
-
-<style scoped>
-main {
-    padding: 20px;
-}
-</style>

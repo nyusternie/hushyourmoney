@@ -109,22 +109,9 @@ onBeforeUnmount(() => {
 
                     <!-- Right column -->
                     <div class="grid grid-cols-1 gap-4">
-                        <section aria-labelledby="section-2-title">
-                            <h2 class="sr-only" id="section-2-title">
-                                Wealth Diary
-                            </h2>
+                        <WealthSummary />
 
-                            <div class="overflow-hidden rounded-lg bg-white shadow">
-                                <div class="p-6">
-
-                                    <!-- Your content -->
-                                    Wealth Diary
-
-                                </div>
-                            </div>
-                        </section>
-
-                        <ActivitySummary />
+                        <WealthDiary />
                     </div>
                 </div>
             </div>

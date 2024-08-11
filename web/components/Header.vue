@@ -26,13 +26,13 @@ const isMobileMenuOpen = ref(false)
 <template>
     <header class="bg-indigo-600 pb-24">
         <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-            <div class="relative flex items-center justify-center py-5 lg:justify-between">
+            <div class="relative flex items-center justify-center py-3 lg:justify-between">
                 <!-- Logo -->
                 <div class="absolute left-0 flex-shrink-0 lg:static">
                     <NuxtLink to="/">
                         <span class="sr-only">Hush Your Money</span>
                         <img
-                            class="h-10 lg:h-14 w-auto" src="~/assets/icon.png" alt="Hush Your Money" />
+                            class="h-8 w-auto" src="~/assets/icon.png" alt="Hush Your Money" />
                     </NuxtLink>
                 </div>
 
@@ -107,10 +107,10 @@ const isMobileMenuOpen = ref(false)
                     </div>
                 </div>
 
-                <!-- Search settings / advanced features -->
+                <!-- Search help & settings -->
                 <div class="min-w-0 flex-1 px-12 lg:hidden">
                     <div class="mx-auto w-full max-w-xs">
-                        <label for="desktop-search" class="sr-only">Search settings / advanced features</label>
+                        <label for="desktop-search" class="sr-only">Search help & settings</label>
                         <div class="relative text-white focus-within:text-gray-600">
                             <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -121,7 +121,7 @@ const isMobileMenuOpen = ref(false)
                             <input
                                 v-model="search"
                                 class="block w-full rounded-md border-0 bg-white/20 py-1.5 pl-10 pr-3 text-white placeholder:text-white focus:bg-white focus:text-gray-900 focus:ring-0 focus:placeholder:text-gray-500 sm:text-sm sm:leading-6"
-                                placeholder="Search settings / advanced features"
+                                placeholder="Search help & settings"
                                 type="search"
                             />
                         </div>
@@ -178,19 +178,21 @@ const isMobileMenuOpen = ref(false)
 
                         </nav>
                     </div>
+
                     <div>
                         <div class="mx-auto w-full max-w-md">
-                            <label for="mobile-search" class="sr-only">Search settings / advanced features</label>
+                            <label for="mobile-search" class="sr-only">Search help / settings / advanced features</label>
                             <div class="relative text-white focus-within:text-gray-600">
                                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                     <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
                                     </svg>
                                 </div>
+
                                 <input
                                     id="mobile-search"
-                                    class="block w-full rounded-md border-0 bg-white/20 py-1.5 pl-10 pr-3 text-white placeholder:text-white focus:bg-white focus:text-gray-900 focus:ring-0 focus:placeholder:text-gray-500 sm:text-sm sm:leading-6"
-                                    placeholder="Search settings / advanced features"
+                                    class="block w-full rounded-md border-0 bg-white/20 py-1.5 pl-10 pr-3 text-white placeholder:text-white focus:bg-white focus:text-gray-900 focus:ring-0 focus:placeholder:text-gray-500 sm:text-base sm:leading-6"
+                                    placeholder="Search help / settings / advanced features"
                                     type="search"
                                     name="search"
                                 />
@@ -231,7 +233,7 @@ const isMobileMenuOpen = ref(false)
                         <div class="flex items-center justify-between px-4">
                             <div>
                                 <img
-                                    class="h-12 w-auto"
+                                    class="h-10 w-auto"
                                     src="~/assets/icon.png"
                                     alt="Hush Your Money"
                                 />

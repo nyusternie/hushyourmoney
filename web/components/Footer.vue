@@ -25,10 +25,17 @@ const props = defineProps({
                 <div class="flex flex-col lg:flex-row justify-between">
                     <div>
                         <span class="px-1 block sm:inline">&copy; 2024 The Hush DAO</span>
+                        <span class="hidden lg:inline">—</span>
                         <span class="px-1 block sm:inline">All rights reserved.</span>
                     </div>
 
                     <div>
+                        <NuxtLink to="/guides" class="hover:text-sky-500">
+                            guides
+                        </NuxtLink>
+
+                        |
+
                         <NuxtLink to="/legal" class="hover:text-sky-500">
                             legal
                         </NuxtLink>

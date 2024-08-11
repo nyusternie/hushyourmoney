@@ -1,4 +1,8 @@
 <template>
+    <h1 class="text-6xl text-fuchsia-500 font-light italic">
+        Club Flux Lobby
+    </h1>
+
     <form action="" method="">
         <div class="wizard-header text-center">
             <h3 class="wizard-title">
