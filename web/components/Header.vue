@@ -37,17 +37,23 @@ const isMobileMenuOpen = ref(false)
                 </div>
 
                 <!-- Right section on desktop -->
-                <div class="hidden lg:ml-4 lg:flex lg:items-center lg:pr-0.5">
-                    <NuxtLink to="/activity" type="button" class="relative flex-shrink-0 rounded-full p-1 text-indigo-200 hover:bg-white hover:bg-opacity-10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
+                <div class="hidden lg:ml-4 lg:flex lg:items-center lg:pr-0.5 gap-4">
+                    <NuxtLink to="/treasury" type="button" class="relative flex-shrink-0 rounded-full p-1 text-indigo-200 hover:bg-white hover:bg-opacity-10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
                         <span class="absolute -inset-1.5"></span>
-                        <span class="sr-only">View notifications</span>
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
-                            />
+                        <span class="sr-only">Open Treasury</span>
+
+                        <svg class="h-6 w-auto" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z"></path>
                         </svg>
+                    </NuxtLink>
+
+                    <NuxtLink to="/diary" type="button" class="relative flex-shrink-0 rounded-full p-1 text-indigo-200 hover:bg-white hover:bg-opacity-10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
+                        <span class="absolute -inset-1.5"></span>
+                        <span class="sr-only">Open Wealth Diary</span>
+
+                        <svg class="h-6 w-auto" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"></path>
+                          </svg>
                     </NuxtLink>
 
                     <!-- Profile dropdown -->
@@ -88,6 +94,11 @@ const isMobileMenuOpen = ref(false)
                             <!-- Active: "bg-gray-100", Not Active: "" -->
                             <NuxtLink to="/treasury" @click="isMenuOpen = false" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
                                 My Treasury
+                            </NuxtLink>
+
+                            <!-- Active: "bg-gray-100", Not Active: "" -->
+                            <NuxtLink to="/diary" @click="isMenuOpen = false" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
+                                My Diary
                             </NuxtLink>
 
                             <!-- Active: "bg-gray-100", Not Active: "" -->
@@ -156,15 +167,19 @@ const isMobileMenuOpen = ref(false)
                     <div class="col-span-2">
                         <nav class="flex space-x-4">
                             <!-- Current: "text-white", Default: "text-indigo-100" -->
-                            <NuxtLink to="/lobby" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-xl font-medium text-white hover:bg-opacity-10" aria-current="page">
+                            <NuxtLink to="/lobby" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-xl font-medium text-white hover:bg-opacity-10 tracking-widest" aria-current="page">
                                 Lobby
                             </NuxtLink>
 
-                            <NuxtLink to="/treasury" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-xl font-medium text-white hover:bg-opacity-10" aria-current="page">
+                            <NuxtLink to="/treasury" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-xl font-medium text-white hover:bg-opacity-10 tracking-widest" aria-current="page">
                                 Treasury
                             </NuxtLink>
 
-                            <NuxtLink to="/sponsors" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-xl font-medium text-rose-300 hover:bg-opacity-10">
+                            <NuxtLink to="/diary" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-xl font-medium text-white hover:bg-opacity-10 tracking-widest" aria-current="page">
+                                Diary
+                            </NuxtLink>
+
+                            <NuxtLink to="/sponsors" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-xl font-medium text-rose-300 hover:bg-opacity-10 tracking-widest">
                                 Sponsors
 
                                 <svg class="inline h-6 w-auto" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -172,7 +187,7 @@ const isMobileMenuOpen = ref(false)
                                 </svg>
                             </NuxtLink>
 
-                            <NuxtLink to="/help" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-xl font-medium text-white hover:bg-opacity-10" aria-current="page">
+                            <NuxtLink to="/help" class="rounded-md bg-white bg-opacity-0 px-3 py-2 text-xl font-medium text-white hover:bg-opacity-10 tracking-widest" aria-current="page">
                                 Need help?
                             </NuxtLink>
 
@@ -307,6 +322,10 @@ const isMobileMenuOpen = ref(false)
                         <div class="mt-3 space-y-1 px-2">
                             <NuxtLink to="/treasury" @click="isMobileMenuOpen = false" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">
                                 My Treasury
+                            </NuxtLink>
+
+                            <NuxtLink to="/diary" @click="isMobileMenuOpen = false" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">
+                                My Diary
                             </NuxtLink>
 
                             <NuxtLink to="/profile" @click="isMobileMenuOpen = false" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">

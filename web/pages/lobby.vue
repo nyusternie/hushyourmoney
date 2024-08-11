@@ -1,3 +1,26 @@
+<script setup lang="ts">
+useHead({
+    title: `Lobby — Hush Your Money`,
+    meta: [
+        { name: 'description', content: `Hush Your Money makes spending safu.` }
+    ],
+})
+
+/* Initialize stores. */
+import { useSystemStore } from '@/stores/system'
+const System = useSystemStore()
+
+// onMounted(() => {
+//     console.log('Mounted!')
+//     // Now it's safe to perform setup operations.
+// })
+
+// onBeforeUnmount(() => {
+//     console.log('Before Unmount!')
+//     // Now is the time to perform all cleanup operations.
+// })
+</script>
+
 <template>
     <h1 class="text-6xl text-fuchsia-500 font-light italic">
         Club Flux Lobby
@@ -88,161 +111,3 @@
         </div>
     </form>
 </template>
-
-<script>
-export default {
-    data: () => {
-        return {
-            pbWidth: '21%',
-            tabIndex: 0,
-        }
-    },
-    computed: {
-        // ...mapGetters('wallet', [
-        //     'getCoins',
-        //     'getMasterSeed',
-        // ]),
-
-        lblPrevious() {
-            if (this.tabIndex === 1) {
-                return 'Identity'
-            }
-
-            if (this.tabIndex === 2) {
-                return 'Analysis'
-            }
-
-            return null
-        },
-
-        lblNext() {
-            if (this.tabIndex === 0) {
-                return 'Analysis'
-            }
-
-            if (this.tabIndex === 1) {
-                return 'Shuffler'
-            }
-
-            return null
-        },
-
-    },
-    methods: {
-        // ...mapActions('wallet', [
-        //     'updateCoins',
-        // ]),
-
-        // ...mapActions('utils', [
-        //     'toast',
-        // ]),
-
-        next() {
-            switch(this.tabIndex) {
-            case 0:
-                return this.showAnalysis()
-            case 1:
-                return this.showShuffler()
-            }
-        },
-
-        previous() {
-            switch(this.tabIndex) {
-            case 1:
-                return this.showIdentity()
-            case 2:
-                return this.showAnalysis()
-            }
-        },
-
-        finish() {
-            this.toast(['Done!', 'You shuffle session is complete', 'success'])
-        },
-
-        showOptions() {
-            this.toast(['Oops!', 'This feature is not ready yet', 'error'])
-
-            const coins = this.getCoins
-            console.log('COINS', coins)
-
-            this.updateCoins()
-        },
-
-        /**
-         * Show Identity
-         */
-        showIdentity() {
-            /* Set tab index. */
-            this.tabIndex = 0
-
-            /* Update progress. */
-            let move_distance = 100 / 3
-            move_distance = move_distance * this.tabIndex + move_distance / 2
-
-            /* Set progress bar width. */
-            this.pbWidth = `${move_distance}%`
-        },
-
-        /**
-         * Show Analysis
-         */
-        showAnalysis() {
-            // return this.previewNotice()
-
-            /* Set tab index. */
-            this.tabIndex = 1
-
-            /* Update progress. */
-            let move_distance = 100 / 3
-            move_distance = move_distance * this.tabIndex + move_distance / 2
-
-            /* Set progress bar width. */
-            this.pbWidth = `${move_distance}%`
-        },
-
-        /**
-         * Show Shuffler
-         */
-        showShuffler() {
-            // return this.previewNotice()
-
-            /* Validate master seed. */
-            if (!this.getMasterSeed) {
-                return this.toast(['Oops!', 'Please choose an Identity to use with Shuffler', 'error'])
-            }
-
-            /* Set tab index. */
-            this.tabIndex = 2
-
-            /* Update progress. */
-            let move_distance = 100 / 3
-            move_distance = move_distance * this.tabIndex + move_distance / 2
-
-            /* Set progress bar width. */
-            this.pbWidth = `${move_distance}%`
-        },
-
-    },
-}
-</script>
-
-<style>
-.wizard-navigation li {
-    width: 33.3%;
-}
-
-.wizard-card .win-content {
-    min-height: 435px;
-    padding: 105px 20px 10px;
-}
-
-.flex {
-    display: flex;
-}
-
-.footer-item {
-    flex-basis: 100%;
-    text-align: center;
-    padding: 0 5px;
-}
-</style>

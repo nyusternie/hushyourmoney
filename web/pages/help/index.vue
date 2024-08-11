@@ -50,10 +50,10 @@ const System = useSystemStore()
         <hr />
 
         <h2 class="text-gray-500 text-4xl font-bold">
-            Guides
+            Guides and Tutorials
         </h2>
 
-        <NuxtLink to="/guides/bch/wallet-integration" class="text-blue-500 text-xl font-medium hover:text-blue-400 hover:underline">
+        <NuxtLink to="/help/bch/wallet-integration" class="text-blue-500 text-xl font-medium hover:text-blue-400 hover:underline">
             Bitcoin Cash Wallet Integration
         </NuxtLink>
     </main>

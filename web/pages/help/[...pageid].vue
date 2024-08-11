@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-    title: `Guides — Hush Your Money`,
+    title: `Help — Hush Your Money`,
     meta: [
         { name: 'description', content: `Hush Your Money makes spending safu.` }
     ],
@@ -43,10 +43,8 @@ onMounted(() => {
 
 <template>
     <main class="max-w-5xl mx-auto py-5 flex flex-col gap-4">
-        <h1 class="text-5xl font-medium">
-            Guides — {{ networkid }} — {{ guideid }}
-        </h1>
+        <pre>DEBUG: {{ networkid }} — {{ guideid }}</pre>
 
-        <GuidesBCHWalletIntegration />
+        <HelpBCHWalletIntegration />
     </main>
 </template>

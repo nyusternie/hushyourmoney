@@ -21,14 +21,14 @@ const props = defineProps({
 <template>
     <main aria-labelledby="section-2-title">
         <h2 class="sr-only" id="section-2-title">
-            Wealth Diary
+            Activity Summary
         </h2>
 
         <div class="overflow-hidden rounded-lg bg-white shadow">
             <div class="p-6">
 
                 <!-- Your content -->
-                Wealth Diary
+                Activity Summary
 
             </div>
         </div>
