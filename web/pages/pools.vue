@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-    title: `Clubs — Hush Your Money`,
+    title: `Pools — Hush Your Money`,
     meta: [
         { name: 'description', content: `Hush Your Money makes spending safu.` }
     ],
@@ -10,13 +10,13 @@ useHead({
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
-const clubs = ref(null)
+const pools = ref(null)
 
 const init = async () => {
-    /* Request all clubs. */
-    clubs.value = await $fetch('/_clubs')
+    /* Request all pools. */
+    pools.value = await $fetch('/_pools')
         .catch(err => console.error(err))
-    console.log('CLUBS', clubs.value)
+    console.log('POOLS', pools.value)
 }
 
 onMounted(() => {
@@ -32,13 +32,13 @@ onMounted(() => {
 <template>
     <main class="max-w-5xl mx-auto py-5 flex flex-col gap-4">
         <h1 class="text-5xl font-medium">
-            Clubs
+            Pools
         </h1>
 
         <p>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id eius voluptatem minus natus at eveniet dolorum eos mollitia, maxime animi excepturi harum omnis illum odit recusandae pariatur! Unde, explicabo molestias.
         </p>
 
-        <pre v-if="clubs">{{clubs}}</pre>
+        <pre v-if="pools">{{pools}}</pre>
     </main>
 </template>
