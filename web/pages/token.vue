@@ -29,16 +29,24 @@ const System = useSystemStore()
             <div class="mx-auto max-w-7xl px-6 py-32 sm:py-40 lg:px-8">
                 <div class="mx-auto max-w-2xl lg:mx-0 lg:grid lg:max-w-none lg:grid-cols-2 lg:gap-x-16 lg:gap-y-6 xl:grid-cols-1 xl:grid-rows-1 xl:gap-x-8">
                     <h1 class="max-w-2xl text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:col-span-2 xl:col-auto">
-                        Privacy Is A Right!
-                        <span class="text-rose-400 italic text-5xl sm:text-7xl">$HUSH</span> Your Money!
+                        <span class="text-3xl sm:text-4xl">
+                            <span class="text-sky-400 text-4xl sm:text-6xl">Privacy</span> Is A Human Right!
+                        </span>
+                        <span class="text-rose-400 italic text-5xl sm:text-7xl">$HUSH</span> Your Money
+                        Into <span class="text-fuchsia-400 italic text-5xl sm:text-7xl">$NITO</span> Cash
                     </h1>
 
-                    <div class="mt-6 max-w-xl lg:mt-0 xl:col-end-1 xl:row-start-1">
+                    <div class="flex flex-col mt-6 max-w-xl lg:mt-0 xl:col-end-1 xl:row-start-1 gap-4">
+                        <p class="text-lg leading-8 text-gray-600">
+                            Incognito is the #1 way to protect your privacy when using Crypto in your everyday life.
+                        </p>
+
                         <p class="text-lg leading-8 text-gray-600">
                             Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua. Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
                             lorem cupidatat commodo.
                         </p>
                     </div>
+
                     <img
                         src="https://images.unsplash.com/photo-1567532900872-f4e906cbf06a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1280&q=80"
                         alt=""
@@ -49,55 +57,7 @@ const System = useSystemStore()
             <div class="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-white sm:h-32"></div>
         </div>
 
-        <!-- Timeline section -->
-        <div class="mx-auto -mt-8 max-w-7xl px-6 lg:px-8">
-            <div class="mx-auto grid max-w-2xl grid-cols-1 gap-8 overflow-hidden lg:mx-0 lg:max-w-none lg:grid-cols-4">
-                <div>
-                    <time datetime="2021-08" class="flex items-center text-sm font-semibold leading-6 text-indigo-600">
-                        <svg viewBox="0 0 4 4" class="mr-4 h-1 w-1 flex-none" aria-hidden="true">
-                            <circle cx="2" cy="2" r="2" fill="currentColor" />
-                        </svg>
-                        Aug 2021
-                        <div class="absolute -ml-2 h-px w-screen -translate-x-full bg-gray-900/10 sm:-ml-4 lg:static lg:-mr-6 lg:ml-8 lg:w-auto lg:flex-auto lg:translate-x-0" aria-hidden="true"></div>
-                    </time>
-                    <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">Founded company</p>
-                    <p class="mt-1 text-base leading-7 text-gray-600">Nihil aut nam. Dignissimos a pariatur et quos omnis. Aspernatur asperiores et dolorem dolorem optio voluptate repudiandae.</p>
-                </div>
-                <div>
-                    <time datetime="2021-12" class="flex items-center text-sm font-semibold leading-6 text-indigo-600">
-                        <svg viewBox="0 0 4 4" class="mr-4 h-1 w-1 flex-none" aria-hidden="true">
-                            <circle cx="2" cy="2" r="2" fill="currentColor" />
-                        </svg>
-                        Dec 2021
-                        <div class="absolute -ml-2 h-px w-screen -translate-x-full bg-gray-900/10 sm:-ml-4 lg:static lg:-mr-6 lg:ml-8 lg:w-auto lg:flex-auto lg:translate-x-0" aria-hidden="true"></div>
-                    </time>
-                    <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">Secured $65m in funding</p>
-                    <p class="mt-1 text-base leading-7 text-gray-600">Provident quia ut esse. Vero vel eos repudiandae aspernatur. Cumque minima impedit sapiente a architecto nihil.</p>
-                </div>
-                <div>
-                    <time datetime="2022-02" class="flex items-center text-sm font-semibold leading-6 text-indigo-600">
-                        <svg viewBox="0 0 4 4" class="mr-4 h-1 w-1 flex-none" aria-hidden="true">
-                            <circle cx="2" cy="2" r="2" fill="currentColor" />
-                        </svg>
-                        Feb 2022
-                        <div class="absolute -ml-2 h-px w-screen -translate-x-full bg-gray-900/10 sm:-ml-4 lg:static lg:-mr-6 lg:ml-8 lg:w-auto lg:flex-auto lg:translate-x-0" aria-hidden="true"></div>
-                    </time>
-                    <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">Released beta</p>
-                    <p class="mt-1 text-base leading-7 text-gray-600">Sunt perspiciatis incidunt. Non necessitatibus aliquid. Consequatur ut officiis earum eum quia facilis. Hic deleniti dolorem quia et.</p>
-                </div>
-                <div>
-                    <time datetime="2022-12" class="flex items-center text-sm font-semibold leading-6 text-indigo-600">
-                        <svg viewBox="0 0 4 4" class="mr-4 h-1 w-1 flex-none" aria-hidden="true">
-                            <circle cx="2" cy="2" r="2" fill="currentColor" />
-                        </svg>
-                        Dec 2022
-                        <div class="absolute -ml-2 h-px w-screen -translate-x-full bg-gray-900/10 sm:-ml-4 lg:static lg:-mr-6 lg:ml-8 lg:w-auto lg:flex-auto lg:translate-x-0" aria-hidden="true"></div>
-                    </time>
-                    <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">Global launch of product</p>
-                    <p class="mt-1 text-base leading-7 text-gray-600">Ut ipsa sint distinctio quod itaque nam qui. Possimus aut unde id architecto voluptatem hic aut pariatur velit.</p>
-                </div>
-            </div>
-        </div>
+        <TokenTimeline />
 
         <!-- Logo cloud -->
         <div class="mx-auto mt-32 max-w-7xl sm:mt-40 sm:px-6 lg:px-8">
