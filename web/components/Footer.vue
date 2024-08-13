@@ -27,8 +27,8 @@ const props = defineProps({
                     <img class="h-16 w-auto" src="~/assets/icon.png" alt="Hush Your Money" />
 
                     <p class="text-xl leading-9 font-light text-gray-300 italic">
-                        <span class="block font-bold text-rose-400">Spend Privately. Fearlessly!</span>
-                        Making the world a better place with GUARANTEED financial freedom for every man, woman and child.
+                        <span class="block font-bold text-2xl text-rose-400">Spend Privately. Fearlessly!</span>
+                        Making the world a better place with the GUARANTEE of financial freedom for every man, woman and child.
                     </p>
 
                     <div class="flex space-x-6">
