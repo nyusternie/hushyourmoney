@@ -117,6 +117,6 @@ onBeforeUnmount(() => {
             </div>
         </main>
 
-        <FooterMin />
+        <Footer />
     </div>
 </template>

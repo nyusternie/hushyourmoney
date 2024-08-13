@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+    layout: 'info',
+})
+
 useHead({
     title: `Whitepaper — Hush Your Money`,
     meta: [
@@ -39,6 +43,17 @@ Freedom  : Always on Privacy offering 100% anonymity
 
         <p>
             Hush is a Nexa L1+ network for privacy conscious individuals.
+            Hush aims to offer the MOST functional network while protecting the anonymity of its users.
+        </p>
+
+        <h2 class="text-4xl font-bold text-gray-400">
+            Never Go FULL Privacy
+        </h2>
+
+        <p>
+            Unlike MOST privacy coins/networks, Hush DOES NOT aim for TOTAL privacy.
+            Amounts and Participants are 100% hidden by default, and everything ELSE remains transparent;
+            allowing for MORE PRACTICAL applications to be built on top of the network.
         </p>
     </main>
 </template>
