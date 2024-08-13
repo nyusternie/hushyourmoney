@@ -19,19 +19,20 @@ const props = defineProps({
 </script>
 
 <template>
-    <footer class="bg-white" aria-labelledby="footer-heading">
+    <footer class="bg-gray-900" aria-labelledby="footer-heading">
         <h2 id="footer-heading" class="sr-only">Footer</h2>
         <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
             <div class="xl:grid xl:grid-cols-3 xl:gap-8">
                 <div class="space-y-8">
                     <img class="h-16 w-auto" src="~/assets/icon.png" alt="Hush Your Money" />
 
-                    <p class="text-sm leading-6 text-gray-600">
+                    <p class="text-xl leading-9 font-light text-gray-300 italic">
+                        <span class="block font-bold text-rose-400">Spend Privately. Fearlessly!</span>
                         Making the world a better place through constructing elegant hierarchies.
                     </p>
 
                     <div class="flex space-x-6">
-                        <a href="javascript://" class="text-gray-400 hover:text-gray-500">
+                        <a href="javascript://" class="text-gray-400 hover:text-gray-300">
                             <span class="sr-only">Facebook</span>
                             <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path
@@ -42,7 +43,7 @@ const props = defineProps({
                             </svg>
                         </a>
 
-                        <a href="javascript://" class="text-gray-400 hover:text-gray-500">
+                        <a href="javascript://" class="text-gray-400 hover:text-gray-300">
                             <span class="sr-only">Instagram</span>
                             <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path
@@ -53,7 +54,7 @@ const props = defineProps({
                             </svg>
                         </a>
 
-                        <a href="javascript://" class="text-gray-400 hover:text-gray-500">
+                        <a href="javascript://" class="text-gray-400 hover:text-gray-300">
                             <span class="sr-only">X</span>
                             <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path
@@ -62,7 +63,7 @@ const props = defineProps({
                             </svg>
                         </a>
 
-                        <a href="javascript://" class="text-gray-400 hover:text-gray-500">
+                        <a href="javascript://" class="text-gray-400 hover:text-gray-300">
                             <span class="sr-only">GitHub</span>
                             <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path
@@ -73,7 +74,7 @@ const props = defineProps({
                             </svg>
                         </a>
 
-                        <a href="javascript://" class="text-gray-400 hover:text-gray-500">
+                        <a href="javascript://" class="text-gray-400 hover:text-gray-300">
                             <span class="sr-only">YouTube</span>
                             <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path
@@ -89,43 +90,43 @@ const props = defineProps({
                 <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
                     <div class="md:grid md:grid-cols-2 md:gap-8">
                         <div>
-                            <h3 class="text-sm font-semibold leading-6 text-gray-900">
+                            <h3 class="text-xl font-semibold leading-6 text-fuchsia-600">
                                 Users
                             </h3>
 
                             <ul role="list" class="mt-6 space-y-4">
                                 <li>
-                                    <a href="javascript://" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Marketing</a>
+                                    <a href="javascript://" class="text-base leading-6 text-gray-300 hover:text-gray-900">Marketing</a>
                                 </li>
                                 <li>
-                                    <a href="javascript://" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Analytics</a>
+                                    <a href="javascript://" class="text-base leading-6 text-gray-300 hover:text-gray-900">Analytics</a>
                                 </li>
                                 <li>
-                                    <a href="javascript://" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Commerce</a>
+                                    <a href="javascript://" class="text-base leading-6 text-gray-300 hover:text-gray-900">Commerce</a>
                                 </li>
                                 <li>
-                                    <a href="javascript://" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Insights</a>
+                                    <a href="javascript://" class="text-base leading-6 text-gray-300 hover:text-gray-900">Insights</a>
                                 </li>
                             </ul>
                         </div>
 
                         <div class="mt-10 md:mt-0">
-                            <h3 class="text-sm font-semibold leading-6 text-gray-900">
+                            <h3 class="text-xl font-semibold leading-6 text-fuchsia-600">
                                 Investors
                             </h3>
 
                             <ul role="list" class="mt-6 space-y-4">
                                 <li>
-                                    <a href="javascript://" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Pricing</a>
+                                    <a href="javascript://" class="text-base leading-6 text-gray-300 hover:text-gray-900">Pricing</a>
                                 </li>
                                 <li>
-                                    <a href="javascript://" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Documentation</a>
+                                    <a href="javascript://" class="text-base leading-6 text-gray-300 hover:text-gray-900">Documentation</a>
                                 </li>
                                 <li>
-                                    <a href="javascript://" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Guides</a>
+                                    <a href="javascript://" class="text-base leading-6 text-gray-300 hover:text-gray-900">Guides</a>
                                 </li>
                                 <li>
-                                    <a href="javascript://" class="text-sm leading-6 text-gray-600 hover:text-gray-900">API Status</a>
+                                    <a href="javascript://" class="text-base leading-6 text-gray-300 hover:text-gray-900">API Status</a>
                                 </li>
                             </ul>
                         </div>
@@ -133,43 +134,43 @@ const props = defineProps({
 
                     <div class="md:grid md:grid-cols-2 md:gap-8">
                         <div>
-                            <h3 class="text-sm font-semibold leading-6 text-gray-900">
+                            <h3 class="text-xl font-semibold leading-6 text-fuchsia-600">
                                 Providers
                             </h3>
 
                             <ul role="list" class="mt-6 space-y-4">
                                 <li>
-                                    <a href="javascript://" class="text-sm leading-6 text-gray-600 hover:text-gray-900">About</a>
+                                    <a href="javascript://" class="text-base leading-6 text-gray-300 hover:text-gray-900">About</a>
                                 </li>
                                 <li>
-                                    <a href="javascript://" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Blog</a>
+                                    <a href="javascript://" class="text-base leading-6 text-gray-300 hover:text-gray-900">Blog</a>
                                 </li>
                                 <li>
-                                    <a href="javascript://" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Jobs</a>
+                                    <a href="javascript://" class="text-base leading-6 text-gray-300 hover:text-gray-900">Jobs</a>
                                 </li>
                                 <li>
-                                    <a href="javascript://" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Press</a>
+                                    <a href="javascript://" class="text-base leading-6 text-gray-300 hover:text-gray-900">Press</a>
                                 </li>
                                 <li>
-                                    <a href="javascript://" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Partners</a>
+                                    <a href="javascript://" class="text-base leading-6 text-gray-300 hover:text-gray-900">Partners</a>
                                 </li>
                             </ul>
                         </div>
 
                         <div class="mt-10 md:mt-0">
-                            <h3 class="text-sm font-semibold leading-6 text-gray-900">
+                            <h3 class="text-xl font-semibold leading-6 text-fuchsia-600">
                                 HYM Links
                             </h3>
 
                             <ul role="list" class="mt-6 space-y-4">
                                 <li>
-                                    <a href="javascript://" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Claim</a>
+                                    <a href="javascript://" class="text-base leading-6 text-gray-300 hover:text-gray-900">Claim</a>
                                 </li>
                                 <li>
-                                    <a href="javascript://" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Privacy</a>
+                                    <a href="javascript://" class="text-base leading-6 text-gray-300 hover:text-gray-900">Privacy</a>
                                 </li>
                                 <li>
-                                    <a href="javascript://" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Terms</a>
+                                    <a href="javascript://" class="text-base leading-6 text-gray-300 hover:text-gray-900">Terms</a>
                                 </li>
                             </ul>
                         </div>
@@ -177,12 +178,18 @@ const props = defineProps({
                 </div>
             </div>
 
-            <div class="mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 lg:mt-24">
-                <p class="text-sm leading-5 text-gray-500">
+            <div class="mt-16 flex justify-between border-t border-gray-900/10 pt-8 sm:mt-20 lg:mt-24">
+                <p class="text-base leading-5 text-gray-300">
                     <span class="px-1 block sm:inline">&copy; 2020-2024 The Hush DAO</span>
                     <span class="hidden lg:inline">—</span>
                     <span class="px-1 block sm:inline">All rights reserved.</span>
                 </p>
+
+                <div class="flex mb-5 justify-end">
+                    <NuxtLink to="https://runonflux.io" target="_blank">
+                        <img src="~/assets/running-on-flux-white.png" class="h-16 border border-gray-300 rounded-lg hover:border-sky-300" />
+                    </NuxtLink>
+                </div>
             </div>
         </div>
     </footer>

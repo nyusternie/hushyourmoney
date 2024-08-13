@@ -114,11 +114,11 @@ const props = defineProps({
                     </time>
 
                     <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">
-                        EPIC30 Airdrop to ALL Sponsors
+                        EPIC20 Airdrop to ALL Sponsors
                     </p>
 
                     <p class="mt-1 text-base leading-7 text-gray-600">
-                        30% of ALL $HUSH tokens will be airdrop to ALL supporters of ALL the HYM campaigns, spread across ALL supported networks.
+                        20% of ALL $HUSH tokens will be airdrop to ALL supporters of ALL the HYM campaigns, spread across ALL supported networks.
                     </p>
                 </div>
 
