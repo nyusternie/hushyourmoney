@@ -37,6 +37,9 @@ const Selector = ('fraction', 0.1)  # coin selector options
 const SelfFusePlayers = 1 # self-fusing control (1 = just self, more than 1 = self fuse up to N times)
 const SpendOnlyFusedCoins = False  # spendable_coin_filter @hook
 
+const HUSH_OP_DATA_HEX = '48555348' // HUSH (as hex)
+const HUSH_DERIVATION_PATH = `m/44'/0'/1213551432'` // HUSH (as decimal)
+
 
 /**
  * Fusion Store
