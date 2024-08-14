@@ -38,13 +38,17 @@ const System = useSystemStore()
 
                     <div class="flex flex-col mt-6 max-w-xl lg:mt-0 xl:col-end-1 xl:row-start-1 gap-4">
                         <p class="text-lg leading-8 text-gray-600">
-                            Incognito Mode has been the #1 way to protect your privacy in your favorite Browser;
-                            and has become a normal habit for privacy-conscious people.
+                            <span class="text-xl font-bold">The Incognito Network (<span class="text-2xl">Nito</span>)</span> offers the equivalent protections and benefits as the Incognito mode of your favorite web browser.
+                            Nito aims to become the defacto Crypto wallet network for ALL privacy web browsers.
                         </p>
 
                         <h3 class="text-2xl leading-9 font-medium text-rose-400 italic tracking-widest">
                             Hush Vaults offer <span class="text-3xl font-bold text-rose-600">FREE + Instant</span> swaps between $HUSH and $NITO.
                         </h3>
+
+                        <p class="text-lg leading-8 text-gray-600">
+                            Nito is currently deployed on the Nexa blockchain as an L1+ Supernet.
+                        </p>
 
                         <p class="text-lg leading-8 text-gray-600">
                             $NITO powers the "hidden" Hush network and it's how you FUEL your activities when using Crypto in your everyday life.
