@@ -4,9 +4,9 @@ definePageMeta({
 })
 
 useHead({
-    title: `Liquidity Provider — Hush Your Money`,
+    title: `Bitcoin (BTC) — Hush Your Money`,
     meta: [
-        { name: 'description', content: `Provide additional liquidity & anonymity to the Hush Your Money community.` }
+        { name: 'description', content: `Hush Your Money makes spending safu.` }
     ],
 })
 
@@ -28,7 +28,7 @@ const System = useSystemStore()
 <template>
     <main class="max-w-5xl mx-auto py-5 flex flex-col gap-4">
         <h1 class="text-5xl font-medium">
-            Liquidity Provider
+            Bitcoin (BTC)
         </h1>
 
         <p>

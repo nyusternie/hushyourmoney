@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+    layout: 'admin',
+})
+
 useHead({
     title: `Club Wallet — Hush Your Money`,
     meta: [

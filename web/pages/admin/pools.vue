@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+    layout: 'admin',
+})
+
 useHead({
     title: `Pools — Hush Your Money`,
     meta: [
