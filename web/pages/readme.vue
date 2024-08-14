@@ -26,12 +26,12 @@ const System = useSystemStore()
 </script>
 
 <template>
-    <main class="max-w-5xl mx-auto py-5 flex flex-col gap-16">
-        <h1 class="text-center text-fuchsia-700 text-8xl font-light italic tracking-tighter">
+    <main class="max-w-5xl mx-auto py-10 flex flex-col gap-24 text-gray-800 font-mono leading-8">
+        <h1 class="text-center text-fuchsia-700 text-8xl font-light tracking-tighter">
             Hush README
         </h1>
 
-        <h3 class="-mt-12 px-10 text-4xl text-fuchsia-900 text-center tracking-widest font-light italic leading-[60px]">
+        <h3 class="-mt-12 px-10 text-4xl text-fuchsia-900 text-center tracking-widest font-light italic leading-[50px]">
             tl;dr — a practical, drop-in privacy solution for UTXO-based networks
         </h3>
 
@@ -41,7 +41,7 @@ FUNCTION : Tokenized Assets + Smart Contracts
  FREEDOM : (Always-on) Private Transactions
         </pre></section>
 
-        <NuxtLink to="https://github.com/BCHDEVCON3/hush-your-money#hush-your-money" target="_blank" class="group flex flex-col gap-3">
+        <NuxtLink to="https://github.com/BCHDEVCON3/hush-your-money#hush-your-money" target="_blank" class="-mt-10 group flex flex-col gap-5">
             <div class="p-7 flex flex-row justify-around bg-gradient-to-r from-fuchsia-400 to-fuchsia-500 border-4 border-fuchsia-700 rounded-3xl shadow group-hover:from-fuchsia-100 hover:to-fuchsia-200">
                 <h3 class="text-4xl text-fuchsia-100 font-bold text-center group-hover:text-fuchsia-600">
                     BCHDEVCON3 Hackathon
@@ -51,31 +51,41 @@ FUNCTION : Tokenized Assets + Smart Contracts
                 <img src="~/assets/winner.gif" class="-mt-8 -mb-8 h-48 w-auto" />
             </div>
 
-            <small class="text-sm font-medium italic text-gray-400 text-center group-hover:text-fuchsia-500">
-                Click to learn about where, when &amp; how Hush Your Money was born!
+            <small class="text-sm font-bold italic text-gray-400 text-center tracking-tight group-hover:text-fuchsia-500">
+                Click to learn about Where, When &amp; How <span class="text-base font-bold">Hush Your Money</span> was born!
             </small>
         </NuxtLink>
 
-        <section class="flex flex-col gap-3">
-            <h3 class="text-3xl font-bold">
-                Why Hush?
-            </h3>
+        <section class="flex flex-col gap-5">
+            <h2 class="text-3xl font-bold text-fuchsia-700">
+                Why Hush Your Money?
+            </h2>
 
-            <p>
+            <NuxtLink to="https://z.cash/zcashs-privacy-is-normal-goes-viral/" target="_blank" class="block text-xl text-blue-500 font-bold hover:underline">
+                Because <span class="text-2xl">&ldquo;Privacy is normal.&rdquo;</span>
+            </NuxtLink>
 
-                Because <NuxtLink to="https://z.cash/zcashs-privacy-is-normal-goes-viral/" target="_blank">Privacy is Normal.</NuxtLink>
-                While MOST projects aim to offer TOTAL privacy solutions, Hush aims for a "practical balance" between form and function.
-                Delivering the MOST widely accessible privacy network is the ONLY goal!
+            <p class="text-justify">
+                Today, MOST privacy networks aim to offer their users a PERFECT privacy solution.
+                Hush Your Money (HYM) aims to offer the MOST "practical balance" between <span class="font-bold">Form</span>, <span class="font-bold">Function</span> and <span class="font-bold">Freedom</span> —
+                to deliver a family of the MOST widely accessible privacy networks the world has ever seen...
             </p>
 
-            <p>
-                The Incognito Network (Nito) is a cross-chain Supernet for privacy conscious individuals.
-                Nito aims to offer the MOST functional network while protecting the anonymity of its users.
+            <p class="text-fuchsia-600 text-2xl text-center leading-[50px] font-bold italic">
+                The Incognito Network <span class="text-3xl text-fuchsia-700">(Nito)</span> is a cross-chain <span class="text-3xl text-fuchsia-700">Supernet</span> designed explicitly to meet the <span class="text-3xl text-fuchsia-700">&ldquo;everyday&rdquo;</span> privacy needs for <span class="text-3xl text-fuchsia-700">99%</span> of users.
+            </p>
+
+            <p class="text-justify">
+                Nito uniquely offers Content Creators and Application Developers the MOST functionally capable Crypto network, <span class="font-bold italic">with FULL support for BOTH Tokenized Assets and Smart Contracts on Layer 1+ (Plus)</span>, while offering uncompromising, trustless and permissionless financial privacy for their communities <span class="font-bold">AT ALL TIMES.</span>
             </p>
         </section>
 
-        <section class="flex flex-col gap-3">
-            <h2 class="text-4xl font-bold text-gray-500">
+        <ReadmeToc />
+
+        <ReadmeIntro />
+
+        <section class="flex flex-col gap-5">
+            <h2 class="text-3xl font-bold text-fuchsia-700">
                 Never Go FULL Privacy
             </h2>
 
@@ -86,14 +96,14 @@ FUNCTION : Tokenized Assets + Smart Contracts
             </p>
         </section>
 
-        <section class="flex flex-col gap-3">
-            <h2 class="text-4xl font-bold text-gray-500">
+        <section class="flex flex-col gap-5">
+            <h2 class="text-3xl font-bold text-fuchsia-700">
                 (Transaction) Guardians
             </h2>
 
             <p>
                 Guardians are a managed set of approx. 1,024 "Community UTXOs".
-                Guardians are <NuxtLink to="https://nexa.sh/contracts" target="_blank" class="text-blue-500 font-medium hover:underline">Wise Contracts</NuxtLink> that protect your privacy during the transaction process by masking:
+                Guardians are <NuxtLink to="https://nexa.sh/contracts" target="_blank" class="text-blue-500 font-bold hover:underline">Wise Contracts</NuxtLink> that protect your privacy during the transaction process by masking:
 
                 <ul class="py-3 pl-10 list-disc">
                     <li>the Sender</li>
@@ -103,20 +113,20 @@ FUNCTION : Tokenized Assets + Smart Contracts
                     <li class="line-through">the Sender's Location</li>
                 </ul>
             </p>
+
+            <div class="flex flex-col gap-5">
+                <h3 class="font-bold text-sm text-rose-500">
+                    <span class="block font-bold uppercase">PLease Note:</span>
+                    Location (ie IP address) obfuscation is delegated to 3rd-parties (eg. VPN and/or TOR) providers.
+                    <span class="block text-lg italic">This is a FEATURE!</span>
+                    Hush has been specifically designed to support the greatest number of Wallet integrations &amp; compatibilities across the Crypto ecosystem.
+                    Hush aims to meet the primary needs for 99% of users, without sacrificing privacy!
+                </h3>
+            </div>
         </section>
 
-        <section class="flex flex-col gap-3">
-            <h3 class="font-medium text-sm text-rose-500">
-                <span class="block font-bold uppercase">PLease Note:</span>
-                Location (ie IP address) obfuscation is delegated to 3rd-parties (eg. VPN and/or TOR) providers.
-                <span class="block text-lg italic">This is a FEATURE!</span>
-                Hush has been specifically designed to support the greatest number of Wallet integrations &amp; compatibilities across the Crypto ecosystem.
-                Hush aims to meet the primary needs for 99% of users, without sacrificing privacy!
-            </h3>
-        </section>
-
-        <section class="flex flex-col gap-3">
-            <h2 class="text-4xl font-bold text-gray-500">
+        <section class="flex flex-col gap-5">
+            <h2 class="text-3xl font-bold text-fuchsia-700">
                 Incognito Address Format
             </h2>
 
@@ -129,9 +139,9 @@ FUNCTION : Tokenized Assets + Smart Contracts
             </p>
         </section>
 
-        <section class="flex flex-col gap-3">
-            <h2 class="text-4xl font-bold text-gray-500">
-                <code class="text-amber-500">OP_DATA</code> Inscriptions
+        <section class="flex flex-col gap-5">
+            <h2 class="text-3xl font-bold text-fuchsia-700">
+                Inscriptions: <code class="text-amber-500 italic">OP_DATA</code> or <code class="text-amber-500 italic">OP_RETURN</code>
             </h2>
 
             <p>
@@ -149,8 +159,8 @@ FUNCTION : Tokenized Assets + Smart Contracts
             </p>
         </section>
 
-        <section class="flex flex-col gap-3">
-            <h2 class="text-4xl font-bold text-gray-500">
+        <section class="flex flex-col gap-5">
+            <h2 class="text-3xl font-bold text-fuchsia-700">
                 Commitment Centers: A Universal Truth
             </h2>
 
@@ -164,8 +174,8 @@ FUNCTION : Tokenized Assets + Smart Contracts
             </p>
         </section>
 
-        <section class="flex flex-col gap-3">
-            <h2 class="text-4xl font-bold text-gray-500">
+        <section class="flex flex-col gap-5">
+            <h2 class="text-3xl font-bold text-fuchsia-700">
                 256-bit Sharding
             </h2>
 
@@ -188,14 +198,14 @@ FUNCTION : Tokenized Assets + Smart Contracts
             </p>
         </section>
 
-        <section class="flex flex-col gap-3">
-            <h2 class="text-4xl font-bold text-gray-500">
-                Supernets: UTXO Layer 1+ (Plus)
+        <section class="flex flex-col gap-5">
+            <h2 class="text-3xl font-bold text-fuchsia-700">
+                Supernets: PoW Layer 1+ (Plus)
             </h2>
 
             <p>
-                The Incognito Network designed to run across multiple networks;
-                specifically the latest bread in Layer 1 Supernet blockchains, like:
+                The Incognito Network (Nito) is specifically designed to run across multiple UTXO-style networks;
+                specifically those Proof-of-Work (Layer 1) networks capable of efficiently running Supernets, like:
 
                 <ol class="py-3 pl-10 list-decimal">
                     <li>Bitcoin Cash</li>
@@ -217,8 +227,8 @@ FUNCTION : Tokenized Assets + Smart Contracts
 
         </section>
 
-        <section class="flex flex-col gap-3">
-            <h2 class="text-4xl font-bold text-gray-500">
+        <section class="flex flex-col gap-5">
+            <h2 class="text-3xl font-bold text-fuchsia-700">
                 CashFusion
             </h2>
 
@@ -232,8 +242,8 @@ FUNCTION : Tokenized Assets + Smart Contracts
             </p>
         </section>
 
-        <section class="flex flex-col gap-3">
-            <h2 class="text-4xl font-bold text-gray-500">
+        <section class="flex flex-col gap-5">
+            <h2 class="text-3xl font-bold text-fuchsia-700">
                 Flux Cloud
             </h2>
 
@@ -249,12 +259,12 @@ FUNCTION : Tokenized Assets + Smart Contracts
             </p>
         </section>
 
-        <section class="flex flex-col gap-3">
-            <h2 class="text-4xl font-bold text-gray-500">
+        <section class="flex flex-col gap-5">
+            <h2 class="text-3xl font-bold text-fuchsia-700">
                 Counterparty and Protocol Discovery (CAPD)
             </h2>
 
-            <NuxtLink to="https://spec.nexa.org/network/capd/" target="_blank" class="text-lg text-blue-500 hover:underline font-medium">
+            <NuxtLink to="https://spec.nexa.org/network/capd/" target="_blank" class="text-lg text-blue-500 hover:underline font-bold">
                 https://spec.nexa.org/network/capd/
             </NuxtLink>
 
