@@ -35,9 +35,9 @@ const props = defineProps({
             <li>Incognito Address Format</li>
             <li>Inscriptions: OP_DATA or OP_RETURN</li>
             <li>Commitment Centers: A Universal Truth</li>
-            <li>256-bit Sharding</li>
+            <li>Sharding: A 256-bit Scaling Solution</li>
             <li>Supernets: PoW Layer 1+ (Plus)</li>
-            <li>CashFusion</li>
+            <li>CoinJoins: à la CashFusion</li>
             <li>Flux Cloud</li>
             <li>Counterparty and Protocol Discovery (CAPD)</li>
         </ol>

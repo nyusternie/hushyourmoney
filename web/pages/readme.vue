@@ -149,8 +149,8 @@ FUNCTION : Tokenized Assets + Smart Contracts
             </p>
 
 <pre class="text-sm">
-04 HUSH (protocol id)
-20 921aa05b86a1bc9dc1d99583e2932657696e82cf9051219e3dccaeecfd463ee9 (hush tx idem)
+04 NITO (protocol id)
+20 921aa05b86a1bc9dc1d99583e2932657696e82cf9051219e3dccaeecfd463ee9 (nito tx idem)
 14 875a1f6d7a6e33e27d61c43c26b70d4b8886f726 (aes read-ONLY key)
 </pre>
 
@@ -174,73 +174,11 @@ FUNCTION : Tokenized Assets + Smart Contracts
             </p>
         </section>
 
-        <section class="flex flex-col gap-5">
-            <h2 class="text-3xl font-bold text-fuchsia-700">
-                256-bit Sharding
-            </h2>
+        <ReadmeSharding />
 
-            <p>
-                Commitment Centers (CCs) are sharded to maximum scalability.
-            </p>
+        <ReadmeSupernets />
 
-            <p>
-                There are at least 2,048 (sharded) CCs deployed across the network to offer maximum scalability on the host's Supernet.
-                Additional CCs may be deployed to meet the growing needs of the Host's network.
-            </p>
-
-            <p>
-                Each CC is optimized to support at least 10x transactions per second (TPS).
-                The total throughput, for all CCs, is estimated to be sustainable up to at least 20,000 TPS.
-            </p>
-
-            <p>
-                Additional CCs may be deployed to meet the growing needs of the Host's network.
-            </p>
-        </section>
-
-        <section class="flex flex-col gap-5">
-            <h2 class="text-3xl font-bold text-fuchsia-700">
-                Supernets: PoW Layer 1+ (Plus)
-            </h2>
-
-            <p>
-                The Incognito Network (Nito) is specifically designed to run across multiple UTXO-style networks;
-                specifically those Proof-of-Work (Layer 1) networks capable of efficiently running Supernets, like:
-
-                <ol class="py-3 pl-10 list-decimal">
-                    <li>Bitcoin Cash</li>
-                    <li>Kaspa</li>
-                    <li>Litecoin</li>
-                    <li>Nexa</li>
-                    <li>and more...</li>
-                </ol>
-            </p>
-
-            <p>
-                UTXO-based Supernets are the ideal technological platforms;
-                offering a plethora of features and benefits, including:
-
-                <ol class="py-3 pl-10 list-disc">
-                    <li>BigNum support for Zero Knowledge math primitives</li>
-                </ol>
-            </p>
-
-        </section>
-
-        <section class="flex flex-col gap-5">
-            <h2 class="text-3xl font-bold text-fuchsia-700">
-                CashFusion
-            </h2>
-
-            <p>
-                Not every UTXO network can/will offer Supernet capabilities.
-                As a fallback to The Incognito Network (Nito), CashFusion offers a Pretty Good Privacy solution for its community of users.
-            </p>
-
-            <p>
-                Access to the protocol is permissionless, which makes it an ideal solution.
-            </p>
-        </section>
+        <ReadmeCoinJoins />
 
         <section class="flex flex-col gap-5">
             <h2 class="text-3xl font-bold text-fuchsia-700">
@@ -248,14 +186,18 @@ FUNCTION : Tokenized Assets + Smart Contracts
             </h2>
 
             <p>
-                The FluxCloud is a People-Powered Network to help you build decentralized applications with increased flexibility, scalability, and censorship resistance.
+                Flux Cloud <span class="font-bold">(ticker: <NuxtLink to="https://coinmarketcap.com/currencies/zel/" target="_blank" class="text-blue-500 hover:underline">FLUX</NuxtLink>)</span> is the most decentralized and fastest growing network in the world.
+                Its peer-powered cloud computing network offers enterprise-level infrastructure for The Incognito Network's MOST demanding decentralized applications.
+            </p>
+
+            <p class="text-sm italic">
+                FluxCloud is connected worldwide, across all continents.
+                Its strongest Availability Zones are the EU and United States.
             </p>
 
             <p>
-                FluxCloud is connected worldwide, across all continents.
-                Its strongest Availability Zones are the EU and United States.
-                South Asia and Australia are also witnessing an increase of server deployments.
-                Flux Cloud is the most decentralized and fastest growing network in the world.
+                Although Flux Cloud will continue to offer users the MOST convenient gateway into The Incognito Network (Nito);
+                the long-term solution is to encourage ALL clients to utilize <span class="text-base font-bold">Nexa's (PoW-secured) CAPD</span> communications network (at least as a fallback).
             </p>
         </section>
 
