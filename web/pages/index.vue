@@ -44,7 +44,7 @@ onMounted(() => {
 
         </div>
 
-        <footer class="px-3 py-2 flex flex-row justify-between">
+        <footer class="px-5 py-3 flex flex-row justify-between">
             <div class="flex flex-row gap-2 text-rose-500 text-xs font-medium opacity-30">
                 <NuxtLink to="/readme" class="hover:text-amber-900">
                     readme
@@ -69,9 +69,17 @@ onMounted(() => {
                 </NuxtLink>
             </div>
 
-            <NuxtLink to="https://nexa.sh/blocks" target="_blank" class="text-rose-500 text-xs font-medium italic opacity-30 hover:text-amber-900">
-                block # {{ blockHeight }}
-            </NuxtLink>
+            <div class="flex flex-row gap-2 text-rose-500 text-xs font-medium opacity-30">
+                <NuxtLink to="/admin" class="hover:text-amber-900">
+                    admin
+                </NuxtLink>
+
+                |
+
+                <NuxtLink to="https://nexa.sh/blocks" target="_blank" class="hover:text-amber-900">
+                    block # {{ blockHeight }}
+                </NuxtLink>
+            </div>
         </footer>
     </main>
 </template>
