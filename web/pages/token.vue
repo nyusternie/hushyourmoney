@@ -47,7 +47,7 @@ const System = useSystemStore()
                         </h3>
 
                         <p class="text-lg leading-8 text-gray-600">
-                            Nito is currently deployed on the Nexa blockchain as an L1+ Supernet.
+                            Nito is currently deployed on the Nexa blockchain as an L1+ <NuxtLink to="https://nexa.wiki/supernet" target="_blank" class="text-blue-500 font-bold hover:underline">Supernet</NuxtLink>.
                         </p>
 
                         <p class="text-lg leading-8 text-gray-600">

@@ -29,7 +29,7 @@ const props = defineProps({
         </p>
 
         <p>
-            There are at least 2,048 (sharded) CCs deployed across the network to offer maximum scalability on the host's Supernet.
+            There are at least 2,048 (sharded) CCs deployed across the network to offer maximum scalability on the host's <NuxtLink to="https://nexa.wiki/supernet" target="_blank" class="text-blue-500 font-bold hover:underline">Supernet</NuxtLink>.
             Additional CCs may be deployed to meet the growing needs of the Host's network.
         </p>
 

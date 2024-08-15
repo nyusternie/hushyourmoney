@@ -29,7 +29,7 @@ const props = defineProps({
         </p>
 
         <p>
-            Not every UTXO network can/will offer Supernet capabilities.
+            Not every UTXO network can/will offer <NuxtLink to="https://nexa.wiki/supernet" target="_blank" class="text-blue-500 font-bold hover:underline">Supernet</NuxtLink> capabilities.
             As a fallback to Incognito Network (Nito), CashFusion offers a Pretty Good Privacy solution for its community of users.
         </p>
 

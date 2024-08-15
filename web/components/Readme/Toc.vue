@@ -30,7 +30,7 @@ const props = defineProps({
 
         <ol class="pl-10 list-disc leading-9 text-lg tracking-wide">
             <li>Introduction</li>
-            <li>Never Go FULL Privacy</li>
+            <li>You NEVER Go FULL Privacy</li>
             <li>(Transaction) Guardians</li>
             <li>Incognito Address Format</li>
             <li>Inscriptions: OP_DATA or OP_RETURN</li>
