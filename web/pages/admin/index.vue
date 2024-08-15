@@ -4,7 +4,7 @@ definePageMeta({
 })
 
 useHead({
-    title: `Admin — Hush Your Money`,
+    title: `Club Dashboard — Hush Your Money`,
     meta: [
         { name: 'description', content: `Hush Your Money makes spending safu.` }
     ],
@@ -28,7 +28,7 @@ const System = useSystemStore()
 <template>
     <main class="max-w-5xl mx-auto py-5 flex flex-col gap-4">
         <h1 class="text-5xl font-medium">
-            Admin Dashboard
+            Club Dashboard
         </h1>
 
         <p>

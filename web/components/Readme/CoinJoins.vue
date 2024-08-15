@@ -30,7 +30,7 @@ const props = defineProps({
 
         <p>
             Not every UTXO network can/will offer Supernet capabilities.
-            As a fallback to The Incognito Network (Nito), CashFusion offers a Pretty Good Privacy solution for its community of users.
+            As a fallback to Incognito Network (Nito), CashFusion offers a Pretty Good Privacy solution for its community of users.
         </p>
 
         <p>

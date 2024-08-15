@@ -47,6 +47,18 @@ console.log('CAMPAIGN ID', campaignid)
             </p>
         </section>
 
+        <section>
+            <p>
+                For every 6 $HUSH tokens airdropped:
+
+                <ol class="py-5 pl-10 list-disc">
+                    <li>Round 1 Sponsors will receive 3x $HUSH</li>
+                    <li>Round 2 Sponsors will receive 2x $HUSH</li>
+                    <li>Round 3 Sponsors will receive 1x $HUSH</li>
+                </ol>
+            </p>
+        </section>
+
         <p>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id eius voluptatem minus natus at eveniet dolorum eos mollitia, maxime animi excepturi harum omnis illum odit recusandae pariatur! Unde, explicabo molestias.
         </p>

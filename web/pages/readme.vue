@@ -32,7 +32,7 @@ const System = useSystemStore()
         </h1>
 
         <h3 class="-mt-12 px-10 text-4xl text-fuchsia-900 text-center tracking-widest font-light italic leading-[50px]">
-            tl;dr — a practical, drop-in privacy solution for UTXO-based networks
+            tl;dr — a practical, <span class="whitespace-nowrap">add-on</span> privacy solution for UTXO-based networks
         </h3>
 
         <section class="-mt-12 flex justify-center"><pre class="text-lg text-fuchsia-700 font-bold tracking-widest leading-8">
@@ -72,7 +72,7 @@ FUNCTION : Tokenized Assets + Smart Contracts
             </p>
 
             <p class="text-fuchsia-600 text-2xl text-center leading-[50px] font-bold italic">
-                The Incognito Network <span class="text-3xl text-fuchsia-700">(Nito)</span> is a cross-chain <span class="text-3xl text-fuchsia-700">Supernet</span> designed explicitly to meet the <span class="text-3xl text-fuchsia-700">&ldquo;everyday&rdquo;</span> privacy needs for <span class="text-3xl text-fuchsia-700">99%</span> of users.
+                Incognito Network <span class="text-3xl text-fuchsia-700">(Nito)</span> is a cross-chain <span class="text-3xl text-fuchsia-700">Supernet</span> designed explicitly to meet the <span class="text-3xl text-fuchsia-700">&ldquo;everyday&rdquo;</span> privacy needs for <span class="text-3xl text-fuchsia-700">99%</span> of users.
             </p>
 
             <p class="text-justify">
@@ -187,7 +187,7 @@ FUNCTION : Tokenized Assets + Smart Contracts
 
             <p>
                 Flux Cloud <span class="font-bold">(ticker: <NuxtLink to="https://coinmarketcap.com/currencies/zel/" target="_blank" class="text-blue-500 hover:underline">FLUX</NuxtLink>)</span> is the most decentralized and fastest growing network in the world.
-                Its peer-powered cloud computing network offers enterprise-level infrastructure for The Incognito Network's MOST demanding decentralized applications.
+                Its peer-powered cloud computing network offers enterprise-level infrastructure for Incognito Network's MOST demanding decentralized applications.
             </p>
 
             <p class="text-sm italic">
@@ -196,7 +196,7 @@ FUNCTION : Tokenized Assets + Smart Contracts
             </p>
 
             <p>
-                Although Flux Cloud will continue to offer users the MOST convenient gateway into The Incognito Network (Nito);
+                Although Flux Cloud will continue to offer users the MOST convenient gateway into Incognito Network (Nito);
                 the long-term solution is to encourage ALL clients to utilize <span class="text-base font-bold">Nexa's (PoW-secured) CAPD</span> communications network (at least as a fallback).
             </p>
         </section>

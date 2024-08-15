@@ -10,6 +10,30 @@ useHead({
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
+const lblPrevious = () => {
+    if (this.tabIndex === 1) {
+        return 'Identity'
+    }
+
+    if (this.tabIndex === 2) {
+        return 'Analysis'
+    }
+
+    return null
+}
+
+const lblNext = () => {
+    if (this.tabIndex === 0) {
+        return 'Analysis'
+    }
+
+    if (this.tabIndex === 1) {
+        return 'Shuffler'
+    }
+
+    return null
+}
+
 // onMounted(() => {
 //     console.log('Mounted!')
 //     // Now it's safe to perform setup operations.
@@ -19,6 +43,91 @@ const System = useSystemStore()
 //     console.log('Before Unmount!')
 //     // Now is the time to perform all cleanup operations.
 // })
+
+const next = () => {
+    switch(this.tabIndex) {
+    case 0:
+        return this.showAnalysis()
+    case 1:
+        return this.showShuffler()
+    }
+}
+
+const previous = () => {
+    switch(this.tabIndex) {
+    case 1:
+        return this.showIdentity()
+    case 2:
+        return this.showAnalysis()
+    }
+}
+
+const finish = () => {
+    this.toast(['Done!', 'You shuffle session is complete', 'success'])
+}
+
+const showOptions = () => {
+    this.toast(['Oops!', 'This feature is not ready yet', 'error'])
+
+    const coins = this.getCoins
+    console.log('COINS', coins)
+
+    this.updateCoins()
+}
+
+/**
+ * Show Identity
+ */
+const showIdentity = () => {
+    /* Set tab index. */
+    this.tabIndex = 0
+
+    /* Update progress. */
+    let move_distance = 100 / 3
+    move_distance = move_distance * this.tabIndex + move_distance / 2
+
+    /* Set progress bar width. */
+    this.pbWidth = `${move_distance}%`
+}
+
+/**
+ * Show Analysis
+ */
+const showAnalysis = () => {
+    // return this.previewNotice()
+
+    /* Set tab index. */
+    this.tabIndex = 1
+
+    /* Update progress. */
+    let move_distance = 100 / 3
+    move_distance = move_distance * this.tabIndex + move_distance / 2
+
+    /* Set progress bar width. */
+    this.pbWidth = `${move_distance}%`
+}
+
+/**
+ * Show Shuffler
+ */
+const showShuffler = () => {
+    // return this.previewNotice()
+
+    /* Validate master seed. */
+    if (!this.getMasterSeed) {
+        return this.toast(['Oops!', 'Please choose an Identity to use with Shuffler', 'error'])
+    }
+
+    /* Set tab index. */
+    this.tabIndex = 2
+
+    /* Update progress. */
+    let move_distance = 100 / 3
+    move_distance = move_distance * this.tabIndex + move_distance / 2
+
+    /* Set progress bar width. */
+    this.pbWidth = `${move_distance}%`
+}
 </script>
 
 <template>
