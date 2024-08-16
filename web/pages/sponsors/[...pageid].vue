@@ -62,5 +62,35 @@ console.log('CAMPAIGN ID', campaignid)
         <p>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id eius voluptatem minus natus at eveniet dolorum eos mollitia, maxime animi excepturi harum omnis illum odit recusandae pariatur! Unde, explicabo molestias.
         </p>
+
+        <section>
+            <h2>
+                Bitcoin Seekers Round 1
+            </h2>
+
+            <h3>
+                3FDveRn9A2cdqJqy7LDQu48crEfYLJhYDV
+            </h3>
+        </section>
+
+        <section>
+            <h2>
+                Bitcoin Cash Seekers Round 1
+            </h2>
+
+            <h3>
+                qzdyw35wslfrk6qjrcva2ujzkwv5a6ufl5uhg5xjkg
+            </h3>
+        </section>
+
+        <section>
+            <h2>
+                Nexa Seekers Round 1
+            </h2>
+
+            <h3>
+                nexa:XXX
+            </h3>
+        </section>
     </main>
 </template>

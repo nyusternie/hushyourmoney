@@ -12,7 +12,9 @@ useHead({
 
 /* Initialize stores. */
 import { useSystemStore } from '@/stores/system'
+import { useWalletStore } from '@/stores/wallet'
 const System = useSystemStore()
+const Wallet = useWalletStore()
 
 // onMounted(() => {
 //     console.log('Mounted!')
@@ -36,7 +38,12 @@ const System = useSystemStore()
         </p>
 
         <section class="py-10 flex justify-center">
-            <AdminAddWallet class="w-3/4" />
+            <Loading v-if="Wallet.isLoading" />
+
+            <WalletSetup v-else-if="!Wallet.isReady" class="w-3/4" />
+
+            <AdminChooseWallet v-else class="w-3/4" />
+
         </section>
     </main>
 </template>

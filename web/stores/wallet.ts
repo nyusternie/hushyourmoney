@@ -153,20 +153,44 @@ export const useWalletStore = defineStore('wallet', {
             console.info('Initializing wallet...')
 
             if (this._entropy === null) {
-                throw new Error('Missing wallet entropy.')
+                this._wallet = 'NEW' // FIXME TEMP NEW WALLET FLAG
+                // throw new Error('Missing wallet entropy.')
+                return console.error('Missing wallet entropy.')
             }
 
             /* Request a wallet instance (by mnemonic). */
             this._wallet = await Wallet.init(this._entropy, true)
-            console.log('(Initialized) wallet', this._wallet)
+            console.info('(Initialized) wallet', this.wallet)
+
+            // this._assets = { ...this.wallet.assets } // cloned assets
+
+            /* Set (default) asset. */
+            this.wallet.setAsset('0')
+
+            /* Handle balance updates. */
+            this.wallet.on('balances', async (_assets) => {
+                // console.log('Wallet Balances (onChanges):', _assets)
+
+                /* Close asset locally. */
+// FIXME Read ASSETS directly from library (getter).
+                this._assets = { ..._assets }
+            })
         },
 
+        /**
+         * Create Wallet
+         *
+         * Create a fresh wallet.
+         *
+         * @param _entropy A 32-byte (hex-encoded) random value.
+         */
         createWallet(_entropy) {
             /* Validate entropy. */
             // NOTE: Expect HEX value to be 32 or 64 characters.
-            if (_entropy.length !== 32 && _entropy.length !== 64) {
+            if (_entropy?.length !== 32 && _entropy?.length !== 64) {
                 console.error(_entropy, 'is NOT valid entropy.')
 
+                /* Clear (invalid) entropy. */
                 _entropy = null
             }
 

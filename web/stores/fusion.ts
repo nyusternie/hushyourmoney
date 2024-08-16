@@ -26,6 +26,36 @@ const MIN_TX_COMPONENTS = 11
 
 
 
+const TOR_PORTS = [9050, 9150]
+// # if more than <N> tor connections have been made recently (see covert.py) then don't start auto-fuses.
+const AUTOFUSE_RECENT_TOR_LIMIT_LOWER = 60
+// # if more than <N> tor connections have been made recently (see covert.py) then shut down auto-fuses that aren't yet started
+const AUTOFUSE_RECENT_TOR_LIMIT_UPPER = 120
+
+// # heuristic factor: guess that expected number of coins in wallet in equilibrium is = (this number) / fraction
+const COIN_FRACTION_FUDGE_FACTOR = 10
+// # for semi-linked addresses (that share txids in their history), allow linking them with this probability:
+const KEEP_LINKED_PROBABILITY = 0.1
+
+// # how long an auto-fusion may stay in 'waiting' state (without starting-soon) before it cancels itself
+const AUTOFUSE_INACTIVE_TIMEOUT = 600
+
+// # how many random coins to select max in 1 batch -- used by select_random_coins
+const DEFAULT_MAX_COINS = 20
+// assert DEFAULT_MAX_COINS > 10
+
+// # how many autofusions can be running per-wallet
+const MAX_AUTOFUSIONS_PER_WALLET = 10
+
+const CONSOLIDATE_MAX_OUTPUTS = MIN_TX_COMPONENTS // 3
+
+// # Threshold for proportion of total wallet value fused before stopping fusion. This avoids re-fusion due to dust.
+const FUSE_DEPTH_THRESHOLD = 0.999
+
+// # We don't allow a fuse depth beyond this in the wallet UI
+const MAX_LIMIT_FUSE_DEPTH = 10
+
+
 const Autofuse = False
 const AutofuseCoinbase = False
 const AutofuseConfirmedOnly = False
