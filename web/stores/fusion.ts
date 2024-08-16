@@ -41,6 +41,31 @@ const HUSH_OP_DATA_HEX = '48555348' // HUSH (as hex)
 const HUSH_DERIVATION_PATH = `m/44'/0'/1213551432'` // HUSH (as decimal)
 
 
+
+def size_of_input(pubkey):
+    # Sizes of inputs after signing:
+    #   32+8+1+1+[length of sig]+1+[length of pubkey]
+    #   == 141 for compressed pubkeys, 173 for uncompressed.
+    # (we use schnorr signatures, always)
+    assert 1 < len(pubkey) < 76  # need to assume regular push opcode
+    return 108 + len(pubkey)
+
+def size_of_output(scriptpubkey):
+    # == 34 for P2PKH, 32 for P2SH
+    assert len(scriptpubkey) < 253  # need to assume 1-byte varint
+    return 9 + len(scriptpubkey)
+
+def component_fee(size, feerate):
+    # feerate in sat/kB
+    # size and feerate should both be integer
+    # fee is always rounded up
+    return (size * feerate + 999) // 1000
+
+def dust_limit(lenscriptpubkey):
+    return 3*(lenscriptpubkey + 148)
+
+
+
 /**
  * Fusion Store
  */

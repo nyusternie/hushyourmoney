@@ -59,7 +59,7 @@ const isShowingProfileMenu = ref(false)
 
                     <!-- Sidebar component, swap this element with another sidebar if you like -->
                     <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 ring-1 ring-white/10">
-                        <NuxtLink to="/admin" class="flex h-16 shrink-0 items-center">
+                        <NuxtLink to="/" class="flex h-16 shrink-0 items-center">
                             <img class="h-12 w-auto" src="~/assets/icon.png" alt="Nexa Logo" />
                         </NuxtLink>
 
@@ -69,7 +69,7 @@ const isShowingProfileMenu = ref(false)
                                     <ul role="list" class="-mx-2 space-y-1">
                                         <li>
                                             <!-- Current: "bg-gray-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-gray-800" -->
-                                            <NuxtLink to="/admin" @click="isShowingMobileMenu = false" class="bg-gray-800 text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                            <NuxtLink to="/" @click="isShowingMobileMenu = false" class="bg-gray-800 text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
                                                 <svg class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                     <path
                                                         stroke-linecap="round"
@@ -156,7 +156,7 @@ const isShowingProfileMenu = ref(false)
         <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
             <!-- Sidebar component, swap this element with another sidebar if you like -->
             <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4">
-                <NuxtLink to="/admin" class="flex h-16 shrink-0 items-center">
+                <NuxtLink to="/" class="flex h-16 shrink-0 items-center">
                     <img class="h-12 w-auto" src="~/assets/icon.png" alt="Nexa Logo" />
                 </NuxtLink>
 
@@ -166,7 +166,7 @@ const isShowingProfileMenu = ref(false)
                             <ul role="list" class="-mx-2 space-y-1">
                                 <li>
                                     <!-- Current: "bg-gray-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-gray-800" -->
-                                    <NuxtLink to="/admin" class="bg-gray-800 text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                    <NuxtLink to="/" class="bg-gray-800 text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
                                         <svg class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                             <path
                                                 stroke-linecap="round"
