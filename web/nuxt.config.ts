@@ -81,7 +81,7 @@ export default defineNuxtConfig({
     // FIXME Polyfills (at least `assert`) are currently required to support
     //       `@psf/bch-js` node dependencies.
     vite: {
-        plugins: [nodePolyfills()],
+        plugins: [ nodePolyfills() ],
     },
 
     /* Set compatibility date. */
