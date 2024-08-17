@@ -140,6 +140,10 @@ export const useWalletStore = defineStore('wallet', {
 
         /* Return mnemonic. */
         mnemonic(_state) {
+            if (!_state._wallet) {
+                return null
+            }
+
             return _state._wallet._mnemonic
         },
     },

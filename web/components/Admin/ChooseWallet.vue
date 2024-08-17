@@ -6,6 +6,10 @@ const props = defineProps({
     cashAddress: String,
 })
 
+const clearWallet = () => {
+
+}
+
 // onMounted(() => {
 //     console.log('Mounted!')
 //     // Now it's safe to perform setup operations.
@@ -43,6 +47,10 @@ const props = defineProps({
             <h3>
                 Unconfirmed: {{balances.unconfirmed}}
             </h3>
+
+            <button @click="clearWallet">
+                Clear wallet
+            </button>
 
         </section>
 
