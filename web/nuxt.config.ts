@@ -16,6 +16,9 @@ export default defineNuxtConfig({
             link: [
                 { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
             ],
+            script: [
+                { src: '/js/polyfills.js' },
+            ],
         },
     },
 
@@ -78,8 +81,7 @@ export default defineNuxtConfig({
         },
     },
 
-    // FIXME Polyfills (at least `assert`) are currently required to support
-    //       `@psf/bch-js` node dependencies.
+    // FIXME Polyfills to support `@psf/bch-js` node dependencies.
     vite: {
         plugins: [ nodePolyfills() ],
     },
