@@ -97,7 +97,14 @@ FUNCTION : Tokenized Assets + Smart Contracts
 
             <p>
                 Guardians are a managed set of approx. 1,024 "Community UTXOs".
-                Guardians are <NuxtLink to="https://nexa.sh/contracts" target="_blank" class="text-blue-500 font-bold hover:underline">Wise Contracts</NuxtLink> that protect your privacy during the transaction process by masking:
+                Guardians are
+                <NuxtLink to="https://nexa.sh/contracts" target="_blank" class="text-blue-500 font-bold hover:underline">
+                    Wise Contracts
+
+                    <svg class="inline h-5 w-auto" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
+                    </svg>
+                </NuxtLink> that protect your privacy during the transaction process by masking:
 
                 <ul class="py-3 pl-10 list-disc">
                     <li>the Sender</li>
@@ -180,7 +187,14 @@ FUNCTION : Tokenized Assets + Smart Contracts
             </h2>
 
             <p>
-                Flux Cloud <span class="font-bold">(ticker: <NuxtLink to="https://coinmarketcap.com/currencies/zel/" target="_blank" class="text-blue-500 hover:underline">FLUX</NuxtLink>)</span> is the most decentralized and fastest growing network in the world.
+                Flux Cloud <span class="font-bold">(ticker:
+                    <NuxtLink to="https://coinmarketcap.com/currencies/zel/" target="_blank" class="text-blue-500 hover:underline">
+                        FLUX
+
+                        <svg class="inline h-5 w-auto" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
+                        </svg>
+                    </NuxtLink>)</span> is the most decentralized and fastest growing network in the world.
                 Its peer-powered cloud computing network offers enterprise-level infrastructure for Incognito Network's MOST demanding decentralized applications.
             </p>
 
@@ -202,6 +216,10 @@ FUNCTION : Tokenized Assets + Smart Contracts
 
             <NuxtLink to="https://spec.nexa.org/network/capd/" target="_blank" class="text-lg text-blue-500 hover:underline font-bold">
                 https://spec.nexa.org/network/capd/
+
+                <svg class="inline h-5 w-auto" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
+                </svg>
             </NuxtLink>
 
             <p>
