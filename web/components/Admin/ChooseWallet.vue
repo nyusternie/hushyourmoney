@@ -2,9 +2,8 @@
 /* Define properties. */
 // https://vuejs.org/guide/components/props.html#props-declaration
 const props = defineProps({
-    data: {
-        type: [Object],
-    },
+    balances: Object,
+    cashAddress: String,
 })
 
 // onMounted(() => {
@@ -28,6 +27,24 @@ const props = defineProps({
             You haven’t created a Wallet yet.
             Get started by selecting a template or start from an empty project.
         </p>
+
+        <section>
+            <h2>
+                Cash Address
+            </h2>
+
+            <h3>
+                {{cashAddress}}
+            </h3>
+
+            <h3>
+                Confirmed: {{balances.confirmed}}
+            </h3>
+            <h3>
+                Unconfirmed: {{balances.unconfirmed}}
+            </h3>
+
+        </section>
 
         <ul role="list" class="mt-6 grid grid-cols-1 gap-6 border-b border-t border-gray-200 py-6 sm:grid-cols-2">
             <li class="flow-root">

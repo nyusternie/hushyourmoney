@@ -16,7 +16,7 @@
     "@pinia/nuxt": "0.4.7",
     "@psf/bch-js": "6.7.4",
     "bitcoinjs-lib": "6.1.6",
-    "nexajs": "24.7.20",
+    "nexajs": "24.8.15",
     "nuxt": "3.12.4",
     "pinia": "2.0.32",
     "qrcode": "1.5.3",
@@ -27,6 +27,7 @@
     "@kevinmarrec/nuxt-pwa": "0.17.0",
     "@nuxtjs/i18n": "8.0.0-rc.2",
     "@nuxtjs/plausible": "1.0.0",
-    "@nuxtjs/tailwindcss": "6.4.1"
+    "@nuxtjs/tailwindcss": "6.4.1",
+    "vite-plugin-node-polyfills": "0.22.0"
   }
 }

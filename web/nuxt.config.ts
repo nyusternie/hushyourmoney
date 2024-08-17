@@ -1,3 +1,6 @@
+/* Import modules. */
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     /* Application Settings */
@@ -67,6 +70,18 @@ export default defineNuxtConfig({
         /* Add CORS headers to root. */
         // NOTE: We need this to make <token>.json available to web apps.
         '/**': { cors: true },
+    },
+
+    runtimeConfig: {
+        public: {
+            PSF_JWT_AUTH_TOKEN: process.env.PSF_JWT_AUTH_TOKEN,
+        },
+    },
+
+    // FIXME Polyfills (at least `assert`) are currently required to support
+    //       `@psf/bch-js` node dependencies.
+    vite: {
+        plugins: [nodePolyfills()],
     },
 
     /* Set compatibility date. */

@@ -138,6 +138,10 @@ export const useWalletStore = defineStore('wallet', {
             return _state.wallet?._balances
         },
 
+        /* Return mnemonic. */
+        mnemonic(_state) {
+            return _state._wallet._mnemonic
+        },
     },
 
     actions: {

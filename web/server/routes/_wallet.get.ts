@@ -5,8 +5,16 @@ import BCHJS from '@psf/bch-js'
 // REST API servers.
 const BCHN_MAINNET = 'https://bchn.fullstack.cash/v5/'
 
+const runtimeConfig = useRuntimeConfig()
+const jwtAuthToken = runtimeConfig.public.PSF_JWT_AUTH_TOKEN
+// console.log('jwtAuthToken', jwtAuthToken)
+
 // Instantiate bch-js based on the network.
-const bchjs = new BCHJS({ restURL: BCHN_MAINNET })
+// FIXME https://github.com/Permissionless-Software-Foundation/jwt-bch-demo/blob/master/lib/fullstack-jwt.js
+const bchjs = new BCHJS({
+    restURL: BCHN_MAINNET,
+    apiToken: jwtAuthToken,
+})
 // console.log('bchjs', bchjs)
 
 /* Initialize Wallet (instance) */
@@ -104,8 +112,8 @@ const init = async () => {
     // console.log('WALLET', wallet)
 }
 
-init()
-createWallets()
+// init()
+// createWallets()
 
 export default defineEventHandler((event) => {
     /* Set project mnemonic. */

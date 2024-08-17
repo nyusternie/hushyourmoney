@@ -144,6 +144,36 @@ export const useFusionStore = defineStore('fusion', {
             return session
         },
 
+        async run() {
+            // # Version check and download server params.
+            self.greet()
+
+            server_connected_and_greeted = True
+            self.notify_server_status(True)
+
+            # In principle we can hook a pause in here -- user can insert coins after seeing server params.
+
+            if not self.coins:
+                raise FusionError('Started with no coins')
+            self.allocate_outputs()
+
+            # In principle we can hook a pause in here -- user can tweak tier_outputs, perhaps cancelling some unwanted tiers.
+
+            # Register for tiers, wait for a pool.
+            self.register_and_wait()
+
+            # launch the covert submitter
+            covert = self.start_covert()
+            try:
+                # Pool started. Keep running rounds until fail or complete.
+                while True:
+                    self.roundcount += 1
+                    if self.run_round(covert):
+                        break
+            finally:
+                covert.stop()
+        }
+
         deleteFusion() {
             /* Set session. */
             this._setFusion(null)
