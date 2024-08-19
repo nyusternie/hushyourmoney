@@ -1,5 +1,5 @@
-/* Initialize pools list. */
-const pools = []
+/* Initialize tiers list. */
+const tiers = []
 
 const guests_nexa_00000001 = [
     {
@@ -10,7 +10,7 @@ const guests_nexa_00000001 = [
 ]
 
 /* Add Club Flux. */
-pools.push({
+tiers.push({
     id: 'nexa.00000001',
     guests: guests_nexa_00000001,
     createdAt: 1723245503,
@@ -18,7 +18,7 @@ pools.push({
 })
 
 /* Add Club DePIN. */
-pools.push({
+tiers.push({
     id: '4eff6293-60e9-4a5a-83de-4b91da1f7de4',
     name: 'DePIN Lounge',
     address: 'hushyourmoney.tbd',
@@ -35,6 +35,6 @@ export default defineEventHandler((event) => {
     //     mnemonic,
     // }
 
-    /* Return pools list. */
-    return pools
+    /* Return tiers list. */
+    return tiers
 })

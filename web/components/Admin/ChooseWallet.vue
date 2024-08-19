@@ -10,6 +10,10 @@ const clearWallet = () => {
 
 }
 
+const start = () => {
+
+}
+
 // onMounted(() => {
 //     console.log('Mounted!')
 //     // Now it's safe to perform setup operations.
@@ -42,14 +46,18 @@ const clearWallet = () => {
             </h3>
 
             <h3>
-                Confirmed: {{balances.confirmed}}
+                Confirmed: {{balances?.confirmed}}
             </h3>
             <h3>
-                Unconfirmed: {{balances.unconfirmed}}
+                Unconfirmed: {{balances?.unconfirmed}}
             </h3>
 
             <button @click="clearWallet">
                 Clear wallet
+            </button>
+
+            <button @click="start">
+                Start
             </button>
 
         </section>

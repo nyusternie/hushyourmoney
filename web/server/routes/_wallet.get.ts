@@ -112,7 +112,7 @@ const init = async () => {
     // console.log('WALLET', wallet)
 }
 
-// init()
+init()
 // createWallets()
 
 export default defineEventHandler((event) => {
@@ -140,6 +140,9 @@ export default defineEventHandler((event) => {
         bobObj,
         samObj,
     }
+
+    /* Sanitize private details. */
+    delete walletPkg.mnemonic
 
     /* Return wallet details. */
     return walletPkg
