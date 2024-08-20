@@ -4,13 +4,14 @@ export default defineEventHandler(async (event) => {
 
     /* Set database. */
     const Db = event.context.Db
+    // console.log('DB', Db)
 
+    /* Set profiles. */
     profiles = Db.profiles
-    console.log('PROFILES', profiles)
 
     /* Validate profiles. */
-    if (typeof profiles === 'undefined' || !profiles) {
-        profiles = []
+    if (typeof profiles === 'undefined' || profiles === null) {
+        profiles = {}
     }
 
     /* Return profiles. */

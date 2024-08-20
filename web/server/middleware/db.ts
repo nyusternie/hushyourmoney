@@ -16,23 +16,23 @@ let systemDb
 /**
  * CashFusions Datastore
  *
- * An array of fusion details.
+ * An collection of fusion details.
  */
-fusionsDb = []
+fusionsDb = {}
 
 /**
  * Profiles Datastore
  *
- * An array of profiles (public keys).
+ * An collection of profiles (public keys).
  */
-profilesDb = []
+profilesDb = {}
 
 /**
  * Sessions Datastore
  *
- * An array of sessions.
+ * An collection of sessions.
  */
-sessionsDb = []
+sessionsDb = {}
 
 /**
  * System Datastore
@@ -76,7 +76,7 @@ const put = async (_dbname, _key, _value) => {
 
         response = await put('system', 'status', status)
             .catch(err => console.error(err))
-        console.log('RESPONSE (system)', response)
+        // console.log('RESPONSE (system)', response)
     } else {
         /* Set status. */
         status = systemDb.status
@@ -87,10 +87,10 @@ const put = async (_dbname, _key, _value) => {
         /* Save data to store. */
         response = await put('system', 'status', status)
             .catch(err => console.error(err))
-        console.log('RESPONSE (status)', response)
+        // console.log('RESPONSE (status)', response)
     }
 
-    console.log('SYSTEM (DB) STATUS', systemDb.status)
+    // console.log('SYSTEM (DB) STATUS', systemDb.status)
 })()
 
 export default defineEventHandler((event) => {

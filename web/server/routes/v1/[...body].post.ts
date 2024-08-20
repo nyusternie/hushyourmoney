@@ -1,11 +1,15 @@
 /* Import modules. */
 import moment from 'moment'
 
-import { useProfileStore } from '@/stores/profile'
+// import { useProfileStore } from '@/stores/profile'
 
 export default defineEventHandler(async (event) => {
     /* Initialize database store. */
-    const Profile = useProfileStore()
+    // const Profile = useProfileStore()
+
+    /* Set database. */
+    const Db = event.context.Db
+    console.log('DB', Db)
 
     /* Set (request) body. */
     const body = await readBody(event)
@@ -32,10 +36,8 @@ export default defineEventHandler(async (event) => {
     // FIXME Validate authid
 
     /* Request session. */
-    profile = await Profile.db
-        .get(authid)
-        .catch(err => console.error(err))
-    // console.log('PROFILE', profile)
+    profile = Db.profiles[authid]
+    console.log('PROFILE', profile)
 
     /* Validate profile id. */
     if (typeof profile === 'undefined' || profile === null) {
@@ -52,19 +54,15 @@ export default defineEventHandler(async (event) => {
         }
 
         /* Request session. */
-        response = await Profile.db
-            .put(profile)
-            .catch(err => console.error(err))
-        // console.log('SAVE NEW PROFILE', response)
+        response = await Db.put('profiles', authid, profile)
+        console.log('SAVE NEW PROFILE', response)
     } else {
         /* Build profile package. */
         profile.updatedAt = moment().unix()
 
         /* Request session. */
-        response = await Profile.db
-            .put(profile)
-            .catch(err => console.error(err))
-        // console.log('UPDATE PROFILE', response)
+        response = await Db.put('profiles', authid, profile)
+        console.log('UPDATE PROFILE', response)
     }
 
     /* Return profile. */

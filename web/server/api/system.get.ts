@@ -1,11 +1,4 @@
-/* Import modules. */
-import moment from 'moment'
-
 export default defineEventHandler(async (event) => {
-    /* Initialize locals. */
-    let response
-    let status
-
     /* Set database. */
     const Db = event.context.Db
 

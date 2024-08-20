@@ -17,6 +17,7 @@ useHead({
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
+const profiles = ref(null)
 const status = ref(null)
 const system = ref(null)
 
@@ -44,6 +45,11 @@ const init = async () => {
 
     /* Set (system) status. */
     status.value = system.value.status
+
+    /* Request profiles. */
+    profiles.value = await $fetch('/api/profiles')
+        .catch(err => console.error(err))
+    // console.log('PROFILES', profiles.value)
 }
 
 onMounted(() => {
@@ -81,5 +87,6 @@ onMounted(() => {
         </section>
 
         <pre class="text-xs">{{system}}</pre>
+        <pre class="text-xs">{{profiles}}</pre>
     </main>
 </template>

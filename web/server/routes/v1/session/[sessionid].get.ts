@@ -1,29 +1,25 @@
-/* Import modules. */
-import moment from 'moment'
-
-import { useSystemStore } from '@/stores/system'
-
 export default defineEventHandler(async (event) => {
-    /* Initialize database store. */
-    const System = useSystemStore()
+    /* Initialize locals. */
+    let session
+
+    /* Set database. */
+    const Db = event.context.Db
+    console.log('DB', Db)
 
     /* Set session. */
     const sessionid = event.context.params.sessionid
     console.log('SESSION ID', sessionid)
 
-    // FIXME Validate session id.
+    /* Set session. */
+    session = Db.sessions[sessionid]
 
-    const response = await System.sessions
-        .get(sessionid)
-        .catch(err => console.error(err))
-    console.log('RESPONSE', response)
+    /* Validate session. */
+    if (typeof session === 'undefined' || session === null) {
+        setResponseStatus(event, 404)
 
-    /* Initialize status. */
-    const status = {}
+        return `Sorry, session [ ${sessionid} ] COULD NOT be found.`
+    }
 
-    /* Set (session) ID. */
-    status.id = sessionid
-
-    /* Return status. */
-    return status
+    /* Return session. */
+    return session
 })
