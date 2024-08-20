@@ -1,6 +1,6 @@
 /* Import modules. */
 import { defineStore } from 'pinia'
-
+// import Db from './libs/db.ts'
 
 // used for tagging fusions in a way privately derived from wallet name
 const tag_seed = secrets.token_bytes(16)
@@ -123,6 +123,10 @@ export const useFusionStore = defineStore('fusion', {
         apiKey(_state) {
             return (_exchangeid) => _state._apiKeys[_exchangeid] || null
         },
+
+        // db() {
+        //     return Db.fusions
+        // },
     },
 
     actions: {

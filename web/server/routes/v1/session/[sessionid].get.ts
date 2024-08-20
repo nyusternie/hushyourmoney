@@ -1,30 +1,19 @@
 /* Import modules. */
-import fs from 'fs'
 import moment from 'moment'
-import PouchDB from 'pouchdb'
 
-/* Set data directory path. */
-const dataDir = './data'
-
-/* Verify directory exists. */
-if (!fs.existsSync(dataDir)) {
-    /* Create new directory (on local filesystem). */
-    fs.mkdirSync(dataDir)
-    console.info('The data directory [ ./data ] has been successfully created!')
-}
-
-/* Initialize databases. */
-const profilesDb = new PouchDB('./data/profiles')
-const sessionsDb = new PouchDB('./data/sessions')
+import { useSystemStore } from '@/stores/system'
 
 export default defineEventHandler(async (event) => {
+    /* Initialize database store. */
+    const System = useSystemStore()
+
     /* Set session. */
     const sessionid = event.context.params.sessionid
     console.log('SESSION ID', sessionid)
 
     // FIXME Validate session id.
 
-    const response = await sessionsDb
+    const response = await System.sessions
         .get(sessionid)
         .catch(err => console.error(err))
     console.log('RESPONSE', response)

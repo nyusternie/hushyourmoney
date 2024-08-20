@@ -1,23 +1,10 @@
 /* Import modules. */
 import { defineStore } from 'pinia'
-import fs from 'fs'
+// import Db from './libs/db.ts'
 import PouchDB from 'pouchdb'
 
-/* Set data directory path. */
-const dataDir = './data'
-
-/* Verify directory exists. */
-if (!fs.existsSync(dataDir)) {
-    /* Create new directory (on local filesystem). */
-    fs.mkdirSync(dataDir)
-    console.info('The data directory [ ./data ] has been successfully created!')
-}
-
-/* Initialize databases. */
 const systemDb = new PouchDB('./data/system')
-
-/* Import clipboard manager. */
-import './system/clipboard.ts'
+const sessionsDb = new PouchDB('./data/sessions')
 
 /* Initialize constants. */
 const UPDATE_TICKER_INTERVAL = 30000 // 30 seconds
@@ -102,6 +89,14 @@ export const useSystemStore = defineStore('system', {
             }
 
             return this._locale
+        },
+
+        db() {
+            return systemDb
+        },
+
+        sessionsDb() {
+            return sessionsDb
         },
     },
 

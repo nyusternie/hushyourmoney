@@ -1,15 +1,20 @@
 /* Import modules. */
 import { defineStore } from 'pinia'
+// import Db from './libs/db.ts'
+import PouchDB from 'pouchdb'
+
+const profilesDb = new PouchDB('./data/profiles')
+
 
 /**
  * Profile Store
  */
 export const useProfileStore = defineStore('profile', {
     state: () => ({
-            /* Initialize session. */
-            _session: null,
+        /* Initialize session. */
+        _session: null,
 
-            _apiKeys: {},
+        _apiKeys: {},
     }),
 
     getters: {
@@ -27,6 +32,10 @@ export const useProfileStore = defineStore('profile', {
 
         apiKey(_state) {
             return (_exchangeid) => _state._apiKeys[_exchangeid] || null
+        },
+
+        db() {
+            return dbProfiles
         },
     },
 

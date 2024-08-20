@@ -1,6 +1,6 @@
 {
   "name": "hushyourmoney",
-  "version": "24.8.19",
+  "version": "24.8.20",
   "license": "MIT",
   "description": "Spend Privately. Fearlessly!",
   "author": "Shomari <nyusternie@protonmail.com>",
@@ -21,7 +21,6 @@
     "numeral": "2.0.6",
     "nuxt": "3.12.4",
     "pinia": "2.0.32",
-    "pouchdb": "9.0.0",
     "qr-scanner": "1.4.2",
     "qrcode": "1.5.4",
     "scrypt-js": "3.0.1",

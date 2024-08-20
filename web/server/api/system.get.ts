@@ -1,72 +1,39 @@
 /* Import modules. */
-import fs from 'fs'
 import moment from 'moment'
-import PouchDB from 'pouchdb'
-
-/* Set data directory path. */
-const dataDir = './data'
-
-/* Verify directory exists. */
-if (!fs.existsSync(dataDir)) {
-    /* Create new directory (on local filesystem). */
-    fs.mkdirSync(dataDir)
-    console.info('The data directory [ ./data ] has been successfully created!')
-}
-
-/* Initialize databases. */
-const systemDb = new PouchDB('./data/system')
+import Db from '@/stores/libs/db.ts'
 
 export default defineEventHandler(async (event) => {
     /* Initialize locals. */
     let response
     let status
-    let system
-
-    system = await systemDb
-        .allDocs({
-            include_docs: true,
-        })
-        .catch(err => console.error(err))
-    console.log('SYSTEM', system)
-
+console.log('Db.system', Db.system)
     /* Validate system. */
-    if (typeof system === 'undefined' || !system) {
+    if (typeof Db.system === 'undefined' || !Db.system) {
         return 'System fail!'
     }
 
-    if (system.rows.length === 0) {
-        system = {
-            _id: 'status',
+    /* Validate data. */
+    if (Object.keys(Db.system).length === 0) {
+        status = {
             createdAt: moment().unix(),
             updatedAt: moment().unix(),
-        }
+        },
 
-        response = await systemDb
-            .put(system)
+        response = await Db
+            .put('system', 'status', status)
             .catch(err => console.error(err))
-        console.log('RESPONSE (system)', response)
+        // console.log('RESPONSE (system)', response)
     } else {
-        status = system.rows.find(_system => {
-            return _system.id === 'status'
-        })
-
-        status = status.doc
-
-        console.log('FOUND STATUS', status)
+        status = Db.system.status
 
         status.updatedAt = moment().unix()
 
-        response = await systemDb
-            .put(status)
+        response = await Db
+            .put('system', 'status', status)
             .catch(err => console.error(err))
-        console.log('RESPONSE (status)', response)
+        // console.log('RESPONSE (status)', response)
     }
 
-    /* Handle system. */
-    system = system.rows.map(_system => {
-        return _system.doc
-    })
-
-    /* Return system. */
-    return system
+    /* Return (database) system. */
+    return Db.system
 })
