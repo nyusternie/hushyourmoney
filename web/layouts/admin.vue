@@ -144,7 +144,7 @@ onBeforeUnmount(() => {
                                     <ul role="list" class="-mx-2 space-y-1">
                                         <li>
                                             <!-- Current: "bg-gray-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-gray-800" -->
-                                            <NuxtLink to="/" @click="isShowingMobileMenu = false" class="bg-gray-800 text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                            <NuxtLink to="/admin" @click="isShowingMobileMenu = false" class="bg-gray-800 text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
                                                 <svg class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                     <path
                                                         stroke-linecap="round"
@@ -241,7 +241,7 @@ onBeforeUnmount(() => {
                             <ul role="list" class="-mx-2 space-y-1">
                                 <li>
                                     <!-- Current: "bg-gray-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-gray-800" -->
-                                    <NuxtLink to="/" class="bg-gray-800 text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                    <NuxtLink to="/admin" class="bg-gray-800 text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
                                         <svg class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                             <path
                                                 stroke-linecap="round"
