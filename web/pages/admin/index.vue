@@ -40,12 +40,10 @@ const init = async () => {
     /* Request system (status). */
     system.value = await $fetch('/api/system')
         .catch(err => console.error(err))
-    console.log('SYSTEM', system.value)
+    // console.log('SYSTEM', system.value)
 
-    /* Find (system) status. */
-    status.value = system.value.find(_system => {
-        return _system._id === 'status'
-    })
+    /* Set (system) status. */
+    status.value = system.value.status
 }
 
 onMounted(() => {
