@@ -1,5 +1,9 @@
 /* Import modules. */
 import { defineStore } from 'pinia'
+import PouchDB from 'pouchdb'
+
+/* Initialize databases. */
+const systemDb = new PouchDB('./data/system')
 
 /* Import clipboard manager. */
 import './system/clipboard.ts'
@@ -96,7 +100,7 @@ export const useSystemStore = defineStore('system', {
          *
          * Performs startup activities.
          */
-        init() {
+        async init() {
             this._appStarts++
 
             /* Validate tickers. */
@@ -122,6 +126,11 @@ export const useSystemStore = defineStore('system', {
 
             /* Set (library) locale. */
             // locale.value = this.locale
+
+            const status = await systemDb
+                .allDocs()
+                .catch(err => console.error(err))
+            console.log('SYSTEM (DB) STATUS', status)
         },
 
         async updateTicker () {

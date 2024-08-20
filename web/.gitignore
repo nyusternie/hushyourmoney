@@ -219,3 +219,5 @@ $RECYCLE.BIN/
 
 # ignore the service worker file
 sw.*
+
+data/
