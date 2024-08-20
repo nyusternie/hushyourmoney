@@ -123,7 +123,35 @@ onMounted(() => {
         <div class="grid grid-cols-2 gap-6">
             <section class="w-full px-5 py-3 flex flex-col gap-0 bg-amber-100 border-2 border-amber-300 rounded-2xl shadow">
                 <h2 class="text-amber-500 text-base font-bold tracking-widest uppercase">
+                    {{numProfiles * 2}} Fusions??
+                </h2>
+
+                <h3 class="text-amber-700 text-2xl font-medium tracking-widest">
+                    {{lastProfileUpdate}}
+                </h3>
+
+                <h3 class="text-amber-700 text-base text-right font-medium tracking-widest">
+                    {{displayProfileTimeAgo}}
+                </h3>
+            </section>
+
+            <section class="w-full px-5 py-3 flex flex-col gap-0 bg-amber-100 border-2 border-amber-300 rounded-2xl shadow">
+                <h2 class="text-amber-500 text-base font-bold tracking-widest uppercase">
                     {{numProfiles}} Profiles
+                </h2>
+
+                <h3 class="text-amber-700 text-2xl font-medium tracking-widest">
+                    {{lastProfileUpdate}}
+                </h3>
+
+                <h3 class="text-amber-700 text-base text-right font-medium tracking-widest">
+                    {{displayProfileTimeAgo}}
+                </h3>
+            </section>
+
+            <section class="w-full px-5 py-3 flex flex-col gap-0 bg-amber-100 border-2 border-amber-300 rounded-2xl shadow">
+                <h2 class="text-amber-500 text-base font-bold tracking-widest uppercase">
+                    {{Math.ceil(numProfiles * 3.33)}} Sessions??
                 </h2>
 
                 <h3 class="text-amber-700 text-2xl font-medium tracking-widest">
