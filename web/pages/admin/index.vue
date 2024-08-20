@@ -37,6 +37,54 @@ const displayTimeAgo = computed(() => {
     return moment.unix(status.value.createdAt).fromNow()
 })
 
+const numProfiles = computed(() => {
+    if (!profiles.value) {
+        return 'loading...'
+    }
+
+    return Object.keys(profiles.value).length
+})
+
+const lastProfileUpdate = computed(() => {
+    if (!profiles.value) {
+        return 'loading...'
+    }
+
+    const times = []
+    Object.keys(profiles.value).forEach(_profileid => {
+        const profile = profiles.value[_profileid]
+        const time = profile.updatedAt
+        console.log('UPDATE TIME', time)
+        times.push(time)
+    })
+
+    const sorted = times.sort((a, b) => {
+        return b - a
+    })
+
+    return moment.unix(sorted[0]).format('llll')
+})
+
+const displayProfileTimeAgo = computed(() => {
+    if (!profiles.value) {
+        return 'loading...'
+    }
+
+    const times = []
+    Object.keys(profiles.value).forEach(_profileid => {
+        const profile = profiles.value[_profileid]
+        const time = profile.updatedAt
+        console.log('UPDATE TIME', time)
+        times.push(time)
+    })
+
+    const sorted = times.sort((a, b) => {
+        return b - a
+    })
+
+    return moment.unix(sorted[0]).fromNow()
+})
+
 const init = async () => {
     /* Request system (status). */
     system.value = await $fetch('/api/system')
@@ -72,19 +120,35 @@ onMounted(() => {
             Welcome to the Hush Your Money Administration Area.
         </p>
 
-        <section class="w-fit px-5 py-3 flex flex-col gap-0 bg-amber-100 border-2 border-amber-300 rounded-2xl shadow">
-            <h2 class="text-amber-500 text-base font-bold tracking-widest uppercase">
-                Club Creation
-            </h2>
+        <div class="grid grid-cols-2 gap-6">
+            <section class="w-full px-5 py-3 flex flex-col gap-0 bg-amber-100 border-2 border-amber-300 rounded-2xl shadow">
+                <h2 class="text-amber-500 text-base font-bold tracking-widest uppercase">
+                    {{numProfiles}} Profiles
+                </h2>
 
-            <h3 class="text-amber-700 text-2xl font-medium tracking-widest">
-                {{displayCreatedAt}}
-            </h3>
+                <h3 class="text-amber-700 text-2xl font-medium tracking-widest">
+                    {{lastProfileUpdate}}
+                </h3>
 
-            <h3 class="text-amber-700 text-base text-right font-medium tracking-widest">
-                {{displayTimeAgo}}
-            </h3>
-        </section>
+                <h3 class="text-amber-700 text-base text-right font-medium tracking-widest">
+                    {{displayProfileTimeAgo}}
+                </h3>
+            </section>
+
+            <section class="w-full px-5 py-3 flex flex-col gap-0 bg-amber-100 border-2 border-amber-300 rounded-2xl shadow">
+                <h2 class="text-amber-500 text-base font-bold tracking-widest uppercase">
+                    Last Club Startup
+                </h2>
+
+                <h3 class="text-amber-700 text-2xl font-medium tracking-widest">
+                    {{displayCreatedAt}}
+                </h3>
+
+                <h3 class="text-amber-700 text-base text-right font-medium tracking-widest">
+                    {{displayTimeAgo}}
+                </h3>
+            </section>
+        </div>
 
         <pre class="text-xs">{{system}}</pre>
         <pre class="text-xs">{{profiles}}</pre>
