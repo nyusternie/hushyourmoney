@@ -1,6 +1,17 @@
 /* Import modules. */
+import fs from 'fs'
 import moment from 'moment'
 import PouchDB from 'pouchdb'
+
+/* Set data directory path. */
+const dataDir = './data'
+
+/* Verify directory exists. */
+if (!fs.existsSync(dataDir)) {
+    /* Create new directory (on local filesystem). */
+    fs.mkdirSync(dataDir)
+    console.info('The data directory [ ./data ] has been successfully created!')
+}
 
 /* Initialize databases. */
 const profilesDb = new PouchDB('./data/profiles')

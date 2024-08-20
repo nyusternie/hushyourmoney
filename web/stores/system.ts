@@ -1,6 +1,17 @@
 /* Import modules. */
 import { defineStore } from 'pinia'
+import fs from 'fs'
 import PouchDB from 'pouchdb'
+
+/* Set data directory path. */
+const dataDir = './data'
+
+/* Verify directory exists. */
+if (!fs.existsSync(dataDir)) {
+    /* Create new directory (on local filesystem). */
+    fs.mkdirSync(dataDir)
+    console.info('The data directory [ ./data ] has been successfully created!')
+}
 
 /* Initialize databases. */
 const systemDb = new PouchDB('./data/system')
