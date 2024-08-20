@@ -1,6 +1,5 @@
 /* Import modules. */
 import { defineStore } from 'pinia'
-// import Db from './libs/db.ts'
 
 // used for tagging fusions in a way privately derived from wallet name
 const tag_seed = secrets.token_bytes(16)

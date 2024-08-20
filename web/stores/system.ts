@@ -1,10 +1,5 @@
 /* Import modules. */
 import { defineStore } from 'pinia'
-// import Db from './libs/db.ts'
-import PouchDB from 'pouchdb'
-
-const systemDb = new PouchDB('./data/system')
-const sessionsDb = new PouchDB('./data/sessions')
 
 /* Initialize constants. */
 const UPDATE_TICKER_INTERVAL = 30000 // 30 seconds
@@ -90,14 +85,6 @@ export const useSystemStore = defineStore('system', {
 
             return this._locale
         },
-
-        db() {
-            return systemDb
-        },
-
-        sessionsDb() {
-            return sessionsDb
-        },
     },
 
     actions: {
@@ -107,6 +94,10 @@ export const useSystemStore = defineStore('system', {
          * Performs startup activities.
          */
         async init() {
+            /* Initialize locals. */
+            let status
+
+            /* Increment application starts. */
             this._appStarts++
 
             /* Validate tickers. */
@@ -132,11 +123,6 @@ export const useSystemStore = defineStore('system', {
 
             /* Set (library) locale. */
             // locale.value = this.locale
-
-            const status = await systemDb
-                .allDocs()
-                .catch(err => console.error(err))
-            console.log('SYSTEM (DB) STATUS', status)
         },
 
         async updateTicker () {
