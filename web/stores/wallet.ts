@@ -146,6 +146,15 @@ export const useWalletStore = defineStore('wallet', {
 
             return _state._wallet._mnemonic
         },
+
+        /* Return wif. */
+        wif(_state) {
+            if (!_state._wallet) {
+                return null
+            }
+
+            return _state._wallet.wif
+        },
     },
 
     actions: {

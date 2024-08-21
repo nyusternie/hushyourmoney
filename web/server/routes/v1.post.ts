@@ -37,12 +37,12 @@ export default defineEventHandler(async (event) => {
     const sessionid = body.sessionid
     // console.log('SESSION ID', sessionid)
 
+    const rawTx = body.rawTx
+    // console.log('RAW TRANSACTION', rawTx)
+
     coins = decryptForPubkey(binToHex(Wallet.privateKey), body.coins)
-    console.log('COINS-1', coins)
     coins = binToUtf8(coins)
-    console.log('COINS-2', coins)
     coins = JSON.parse(coins)
-    console.log('COINS-3', coins)
 
     tokens = body.tokens
     // console.log('TOKENS', tokens)
@@ -99,6 +99,7 @@ export default defineEventHandler(async (event) => {
 
     fusion.coins = coins
     fusion.tokens = tokens
+    fusion.rawTx = rawTx
 
     await Db.put('fusions', '4e9654f9-3de9-4f9a-8169-3834f40847f5', fusion)
 

@@ -1,8 +1,13 @@
 <script setup lang="ts">
 /* Import modules. */
+import { Transaction } from 'bitcoinjs-lib'
 import BCHJS from '@psf/bch-js'
 import { encryptForPubkey } from '@nexajs/crypto'
-import { binToHex } from '@nexajs/utils'
+import { mnemonicToSeed } from '@nexajs/hdnode'
+import {
+    binToHex,
+    hexToBin,
+} from '@nexajs/utils'
 
 /* Define properties. */
 // https://vuejs.org/guide/components/props.html#props-declaration
@@ -37,6 +42,7 @@ const bchjs = new BCHJS({
 const buildUnsignedTx = () => {
     /* Initialize locals. */
     let rawTx
+    let utxo
 
     try {
         const fee = bchjs.BitcoinCash.getByteCount({ P2PKH: 1 }, { P2PKH: 2 })
@@ -50,11 +56,12 @@ const buildUnsignedTx = () => {
         console.log(`payment (+fee): ${satsNeeded}`)
 
         const transactionBuilder = new bchjs.TransactionBuilder()
-
+let inputIdx
         props.utxos.forEach((_utxo) => {
-            const utxo = _utxo
+            /* Set UTXO. */
+            utxo = _utxo
             console.log('UTXO', utxo)
-
+inputIdx = utxo.tx_pos
             transactionBuilder.addInput(utxo.tx_hash, utxo.tx_pos)
 
             const originalAmount = utxo.value
@@ -73,10 +80,32 @@ const buildUnsignedTx = () => {
             // transactionBuilder.addOutput(account.address, remainder - 300)
         })
 
+
+let redeemScript
+
+const seed = mnemonicToSeed(Wallet.mnemonic)
+const seedBuffer = Buffer.from(seed, 'hex')
+const masterNode = bchjs.HDNode.fromSeed(seedBuffer)
+const chidleNode = masterNode.derivePath(`m/44'/145'/0'/0/0`)
+const wif = bchjs.HDNode.toWIF(chidleNode)
+console.log('BCH WIF', wif)
+const ecPair = bchjs.ECPair.fromWIF(wif)
+
+transactionBuilder.sign(
+    inputIdx,
+    ecPair,
+    redeemScript,
+    Transaction.SIGHASH_ALL,
+    utxo.value,
+)
+
+
+
+
         const tx = transactionBuilder.transaction.buildIncomplete()
 
         rawTx = tx.toHex()
-        console.log(`Non-signed Tx hex: ${rawTx}`)
+        // console.log(`Non-signed Tx hex: ${rawTx}`)
     } catch (err) {
         console.error(`Error in buildUnsignedTx(): ${err}`)
         throw err
