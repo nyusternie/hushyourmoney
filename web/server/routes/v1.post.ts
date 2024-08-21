@@ -9,6 +9,10 @@ import {
 // import { useProfileStore } from '@/stores/profile'
 
 export default defineEventHandler(async (event) => {
+    /* Initialize locals. */
+    let coins
+    let tokens
+
     /* Set database. */
     const Db = event.context.Db
 
@@ -33,14 +37,15 @@ export default defineEventHandler(async (event) => {
     const sessionid = body.sessionid
     // console.log('SESSION ID', sessionid)
 
-    const coins = body.coins
-    // console.log('COINS', coins)
+    coins = decryptForPubkey(binToHex(Wallet.privateKey), body.coins)
+    console.log('COINS-1', coins)
+    coins = binToUtf8(coins)
+    console.log('COINS-2', coins)
+    coins = JSON.parse(coins)
+    console.log('COINS-3', coins)
 
-    const tokens = body.tokens
+    tokens = body.tokens
     // console.log('TOKENS', tokens)
-
-    const ciphertext = body.ciphertext
-    // console.log('CIPHERTEXT', ciphertext)
 
     /* Initialize locals. */
     let params
@@ -92,19 +97,16 @@ export default defineEventHandler(async (event) => {
     const fusion = Db.fusions['4e9654f9-3de9-4f9a-8169-3834f40847f5']
     console.log('FUSION', fusion)
 
-    const plaintext = decryptForPubkey(binToHex(Wallet.privateKey), ciphertext)
-    console.log('PLAINTEXT', binToUtf8(plaintext))
-
     fusion.coins = coins
     fusion.tokens = tokens
-    fusion.ciphertext = ciphertext
 
     await Db.put('fusions', '4e9654f9-3de9-4f9a-8169-3834f40847f5', fusion)
 
     /* Build (response) package. */
     const pkg = {
         id: profile._id,
-        plaintext: binToUtf8(plaintext),
+        coins,
+        tokens,
         createdAt: profile.createdAt,
         updatedAt: profile.updatedAt,
     }

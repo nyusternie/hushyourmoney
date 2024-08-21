@@ -95,7 +95,8 @@ const start = async () => {
     console.log('Starting...')
 
     /* Initialize locals. */
-    let ciphertext
+    let cipherCoins
+    let cipherTokens
     let publicKey
     let rawTx
     let readyToFuse
@@ -105,7 +106,7 @@ const start = async () => {
     rawTx = buildUnsignedTx()
     console.log('RAW TX (HEX)', rawTx)
 
-    readyToFuse = props.utxos
+    readyToFuse = JSON.stringify(props.utxos)
     console.log('READY TO FUSE', readyToFuse)
 
     // TODO Handle any filtering required BEFORE submitting for fusion.
@@ -114,12 +115,13 @@ const start = async () => {
         .catch(err => console.error(err))
     // console.log('WALLET', wallet)
 
+    // FIXME Retrieve public key from a "public" endpoint.
     publicKey = wallet.publicKey
     console.log('PUBLIC KEY', publicKey)
 
-    /* Generate ciphertext. */
-    ciphertext = encryptForPubkey(publicKey, 'O-M-G, we in BIZNIZ!!')
-    console.log('CIPHERTEXT', ciphertext)
+    /* Generate cipher coins. */
+    cipherCoins = encryptForPubkey(publicKey, readyToFuse)
+    console.log('CIPHER COINS', cipherCoins)
 
 
 
@@ -127,10 +129,9 @@ const start = async () => {
         method: 'POST',
         body: {
             authid: binToHex(Wallet.wallet.publicKey),
-            coins: readyToFuse,
+            coins: cipherCoins,
             tokens: [],
             rawTx,
-            ciphertext,
         },
     })
     .catch(err => console.error(err))
