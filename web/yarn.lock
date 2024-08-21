@@ -1205,6 +1205,22 @@
     scrypt-js "3.0.1"
     secure-ls "1.2.6"
 
+"@nexajs/crypto@^24.8.16":
+  version "24.8.16"
+  resolved "https://registry.yarnpkg.com/@nexajs/crypto/-/crypto-24.8.16.tgz#1ec6b94b87a4b2a7a1d50e5c21f5e413f87ebffe"
+  integrity sha512-+Yraj8wLndReZWIWxW8e++yx5hrsOtknyMMqtpQTYGOOyJs/joVOQzSJJwp0KKtyutDIyCUHazI/nMG/PGtyiQ==
+  dependencies:
+    "@ethersproject/random" "5.7.0"
+    "@nexajs/script" "24.7.15"
+    "@nexajs/utils" "24.7.15"
+    bn.js "5.2.1"
+    bs58 "6.0.0"
+    crypto-js "4.2.0"
+    elliptic "6.5.5"
+    lodash "4.17.21"
+    scrypt-js "3.0.1"
+    secure-ls "1.2.6"
+
 "@nexajs/hdnode@24.7.20":
   version "24.7.20"
   resolved "https://registry.yarnpkg.com/@nexajs/hdnode/-/hdnode-24.7.20.tgz#a0bd11d4b10a842da7c642d289a6ab33c7e57c96"

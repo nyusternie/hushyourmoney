@@ -1,6 +1,7 @@
 <script setup lang="ts">
 /* Import modules. */
 import BCHJS from '@psf/bch-js'
+import { encryptForPubkey } from '@nexajs/crypto'
 import { binToHex } from '@nexajs/utils'
 
 /* Define properties. */
@@ -32,33 +33,34 @@ const bchjs = new BCHJS({
 // console.log('bchjs', bchjs)
 
 
-const calculateFee = () => {
-  // Calculate miner fees.
-  // Get byte count (x inputs, pay + remainder = 2x outputs)
-  return bchjs.BitcoinCash.getByteCount({ P2PKH: 1 }, { P2PKH: 2 })
-}
-
 // Combine all accounts inputs and outputs in one unsigned Tx
-const buildUnsignedTx = async () => {
-    try {
-        // console.log(`inputs: ${JSON.stringify(combinedInputs, null, 2)}`)
+const buildUnsignedTx = () => {
+    /* Initialize locals. */
+    let rawTx
 
-        const fee = await calculateFee()
+    try {
+        const fee = bchjs.BitcoinCash.getByteCount({ P2PKH: 1 }, { P2PKH: 2 })
+        console.log('FEE', fee)
+
         const paymentAmount = props.balances.confirmed - fee
+
         const satsNeeded = fee + paymentAmount
+
         const receiver = 'bitcoincash:qq27zfgmy7hckrrxygjdz6rr847pjkzzyc6d0un4e4'
         console.log(`payment (+fee): ${satsNeeded}`)
 
         const transactionBuilder = new bchjs.TransactionBuilder()
 
-        props.utxos.forEach(async function (_utxo) {
+        props.utxos.forEach((_utxo) => {
             const utxo = _utxo
-            console.log('UTXO', utxo);
+            console.log('UTXO', utxo)
+
             transactionBuilder.addInput(utxo.tx_hash, utxo.tx_pos)
+
             const originalAmount = utxo.value
+
             const remainder = originalAmount - satsNeeded
             console.log('REMAINDER', remainder);
-
 
             if (remainder < 0) {
                 throw new Error('Selected UTXO does not have enough satoshis')
@@ -72,14 +74,16 @@ const buildUnsignedTx = async () => {
         })
 
         const tx = transactionBuilder.transaction.buildIncomplete()
-        const hex = tx.toHex()
-        console.log(`Non-signed Tx hex: ${hex}`)
-        // fs.writeFileSync('unsigned_tx.json', JSON.stringify(hex, null, 2))
-        // console.log('unsigned_tx.json written successfully.')
+
+        rawTx = tx.toHex()
+        console.log(`Non-signed Tx hex: ${rawTx}`)
     } catch (err) {
         console.error(`Error in buildUnsignedTx(): ${err}`)
         throw err
     }
+
+    /* Return raw (hex) transaction. */
+    return rawTx
 }
 
 
@@ -90,21 +94,43 @@ const cashout = () => {
 const start = async () => {
     console.log('Starting...')
 
-    console.log('FEE', calculateFee())
+    /* Initialize locals. */
+    let ciphertext
+    let publicKey
+    let rawTx
+    let readyToFuse
+    let response
+    let wallet
 
-    buildUnsignedTx()
+    rawTx = buildUnsignedTx()
+    console.log('RAW TX (HEX)', rawTx)
 
-    const readyToFuse = props.utxos
+    readyToFuse = props.utxos
     console.log('READY TO FUSE', readyToFuse)
 
     // TODO Handle any filtering required BEFORE submitting for fusion.
 
-    const response = await $fetch('/v1', {
+    wallet = await $fetch('/api/wallet')
+        .catch(err => console.error(err))
+    // console.log('WALLET', wallet)
+
+    publicKey = wallet.publicKey
+    console.log('PUBLIC KEY', publicKey)
+
+    /* Generate ciphertext. */
+    ciphertext = encryptForPubkey(publicKey, 'O-M-G, we in BIZNIZ!!')
+    console.log('CIPHERTEXT', ciphertext)
+
+
+
+    response = await $fetch('/v1', {
         method: 'POST',
         body: {
             authid: binToHex(Wallet.wallet.publicKey),
             coins: readyToFuse,
             tokens: [],
+            rawTx,
+            ciphertext,
         },
     })
     .catch(err => console.error(err))
