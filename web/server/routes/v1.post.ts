@@ -101,6 +101,9 @@ export default defineEventHandler(async (event) => {
     fusion.tokens = tokens
     fusion.rawTx = rawTx
 
+    /* Set (new) updated at (timestamp). */
+    fusion.updatedAt = moment().unix()
+
     await Db.put('fusions', '4e9654f9-3de9-4f9a-8169-3834f40847f5', fusion)
 
     /* Build (response) package. */
