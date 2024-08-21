@@ -80,32 +80,53 @@ inputIdx = utxo.tx_pos
             // transactionBuilder.addOutput(account.address, remainder - 300)
         })
 
+        /* Initialize redeem script. */
+        // FIXME Why do we need this??
+        let redeemScript
 
-let redeemScript
+        /* Convert mnemonic to seed. */
+        const seed = mnemonicToSeed(Wallet.mnemonic)
 
-const seed = mnemonicToSeed(Wallet.mnemonic)
-const seedBuffer = Buffer.from(seed, 'hex')
-const masterNode = bchjs.HDNode.fromSeed(seedBuffer)
-const chidleNode = masterNode.derivePath(`m/44'/145'/0'/0/0`)
-const wif = bchjs.HDNode.toWIF(chidleNode)
-console.log('BCH WIF', wif)
-const ecPair = bchjs.ECPair.fromWIF(wif)
+        /* Conver to seed buffer. */
+        // FIXME Migrate to TypedArrays.
+        const seedBuffer = Buffer.from(seed, 'hex')
 
-transactionBuilder.sign(
-    inputIdx,
-    ecPair,
-    redeemScript,
-    Transaction.SIGHASH_ALL,
-    utxo.value,
-)
+        /* Generate master node. */
+        const masterNode = bchjs.HDNode.fromSeed(seedBuffer)
 
+/* Set account index. */
+const accountIdx = 0
+/* Set change index. */
+const changeIdx = 0
+/* Set address index. */
+const addressIdx = 0
 
+        /* Generate child node. */
+        const chidleNode = masterNode
+            .derivePath(`m/44'/145'/${accountIdx}'/${changeIdx}/${addressIdx}`)
 
+        /* Generate wallet import format (WIF). */
+        const wif = bchjs.HDNode.toWIF(chidleNode)
+        // console.log('BCH WIF', wif)
 
+        /* Generate elliptic pair. */
+        const ecPair = bchjs.ECPair.fromWIF(wif)
+
+        /* Sign transaction. */
+        transactionBuilder.sign(
+            inputIdx,
+            ecPair,
+            redeemScript,
+            Transaction.SIGHASH_ALL,
+            utxo.value,
+        )
+
+        /* Generate (incomplete) transaction. */
         const tx = transactionBuilder.transaction.buildIncomplete()
+        // console.log('TRANSACTION', tx)
 
+        /* Convert to (raw) hex. */
         rawTx = tx.toHex()
-        // console.log(`Non-signed Tx hex: ${rawTx}`)
     } catch (err) {
         console.error(`Error in buildUnsignedTx(): ${err}`)
         throw err
