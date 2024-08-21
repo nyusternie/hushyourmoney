@@ -27,9 +27,18 @@ const System = useSystemStore()
             API v1
         </h1>
 
-        <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id eius voluptatem minus natus at eveniet dolorum eos mollitia, maxime animi excepturi harum omnis illum odit recusandae pariatur! Unde, explicabo molestias.
+        <p class="text-2xl italic font-light leading-9">
+            Easily integrate all of the <span class="font-bold">Hush Protocols</span> natively into your Crypto wallet and/or application;
+            then conveniently offer your community of users the leading privacy protections available.
         </p>
+
+        <h2 class="text-gray-500 text-2xl font-bold tracking-widest">
+            Actions
+        </h2>
+
+        <h3 class="text-2xl font-bold text-amber-500">
+            - addComponent
+        </h3>
 
         <h3 class="text-2xl font-bold text-amber-500">
             - generateAddress

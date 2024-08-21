@@ -55,23 +55,9 @@ const init = async () => {
  * Initialize Fusions
  */
 export default async (_fusionsDb) => {
+    /* Setup global database. */
     setupGlobalDb(_fusionsDb)
+
+    /* Initialize. */
     init()
-
-    // if (typeof fusionsDb === 'undefined') {
-    //     /* Setup (global) Fusions database. */
-    //     // NOTE: THIS SETUP REQUIRES LOADING `_fusions` ENDPOINT.
-    //     fusionsDb = Db.fusions
-    //     console.info('Setting up (global) Fusions database...', fusionsDb)
-
-    //     /* Run initialization. */
-    //     await init()
-
-    //     /* Complete (global) DB setup. */
-    //     await setupGlobalDb()
-
-    //     // console.log('Setup complete!', fusionsDb)
-    // }
-
-
 }
