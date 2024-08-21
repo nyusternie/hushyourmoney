@@ -40,6 +40,8 @@ const props = defineProps({
             <li>CoinJoins: à la CashFusion</li>
             <li>Flux Cloud</li>
             <li>Counterparty and Protocol Discovery (CAPD)</li>
+            <li>Ephemeral Database: ZERO Logs</li>
+            <li>Mineable $HUSH</li>
         </ol>
     </main>
 </template>

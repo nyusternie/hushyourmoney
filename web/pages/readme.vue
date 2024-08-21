@@ -233,5 +233,7 @@ FUNCTION : Tokenized Assets + Smart Contracts
 
         <ReadmeEphemeralDb />
 
+        <ReadmeMineable />
+
     </main>
 </template>

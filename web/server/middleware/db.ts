@@ -1,16 +1,18 @@
 /* Import modules. */
 import moment from 'moment'
 
+import initFusions from '../../handlers/initFusions.ts'
+
 console.info('Initializing Ephemeral Database Manager...')
 
 /* Initialize locals. */
+let response
 let status
 
 /* Initialize DB handlers. */
 let fusionsDb
 let profilesDb
-let response
-let sessionsDb
+// let sessionsDb
 let systemDb
 
 /**
@@ -32,7 +34,7 @@ profilesDb = {}
  *
  * An collection of sessions.
  */
-sessionsDb = {}
+// sessionsDb = {}
 
 /**
  * System Datastore
@@ -41,6 +43,9 @@ sessionsDb = {}
  */
 systemDb = {}
 
+/**
+ * Put (Data)
+ */
 const put = async (_dbname, _key, _value) => {
     try {
         switch(_dbname) {
@@ -50,9 +55,9 @@ const put = async (_dbname, _key, _value) => {
         case 'profiles':
             profilesDb[_key] = _value
             break
-        case 'sessions':
-            sessionsDb[_key] = _value
-            break
+        // case 'sessions':
+        //     sessionsDb[_key] = _value
+        //     break
         case 'system':
             systemDb[_key] = _value
             break
@@ -66,7 +71,10 @@ const put = async (_dbname, _key, _value) => {
     return `[ ${_dbname} ] data saved successfully!`
 }
 
-;(async () => {
+/**
+ * Initialize
+ */
+const init = async () => {
     /* Validate (initial) data. */
     if (Object.keys(systemDb).length === 0) {
         status = {
@@ -91,16 +99,19 @@ const put = async (_dbname, _key, _value) => {
     }
 
     // console.log('SYSTEM (DB) STATUS', systemDb.status)
-})()
+}
+
+init()
+initFusions(fusionsDb)
 
 export default defineEventHandler((event) => {
-    console.log('Ephemeral Db Request: ' + getRequestURL(event))
+    // console.log('Ephemeral Db Request: ' + getRequestURL(event))
 
     event.context.Db = {
         /* Getters */
         fusions: fusionsDb,
         profiles: profilesDb,
-        sessions: sessionsDb,
+        // sessions: sessionsDb,
         system: systemDb,
 
         /* Setters */

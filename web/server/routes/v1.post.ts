@@ -9,11 +9,11 @@ export default defineEventHandler(async (event) => {
 
     /* Set database. */
     const Db = event.context.Db
-    console.log('DB', Db)
+    // console.log('DB', Db)
 
     /* Set (request) body. */
     const body = await readBody(event)
-    console.log('BODY', body)
+    // console.log('BODY', body)
 
     if (!body) {
         return `Authorization FAILED!`
@@ -21,6 +21,11 @@ export default defineEventHandler(async (event) => {
 
     /* Set profile parameters. */
     const authid = body.authid
+    console.log('AUTH ID', authid)
+    const actionid = body.actionid
+    console.log('ACTION ID', actionid)
+    const sessionid = body.sessionid
+    console.log('SESSION ID', sessionid)
 
     console.log({
         authid,
@@ -63,6 +68,17 @@ export default defineEventHandler(async (event) => {
         /* Request session. */
         response = await Db.put('profiles', authid, profile)
         console.log('UPDATE PROFILE', response)
+
+console.log('DEBUG::INSERTING A NEW FUSION')
+const fusion = {
+    tierid: 680000,
+    guests: 12,
+    inputs: 111,
+    outputs: 195,
+    createdAt: 1723245503,
+    updatedAt: 1723245503,
+}
+await Db.put('fusions', 'b2eedc48-52d1-4056-b441-c3c802c053a3', fusion)
     }
 
     /* Return profile. */
