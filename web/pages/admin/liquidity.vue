@@ -7,13 +7,12 @@ const BCHN_MAINNET = 'https://bchn.fullstack.cash/v5/'
 
 const runtimeConfig = useRuntimeConfig()
 const jwtAuthToken = runtimeConfig.public.PSF_JWT_AUTH_TOKEN
-// console.log('jwtAuthToken', jwtAuthToken)
 
 const balances = ref(null)
 const cashAddress = ref(null)
+const utxos = ref(null)
 
 // Instantiate bch-js based on the network.
-// FIXME https://github.com/Permissionless-Software-Foundation/jwt-bch-demo/blob/master/lib/fullstack-jwt.js
 const bchjs = new BCHJS({
     restURL: BCHN_MAINNET,
     apiToken: jwtAuthToken,
@@ -45,6 +44,8 @@ const init = async () => {
     let response
     let rootSeed
 
+    utxos.value = []
+
     /* Set root seed. */
     rootSeed = await bchjs.Mnemonic.toSeed(Wallet.mnemonic)
     // console.log('rootSeed', rootSeed)
@@ -62,11 +63,11 @@ const init = async () => {
     // console.log('cashAddress', cashAddress.value)
 
     response = await bchjs.Electrumx.utxo(cashAddress.value)
-    console.log('RESPONSE', response)
+    // console.log('RESPONSE', response)
 
     /* Set UTXOs. */
-    const utxos = response.utxos
-    console.log('UTXOS', JSON.stringify(utxos, null, 2))
+    utxos.value = response.utxos
+    console.log('UTXOS', JSON.stringify(utxos.value, null, 2))
 
     /* Request balances. */
     response = await bchjs.Electrumx.balance(cashAddress.value)
@@ -100,17 +101,16 @@ onMounted(() => {
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id eius voluptatem minus natus at eveniet dolorum eos mollitia, maxime animi excepturi harum omnis illum odit recusandae pariatur! Unde, explicabo molestias.
         </p>
 
-        <section class="py-10 flex justify-center">
+        <section class="w-full w-3/4 py-10 flex justify-center">
             <Loading v-if="Wallet.isLoading" />
 
-            <WalletSetup v-else-if="!Wallet.isReady" class="w-3/4" />
+            <WalletSetup v-else-if="!Wallet.isReady" />
 
-            <AdminChooseWallet v-else
-                class="w-3/4"
+            <WalletWelcome v-else
                 :balances="balances"
                 :cashAddress="cashAddress"
+                :utxos="utxos"
             />
-
         </section>
     </main>
 </template>

@@ -1,7 +1,10 @@
 /* Initialize globals. */
 let fusionsDb
 
-const setupGlobalDb = async (_fusionsDb) => {
+/**
+ * Initialize
+ */
+const init = async (_fusionsDb) => {
     fusionsDb = _fusionsDb
 
     fusionsDb['4e9654f9-3de9-4f9a-8169-3834f40847f5'] = {
@@ -36,28 +39,11 @@ const setupGlobalDb = async (_fusionsDb) => {
     }
 }
 
-const init = async () => {
-    setTimeout(() => {
-        console.log('ADD ONE MORE', fusionsDb)
-        fusionsDb['af371828-7199-4e4e-baca-bcd11d01edda'] = {
-            tierid: 5600000,
-            guests: 2,
-            inputs: 0,
-            outputs: 0,
-            createdAt: 1723245503,
-            updatedAt: 1723245503,
-        }
-
-    }, 10000)
-}
 
 /**
  * Initialize Fusions
  */
 export default async (_fusionsDb) => {
-    /* Setup global database. */
-    setupGlobalDb(_fusionsDb)
-
     /* Initialize. */
-    init()
+    init(_fusionsDb)
 }

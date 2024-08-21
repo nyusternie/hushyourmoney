@@ -1,6 +1,6 @@
 /* Import modules. */
-import { Wallet } from '@nexajs/wallet'
 import BCHJS from '@psf/bch-js'
+import { binToHex } from '@nexajs/utils'
 
 // REST API servers.
 const BCHN_MAINNET = 'https://bchn.fullstack.cash/v5/'
@@ -16,9 +16,6 @@ const bchjs = new BCHJS({
     apiToken: jwtAuthToken,
 })
 // console.log('bchjs', bchjs)
-
-/* Initialize Wallet (instance) */
-let wallet
 
 const lang = 'english' // Set the language of the wallet.
 
@@ -101,39 +98,26 @@ async function createWallets () {
   }
 }
 
-/**
- * Initialize (Wallet)
- *
- * Setup an "ephemeral" wallet for the use of this Club Session.
- */
-const init = async () => {
-    wallet = await Wallet.init()
-        .catch(err => console.error(err))
-    // console.log('WALLET', wallet)
-}
-
-init()
-// createWallets()
-
 export default defineEventHandler((event) => {
-    /* Set project mnemonic. */
-    // const mnemonic = process.env.PROJECT_MNEMONIC
+    /* Set database. */
+    const Db = event.context.Db
+    // console.log('DB', Db)
 
-    /* Build wallet. */
-    // const wallet = {
-    //     mnemonic,
-    // }
+    /* Set database. */
+    const Wallet = event.context.Wallet
+    // console.log('WALLET', Wallet)
 
     const walletPkg = {
-        address: wallet.address,
-        assets: JSON.stringify(wallet.assets, (key, value) =>
+        address: Wallet.address,
+        publicKey: binToHex(Wallet.publicKey),
+        assets: JSON.stringify(Wallet.assets, (key, value) =>
             typeof value === 'bigint' ? value.toString() + 'n' : value
         ),
-        coins: JSON.stringify(wallet.coins, (key, value) =>
+        coins: JSON.stringify(Wallet.coins, (key, value) =>
             typeof value === 'bigint' ? value.toString() + 'n' : value
         ),
-        mnemonic: wallet.mnemonic,
-        tokens: JSON.stringify(wallet.tokens, (key, value) =>
+        mnemonic: Wallet.mnemonic,
+        tokens: JSON.stringify(Wallet.tokens, (key, value) =>
             typeof value === 'bigint' ? value.toString() + 'n' : value
         ),
         aliceObj,

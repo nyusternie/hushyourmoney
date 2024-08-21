@@ -21,6 +21,9 @@ const profiles = ref(null)
 const status = ref(null)
 const system = ref(null)
 
+const clubAddress = ref(null)
+const clubPubkey = ref(null)
+
 const displayCreatedAt = computed(() => {
     if (!status.value || !status.value.createdAt) {
         return 'loading...'
@@ -98,6 +101,14 @@ const init = async () => {
     profiles.value = await $fetch('/api/profiles')
         .catch(err => console.error(err))
     // console.log('PROFILES', profiles.value)
+
+    /* Request wallet. */
+    const response = await $fetch('/api/wallet')
+        .catch(err => console.error(err))
+    console.log('WALLET', response)
+
+    clubAddress.value = response.address
+    clubPubkey.value = response.publicKey
 }
 
 onMounted(() => {
@@ -176,6 +187,35 @@ onMounted(() => {
                     {{displayTimeAgo}}
                 </h3>
             </section>
+
+            <section class="w-full px-5 py-3 flex flex-col gap-0 bg-amber-100 border-2 border-amber-300 rounded-2xl shadow">
+                <h2 class="text-amber-500 text-base font-bold tracking-widest uppercase">
+                    Club Wallet
+                </h2>
+
+                <NuxtLink :to="'https://explorer.nexa.org/address/' + clubAddress" target="_blank" class="text-amber-700 text-base font-medium tracking-tight hover:text-amber-600 hover:underline">
+                    {{clubAddress}}
+                </NuxtLink>
+
+                <h3 class="text-amber-700 text-base text-right font-medium italic">
+                    Current signer of ALL Club messages
+                </h3>
+            </section>
+
+            <section class="w-full px-5 py-3 flex flex-col gap-0 bg-amber-100 border-2 border-amber-300 rounded-2xl shadow">
+                <h2 class="text-amber-500 text-base font-bold tracking-widest uppercase">
+                    Club Public Key
+                </h2>
+
+                <h3 class="text-amber-700 text-xs font-medium tracking-tight">
+                    {{clubPubkey}}
+                </h3>
+
+                <h3 class="text-amber-700 text-base text-right font-medium italic">
+                    Use this key to sign encrypted messages
+                </h3>
+            </section>
+
         </div>
 
         <pre class="text-xs">{{system}}</pre>

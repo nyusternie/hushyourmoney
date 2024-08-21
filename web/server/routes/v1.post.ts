@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
 
     /* Set (request) body. */
     const body = await readBody(event)
-    // console.log('BODY', body)
+    console.log('BODY', body)
 
     if (!body) {
         return `Authorization FAILED!`
@@ -22,14 +22,12 @@ export default defineEventHandler(async (event) => {
     /* Set profile parameters. */
     const authid = body.authid
     console.log('AUTH ID', authid)
+
     const actionid = body.actionid
     console.log('ACTION ID', actionid)
+
     const sessionid = body.sessionid
     console.log('SESSION ID', sessionid)
-
-    console.log({
-        authid,
-    })
 
     /* Initialize locals. */
     let params
@@ -38,7 +36,12 @@ export default defineEventHandler(async (event) => {
     let session
     let success
 
-    // FIXME Validate authid
+    /* Validate auth ID. */
+    if (typeof authid === 'undefined' || authid === null) {
+        setResponseStatus(event, 401)
+
+        return 'Authorization failed!'
+    }
 
     /* Request session. */
     profile = Db.profiles[authid]

@@ -21,7 +21,7 @@ const createWallet = () => {
 const importWallet = () => {
     // NOTE: This confirmation is NOT REQUIRED for single-application
     //       wallet integration(s), and can be SAFELY removed.
-    if (confirm('Before you continue, please close ALL other Studio browser windows. Failure to do so may result in LOSS OF ASSETS!\n\nWould you like to continue importing an existing wallet?')) {
+    if (confirm('Before you continue, please close ALL other Hush Your Money browser windows. Failure to do so may result in LOSS OF ASSETS!\n\nWould you like to continue importing an existing wallet?')) {
         /* Set/save mnemonic. */
         // NOTE: Will save `entropy` to the local storage.
         Wallet.setMnemonic(mnemonic.value)
@@ -42,7 +42,7 @@ const importWallet = () => {
 <template>
     <section class="flex flex-col gap-5">
         <p class="px-3 py-2 bg-yellow-100 text-base font-medium border-2 border-yellow-200 rounded-lg shadow-md">
-            Welcome to your Studio wallet.
+            Welcome to your Hush Your Money wallet.
             Click the button below to create a new wallet and begin trading.
         </p>
 
@@ -53,7 +53,7 @@ const importWallet = () => {
         <hr />
 
         <p class="px-3 py-2 bg-yellow-100 text-base font-medium border-2 border-yellow-200 rounded-lg shadow-md">
-            Import your existing wallet into Studio.
+            Import your existing wallet into Hush Your Money.
         </p>
 
         <textarea

@@ -6,13 +6,11 @@ import initFusions from '../../handlers/initFusions.ts'
 console.info('Initializing Ephemeral Database Manager...')
 
 /* Initialize locals. */
-let response
 let status
 
 /* Initialize DB handlers. */
 let fusionsDb
 let profilesDb
-// let sessionsDb
 let systemDb
 
 /**
@@ -82,9 +80,8 @@ const init = async () => {
             updatedAt: moment().unix(),
         },
 
-        response = await put('system', 'status', status)
+        put('system', 'status', status)
             .catch(err => console.error(err))
-        // console.log('RESPONSE (system)', response)
     } else {
         /* Set status. */
         status = systemDb.status
@@ -93,9 +90,8 @@ const init = async () => {
         status.updatedAt = moment().unix()
 
         /* Save data to store. */
-        response = await put('system', 'status', status)
+        put('system', 'status', status)
             .catch(err => console.error(err))
-        // console.log('RESPONSE (status)', response)
     }
 
     // console.log('SYSTEM (DB) STATUS', systemDb.status)
@@ -107,11 +103,11 @@ initFusions(fusionsDb)
 export default defineEventHandler((event) => {
     // console.log('Ephemeral Db Request: ' + getRequestURL(event))
 
+    /* Inject database into server context. */
     event.context.Db = {
         /* Getters */
         fusions: fusionsDb,
         profiles: profilesDb,
-        // sessions: sessionsDb,
         system: systemDb,
 
         /* Setters */
