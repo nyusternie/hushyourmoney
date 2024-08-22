@@ -1,3 +1,6 @@
+/* Import modules. */
+import moment from 'moment'
+
 /* Initialize globals. */
 let fusionsDb
 
@@ -8,12 +11,12 @@ const init = async (_fusionsDb) => {
     fusionsDb = _fusionsDb
 
     fusionsDb['4e9654f9-3de9-4f9a-8169-3834f40847f5'] = {
-        tierid: 270000,
-        guests: 5,
+        tierid: 888000,
+        guests: 0,
         inputs: 0,
         outputs: 0,
-        createdAt: 1723245503,
-        updatedAt: 1723245503,
+        createdAt: moment().unix(),
+        updatedAt: moment().unix(),
     }
 
     fusionsDb['6f765750-2267-4601-87be-80a416143a28'] = {

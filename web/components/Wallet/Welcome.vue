@@ -40,6 +40,11 @@ const bchjs = new BCHJS({
 // console.log('bchjs', bchjs)
 
 
+const bchAddresses = ref(null)
+const btcAddresses = ref(null)
+const hushAddresses = ref(null)
+const nexaAddresses = ref(null)
+
 // Combine all accounts inputs and outputs in one unsigned Tx
 const buildUnsignedTx = () => {
     /* Initialize locals. */
@@ -170,6 +175,10 @@ const cashout = () => {
     alert('WIP?? sorry...')
 }
 
+const consolidate = () => {
+    alert('WIP?? sorry...')
+}
+
 const start = async () => {
     console.log('Starting...')
 
@@ -217,9 +226,48 @@ const start = async () => {
     console.log('RESPONSE', response)
 }
 
+const getBchAddress = async (
+    _accountIdx = 0,
+    _changeIdx = 0,
+    _addressIdx = 0,
+) => {
+    /* Set root seed. */
+    const rootSeed = await bchjs.Mnemonic.toSeed(Wallet.mnemonic)
+    // console.log('rootSeed', rootSeed)
+
+    /* Set HD master node. */
+    const masterHdnode = bchjs.HDNode.fromSeed(rootSeed)
+    // console.log('masterHdnode', masterHdnode);
+
+    /* Set child node. */
+    const childNode = masterHdnode
+        .derivePath(`m/44'/145'/${_accountIdx}'/${_changeIdx}/${_addressIdx}`)
+    // console.log('childNode', childNode)
+
+    /* Set Bitcoin Cash address. */
+    const cashAddress = bchjs.HDNode.toCashAddress(childNode)
+    console.log('cashAddress', cashAddress)
+
+    return cashAddress
+}
+
+const init = async () => {
+    /* Initialize locals. */
+    let address
+
+    hushAddresses.value = []
+
+    // HUSH == 0x48555348 == 1,213,551,432
+
+    address = await getBchAddress(1213551432, 0, 0)
+    console.log('GET BCH ADDRESS', address)
+
+    hushAddresses.value.push(address)
+
+}
+
 onMounted(() => {
-    // console.log('Mounted!', props.balances)
-    // Now it's safe to perform setup operations.
+    init()
 })
 
 // onBeforeUnmount(() => {
@@ -248,6 +296,11 @@ onMounted(() => {
                 {{props.cashAddress}}
             </h3>
 
+            <h3 v-if="hushAddresses && hushAddresses.length > 0">
+                Hush #1
+                {{hushAddresses[0]}}
+            </h3>
+
             <h3>
                 Confirmed: {{props.balances?.confirmed}}
             </h3>
@@ -256,13 +309,18 @@ onMounted(() => {
             </h3>
 
             <div class="my-3 grid grid-cols-2 gap-4">
-                <button @click="cashout" class="px-3 py-2 bg-lime-200 border-2 border-lime-400 text-2xl text-lime-800 font-medium rounded shadow hover:bg-lime-100">
-                    Cashout Wallet
-                </button>
-
                 <button @click="start" class="px-3 py-2 bg-lime-200 border-2 border-lime-400 text-2xl text-lime-800 font-medium rounded shadow hover:bg-lime-100">
                     Start Fusions
                 </button>
+
+                <button @click="cashout" class="px-3 py-2 bg-lime-200 border-2 border-lime-400 text-2xl text-lime-800 font-medium rounded shadow hover:bg-lime-100">
+                    Cashout
+                </button>
+
+                <button @click="consolidate" class="px-3 py-2 bg-lime-200 border-2 border-lime-400 text-2xl text-lime-800 font-medium rounded shadow hover:bg-lime-100">
+                    Consolidate
+                </button>
+
             </div>
 
             <pre class="text-xs">{{props.utxos}}</pre>

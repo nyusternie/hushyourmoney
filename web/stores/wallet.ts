@@ -1,65 +1,15 @@
 /* Import modules. */
 import { defineStore } from 'pinia'
 
-import {
-    encodeAddress,
-    listUnspent,
-} from '@nexajs/address'
+import { mnemonicToEntropy } from '@nexajs/hdnode'
 
-import {
-    derivePublicKeyCompressed,
-    ripemd160,
-    sha256,
-} from '@nexajs/crypto'
-
-import {
-    encodePrivateKeyWif,
-    mnemonicToEntropy,
-} from '@nexajs/hdnode'
-
-import { getCoins } from '@nexajs/purse'
-
-import {
-    getOutpoint,
-    getTip,
-    getTokenInfo,
-    getTransaction,
-    subscribeAddress,
-} from '@nexajs/rostrum'
-
-import {
-    encodeDataPush,
-    encodeNullData,
-    OP,
-} from '@nexajs/script'
-
-import {
-    getTokens,
-    sendToken,
-} from '@nexajs/token'
-
-import {
-    binToHex,
-    hexToBin,
-} from '@nexajs/utils'
+import { OP } from '@nexajs/script'
 
 import { Wallet } from '@nexajs/wallet'
 
 import _broadcast from './wallet/broadcast.ts'
 import _setEntropy from './wallet/setEntropy.ts'
 
-const TX_GAS_AMOUNT = 1000 // 10.00 NEXA
-
-/* Build (contract) script. */
-const STAKELINE_V1_SCRIPT = new Uint8Array([
-    OP.FROMALTSTACK,
-        OP.DROP,
-    OP.FROMALTSTACK,
-        OP.CHECKSEQUENCEVERIFY,
-        OP.DROP,
-    OP.FROMALTSTACK,
-        OP.CHECKSIGVERIFY,
-])
 
 /**
  * Wallet Store

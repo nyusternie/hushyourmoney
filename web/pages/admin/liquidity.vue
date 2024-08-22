@@ -104,8 +104,17 @@ onMounted(() => {
             Liquidity Provider
         </h1>
 
-        <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id eius voluptatem minus natus at eveniet dolorum eos mollitia, maxime animi excepturi harum omnis illum odit recusandae pariatur! Unde, explicabo molestias.
+        <h3 class="text-rose-500 text-4xl font-light italic tracking-tight">
+            What does an LP do?
+        </h3>
+
+        <p class="text-gray-600 text-xl font-light italic">
+            If this was double dutch, Liquidity Providers would be the ones turning the ropes for everyone else to enjoy a great time!
+        </p>
+
+        <p class="text-gray-600 text-xl font-light italic">
+            Your Liquidity will be spread to maximize its utility across the greatest number of Tiers.
+            The goal is to offer sub 15-second <NuxtLink to="/help/dances" class="text-blue-500 font-normal hover:underline">Coin Dances</NuxtLink> for all Club Guests.
         </p>
 
         <section class="w-full w-3/4 py-10 flex justify-center">
