@@ -5,6 +5,7 @@ import { Transaction } from 'bitcoinjs-lib'
 import BCHJS from '@psf/bch-js'
 import { encryptForPubkey } from '@nexajs/crypto'
 import { mnemonicToSeed } from '@nexajs/hdnode'
+import { randomOutputsForTier } from '@nexajs/privacy'
 import { encodeNullData } from '@nexajs/script'
 import {
     binToHex,
@@ -204,8 +205,39 @@ const start = async () => {
     cipherCoins = encryptForPubkey(publicKey, readyToFuse)
     console.log('CIPHER COINS', cipherCoins)
 
+    let outputs
+    let tierScale
 
+    /* Calculate safe balance. */
+    const safeBalance = props.utxos.reduce(
+        (acc, utxo) => (utxo.value > 10000) ? acc + utxo.value : 0, 0
+    )
 
+    /* Set "random" parameters. */
+    const inputAmount = safeBalance
+    tierScale = 12000
+    const feeOffset = 34//10034
+    const maxOutputCount = 17
+
+    /* Request (random) outputs. */
+    outputs = randomOutputsForTier(
+        inputAmount,
+        tierScale,
+        feeOffset,
+        maxOutputCount,
+    )
+    console.info('OUTPUTS-1', outputs)
+
+    tierScale = 15000
+    outputs = randomOutputsForTier(
+        inputAmount,
+        tierScale,
+        feeOffset,
+        maxOutputCount,
+    )
+    console.info('OUTPUTS-2', outputs)
+
+return
     response = await $fetch('/v1', {
         method: 'POST',
         body: {
