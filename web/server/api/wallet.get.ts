@@ -6,7 +6,8 @@ import { binToHex } from '@nexajs/utils'
 const BCHN_MAINNET = 'https://bchn.fullstack.cash/v5/'
 
 const runtimeConfig = useRuntimeConfig()
-const jwtAuthToken = runtimeConfig.public.PSF_JWT_AUTH_TOKEN
+// const jwtAuthToken = runtimeConfig.public.PSF_JWT_AUTH_TOKEN
+const jwtAuthToken = runtimeConfig.PSF_JWT_AUTH_TOKEN
 // console.log('jwtAuthToken', jwtAuthToken)
 
 // Instantiate bch-js based on the network.

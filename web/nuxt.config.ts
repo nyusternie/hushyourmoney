@@ -76,9 +76,10 @@ export default defineNuxtConfig({
     },
 
     runtimeConfig: {
-        public: {
-            PSF_JWT_AUTH_TOKEN: process.env.PSF_JWT_AUTH_TOKEN,
-        },
+        PSF_JWT_AUTH_TOKEN: process.env.PSF_JWT_AUTH_TOKEN,
+        // public: {
+        //     PSF_JWT_AUTH_TOKEN: process.env.PSF_JWT_AUTH_TOKEN,
+        // },
     },
 
     // FIXME Polyfills to support `@psf/bch-js` node dependencies.

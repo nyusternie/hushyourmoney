@@ -5,8 +5,13 @@ import BCHJS from '@psf/bch-js'
 import { encryptForPubkey } from '@nexajs/crypto'
 import { mnemonicToSeed } from '@nexajs/hdnode'
 import {
+    encodeNullData,
+    OP,
+} from '@nexajs/script'
+import {
     binToHex,
     hexToBin,
+    utf8ToBin,
 } from '@nexajs/utils'
 
 /* Define properties. */
@@ -24,13 +29,13 @@ const Wallet = useWalletStore()
 // REST API servers.
 const BCHN_MAINNET = 'https://bchn.fullstack.cash/v5/'
 
-const runtimeConfig = useRuntimeConfig()
-const jwtAuthToken = runtimeConfig.public.PSF_JWT_AUTH_TOKEN
+// const runtimeConfig = useRuntimeConfig()
+// const jwtAuthToken = runtimeConfig.public.PSF_JWT_AUTH_TOKEN
 
 // Instantiate bch-js based on the network.
 const bchjs = new BCHJS({
     restURL: BCHN_MAINNET,
-    apiToken: jwtAuthToken,
+    // apiToken: jwtAuthToken,
 })
 // console.log('bchjs', bchjs)
 
@@ -75,21 +80,23 @@ inputIdx = 0//utxo.tx_pos
             }
 
 
+            const protocolId = '1337'
+            const msg = 'building...'
 
-console.log('bchjs.Script.opcodes.OP_RETURN', bchjs.Script.opcodes.OP_RETURN)
-console.log('MSG', Buffer.from(`${msg}`))
-            const msg = '1337dev'
             const script = [
-                bchjs.Script.opcodes.OP_RETURN,
-                // Buffer.from('6d02', 'hex'), // Makes message comply with the memo.cash protocol.
-                Buffer.from(`${msg}`)
+                utf8ToBin(protocolId),
+                utf8ToBin(msg),
             ]
+            console.log('my SCRIPT', script)
+            console.log('encodeNullData', encodeNullData(script))
 
             // Compile the script array into a bitcoin-compliant hex encoded string.
-            const data = bchjs.Script.encode(script)
+            // const data = bchjs.Script.encode(script)
+            const data = Buffer.from(encodeNullData(script))
             console.log('OP_RETURN (data)', data)
 
             // Add the OP_RETURN output.
+            // transactionBuilder.addOutput(data, 0)
             transactionBuilder.addOutput(data, 0)
 
 

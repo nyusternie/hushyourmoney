@@ -7,7 +7,8 @@ import { Wallet } from '@nexajs/wallet'
 const BCHN_MAINNET = 'https://bchn.fullstack.cash/v5/'
 
 const runtimeConfig = useRuntimeConfig()
-const jwtAuthToken = runtimeConfig.public.PSF_JWT_AUTH_TOKEN
+// const jwtAuthToken = runtimeConfig.public.PSF_JWT_AUTH_TOKEN
+const jwtAuthToken = runtimeConfig.PSF_JWT_AUTH_TOKEN
 // console.log('jwtAuthToken', jwtAuthToken)
 
 // Instantiate bch-js based on the network.
@@ -45,6 +46,7 @@ const sendTx = async (_tx) => {
     // Broadcast transaction to the network
     const txidStr = await bchjs.RawTransactions.sendRawTransaction(txHex)
     console.log(`Exchange Tx ID: ${txidStr}`)
+    console.log(`https://explorer.bitcoinunlimited.info/tx/${txidStr}`)
     console.log(`https://3xpl.com/bitcoin-cash/transaction/${txidStr}`)
 }
 

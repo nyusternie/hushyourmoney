@@ -5,8 +5,8 @@ import BCHJS from '@psf/bch-js'
 // REST API servers.
 const BCHN_MAINNET = 'https://bchn.fullstack.cash/v5/'
 
-const runtimeConfig = useRuntimeConfig()
-const jwtAuthToken = runtimeConfig.public.PSF_JWT_AUTH_TOKEN
+// const runtimeConfig = useRuntimeConfig()
+// const jwtAuthToken = runtimeConfig.public.PSF_JWT_AUTH_TOKEN
 
 const balances = ref(null)
 const cashAddress = ref(null)
@@ -15,7 +15,7 @@ const utxos = ref(null)
 // Instantiate bch-js based on the network.
 const bchjs = new BCHJS({
     restURL: BCHN_MAINNET,
-    apiToken: jwtAuthToken,
+    // apiToken: jwtAuthToken,
 })
 // console.log('bchjs', bchjs)
 
@@ -45,6 +45,10 @@ const init = async () => {
     let rootSeed
 
     utxos.value = []
+
+    if (typeof Wallet.mnemonic === 'undefined' || Wallet.mnemonic === null) {
+        throw new Error('NO mnemonic available to create wallet.')
+    }
 
     /* Set root seed. */
     rootSeed = await bchjs.Mnemonic.toSeed(Wallet.mnemonic)
