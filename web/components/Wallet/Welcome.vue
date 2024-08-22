@@ -27,9 +27,6 @@ const BCHN_MAINNET = 'https://bchn.fullstack.cash/v5/'
 const runtimeConfig = useRuntimeConfig()
 const jwtAuthToken = runtimeConfig.public.PSF_JWT_AUTH_TOKEN
 
-const balances = ref(null)
-const cashAddress = ref(null)
-
 // Instantiate bch-js based on the network.
 const bchjs = new BCHJS({
     restURL: BCHN_MAINNET,
@@ -45,10 +42,14 @@ const buildUnsignedTx = () => {
     let utxo
 
     try {
+        const safeBalance = props.utxos.reduce(
+            (acc, utxo) => (utxo.value > 10000) ? acc + utxo.value : 0, 0
+        )
+        console.log('SAFE BALANCE', safeBalance)
         const fee = bchjs.BitcoinCash.getByteCount({ P2PKH: 1 }, { P2PKH: 2 })
         console.log('FEE', fee)
 
-        const paymentAmount = props.balances.confirmed - fee
+        const paymentAmount = safeBalance - fee
 
         const satsNeeded = fee + paymentAmount
 
@@ -61,7 +62,7 @@ let inputIdx
             /* Set UTXO. */
             utxo = _utxo
             console.log('UTXO', utxo)
-inputIdx = utxo.tx_pos
+inputIdx = 0//utxo.tx_pos
             transactionBuilder.addInput(utxo.tx_hash, utxo.tx_pos)
 
             const originalAmount = utxo.value
@@ -73,8 +74,29 @@ inputIdx = utxo.tx_pos
                 throw new Error('Selected UTXO does not have enough satoshis')
             }
 
+
+
+console.log('bchjs.Script.opcodes.OP_RETURN', bchjs.Script.opcodes.OP_RETURN)
+console.log('MSG', Buffer.from(`${msg}`))
+            const msg = '1337dev'
+            const script = [
+                bchjs.Script.opcodes.OP_RETURN,
+                // Buffer.from('6d02', 'hex'), // Makes message comply with the memo.cash protocol.
+                Buffer.from(`${msg}`)
+            ]
+
+            // Compile the script array into a bitcoin-compliant hex encoded string.
+            const data = bchjs.Script.encode(script)
+            console.log('OP_RETURN (data)', data)
+
+            // Add the OP_RETURN output.
+            transactionBuilder.addOutput(data, 0)
+
+
+
             // Send payment
-            transactionBuilder.addOutput(receiver, satsNeeded)
+            // transactionBuilder.addOutput(receiver, satsNeeded)
+            transactionBuilder.addOutput(receiver, paymentAmount)
 
             // Send the BCH change back to the payment part
             // transactionBuilder.addOutput(account.address, remainder - 300)
@@ -216,7 +238,7 @@ onMounted(() => {
             </h2>
 
             <h3>
-                {{cashAddress}}
+                {{props.cashAddress}}
             </h3>
 
             <h3>
