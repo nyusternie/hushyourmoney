@@ -1,16 +1,13 @@
 <script setup lang="ts">
 /* Import modules. */
+import numeral from 'numeral'
 import { Transaction } from 'bitcoinjs-lib'
 import BCHJS from '@psf/bch-js'
 import { encryptForPubkey } from '@nexajs/crypto'
 import { mnemonicToSeed } from '@nexajs/hdnode'
-import {
-    encodeNullData,
-    OP,
-} from '@nexajs/script'
+import { encodeNullData } from '@nexajs/script'
 import {
     binToHex,
-    hexToBin,
     utf8ToBin,
 } from '@nexajs/utils'
 
@@ -29,21 +26,17 @@ const Wallet = useWalletStore()
 // REST API servers.
 const BCHN_MAINNET = 'https://bchn.fullstack.cash/v5/'
 
-// const runtimeConfig = useRuntimeConfig()
-// const jwtAuthToken = runtimeConfig.public.PSF_JWT_AUTH_TOKEN
-
 // Instantiate bch-js based on the network.
 const bchjs = new BCHJS({
     restURL: BCHN_MAINNET,
-    // apiToken: jwtAuthToken,
 })
-// console.log('bchjs', bchjs)
-
 
 const bchAddresses = ref(null)
 const btcAddresses = ref(null)
 const hushAddresses = ref(null)
 const nexaAddresses = ref(null)
+
+const HUSH_PROTOCOL_ID = 0x48555348
 
 // Combine all accounts inputs and outputs in one unsigned Tx
 const buildUnsignedTx = () => {
@@ -226,43 +219,20 @@ const start = async () => {
     console.log('RESPONSE', response)
 }
 
-const getBchAddress = async (
-    _accountIdx = 0,
-    _changeIdx = 0,
-    _addressIdx = 0,
-) => {
-    /* Set root seed. */
-    const rootSeed = await bchjs.Mnemonic.toSeed(Wallet.mnemonic)
-    // console.log('rootSeed', rootSeed)
-
-    /* Set HD master node. */
-    const masterHdnode = bchjs.HDNode.fromSeed(rootSeed)
-    // console.log('masterHdnode', masterHdnode);
-
-    /* Set child node. */
-    const childNode = masterHdnode
-        .derivePath(`m/44'/145'/${_accountIdx}'/${_changeIdx}/${_addressIdx}`)
-    // console.log('childNode', childNode)
-
-    /* Set Bitcoin Cash address. */
-    const cashAddress = bchjs.HDNode.toCashAddress(childNode)
-    console.log('cashAddress', cashAddress)
-
-    return cashAddress
-}
 
 const init = async () => {
     /* Initialize locals. */
     let address
 
+    /* Initialize #? Hush addresses. */
     hushAddresses.value = []
 
-    // HUSH == 0x48555348 == 1,213,551,432
-
-    address = await getBchAddress(1213551432, 0, 0)
-    console.log('GET BCH ADDRESS', address)
-
-    hushAddresses.value.push(address)
+    for (let i = 0; i < 10; i++) {
+        // HUSH == 0x48555348 == 1,213,551,432
+        address = await Wallet.getBchAddress(HUSH_PROTOCOL_ID, 0, i)
+        // console.log('GET BCH ADDRESS', i, address)
+        hushAddresses.value.push(address)
+    }
 
 }
 
@@ -292,21 +262,34 @@ onMounted(() => {
                 Cash Address
             </h2>
 
-            <h3>
+            <NuxtLink :to="'https://3xpl.com/bitcoin-cash/address/' + props.cashAddress.slice(12)" target="_blank" class="text-blue-500 hover:underline">
                 {{props.cashAddress}}
-            </h3>
+            </NuxtLink>
 
-            <h3 v-if="hushAddresses && hushAddresses.length > 0">
-                Hush #1
-                {{hushAddresses[0]}}
-            </h3>
+            <section class="w-fit my-3 px-3 py-2 grid grid-cols-2 gap-1 bg-amber-100 border-2 border-amber-300 rounded-xl shadow">
+                <h3 class="text-lg font-medium text-right">
+                    Confirmed
+                </h3>
 
-            <h3>
-                Confirmed: {{props.balances?.confirmed}}
-            </h3>
-            <h3>
-                Unconfirmed: {{props.balances?.unconfirmed}}
-            </h3>
+                <h3 class="text-lg font-medium">
+                    {{numeral(props.balances?.confirmed).format('0,0')}}
+                </h3>
+
+                <h3 class="text-lg font-medium text-right">
+                    Unconfirmed
+                </h3>
+
+                <h3 class="text-lg font-medium">
+                    {{numeral(props.balances?.unconfirmed).format('0,0')}}
+                </h3>
+            </section>
+
+            <section v-for="(address, index) of hushAddresses" :key="address" class="text-xs">
+                <div class="grid grid-cols-4 gap-3">
+                    <span class="text-right">Hush #{{(index + 1)}}</span>
+                    <NuxtLink :to="'https://3xpl.com/bitcoin-cash/address/' + address.slice(12)" target="_blank" class="col-span-3 text-blue-500 hover:underline">{{address}}</NuxtLink>
+                </div>
+            </section>
 
             <div class="my-3 grid grid-cols-2 gap-4">
                 <button @click="start" class="px-3 py-2 bg-lime-200 border-2 border-lime-400 text-2xl text-lime-800 font-medium rounded shadow hover:bg-lime-100">

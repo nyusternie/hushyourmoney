@@ -1,14 +1,23 @@
 /* Import modules. */
 import { defineStore } from 'pinia'
 
-import { mnemonicToEntropy } from '@nexajs/hdnode'
+import BCHJS from '@psf/bch-js'
 
-import { OP } from '@nexajs/script'
+import { mnemonicToEntropy } from '@nexajs/hdnode'
 
 import { Wallet } from '@nexajs/wallet'
 
 import _broadcast from './wallet/broadcast.ts'
 import _setEntropy from './wallet/setEntropy.ts'
+import _setupHush from './wallet/setupHush.ts'
+
+// REST API servers.
+const BCHN_MAINNET = 'https://bchn.fullstack.cash/v5/'
+
+// Instantiate bch-js based on the network.
+const bchjs = new BCHJS({
+    restURL: BCHN_MAINNET,
+})
 
 
 /**
@@ -125,6 +134,20 @@ export const useWalletStore = defineStore('wallet', {
                 return console.error('Missing wallet entropy.')
             }
 
+            /* Validate keychain. */
+            if (this._keychain === null) {
+                this._keychain = {
+                    0: {}, // NEXA chain
+                    0x48555348: {}, // HUSH chain (1_213_551_432)
+                }
+                console.log('Keychain initialized successfully!', this._keychain)
+
+                /* Set Hush. */
+                _setupHush.bind(this)()
+            }
+// FOR DEV PURPOSES ONLY
+_setupHush.bind(this)()
+
             /* Request a wallet instance (by mnemonic). */
             this._wallet = await Wallet.init(this._entropy, true)
             console.info('(Initialized) wallet', this.wallet)
@@ -166,6 +189,31 @@ export const useWalletStore = defineStore('wallet', {
 
             /* Initialize wallet. */
             this.init()
+        },
+
+        async getBchAddress(
+            _accountIdx = 0,
+            _changeIdx = 0,
+            _addressIdx = 0,
+        ) {
+            /* Set root seed. */
+            const rootSeed = await bchjs.Mnemonic.toSeed(Wallet.mnemonic)
+            // console.log('rootSeed', rootSeed)
+
+            /* Set HD master node. */
+            const masterHdnode = bchjs.HDNode.fromSeed(rootSeed)
+            // console.log('masterHdnode', masterHdnode);
+
+            /* Set child node. */
+            const childNode = masterHdnode
+                .derivePath(`m/44'/145'/${_accountIdx}'/${_changeIdx}/${_addressIdx}`)
+            // console.log('childNode', childNode)
+
+            /* Set Bitcoin Cash address. */
+            const cashAddress = bchjs.HDNode.toCashAddress(childNode)
+            console.log('cashAddress', cashAddress)
+
+            return cashAddress
         },
 
         async transfer(_receiver, _satoshis) {
