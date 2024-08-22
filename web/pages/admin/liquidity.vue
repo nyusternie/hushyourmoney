@@ -109,12 +109,12 @@ onMounted(() => {
         </h3>
 
         <p class="text-gray-600 text-xl font-light italic">
-            If this was double dutch, Liquidity Providers would be the ones turning the ropes for everyone else to enjoy a great time!
+            If this was a playground, LPs would be the ones turning the double dutch ropes for everyone else to enjoy a great time!
         </p>
 
         <p class="text-gray-600 text-xl font-light italic">
-            Your Liquidity will be spread to maximize its utility across the greatest number of Tiers.
-            The goal is to offer sub 15-second <NuxtLink to="/help/dances" class="text-blue-500 font-normal hover:underline">Coin Dances</NuxtLink> for all Club Guests.
+            Liquidity will be spread across all <NuxtLink to="/help/tiers" class="text-blue-500 font-normal hover:underline">Tiers</NuxtLink> to maximize its utility to the greatest number of active <NuxtLink to="/help/guests" class="text-blue-500 font-normal hover:underline">Club Guests</NuxtLink>.
+            The goal is to offer sub 15-second <NuxtLink to="/help/dances" class="text-blue-500 font-normal hover:underline">Coin Dances</NuxtLink>.
         </p>
 
         <section class="w-full w-3/4 py-10 flex justify-center">

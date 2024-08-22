@@ -237,7 +237,6 @@ const start = async () => {
     )
     console.info('OUTPUTS-2', outputs)
 
-return
     response = await $fetch('/v1', {
         method: 'POST',
         body: {
@@ -252,16 +251,17 @@ return
 }
 
 
-const init = async () => {
+const init = () => {
     /* Initialize locals. */
     let address
 
     /* Initialize #? Hush addresses. */
     hushAddresses.value = []
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
         // HUSH == 0x48555348 == 1,213,551,432
-        address = await Wallet.getBchAddress(HUSH_PROTOCOL_ID, 0, i)
+        // address = await Wallet.getBchAddress(HUSH_PROTOCOL_ID, 0, i)
+        address = Wallet.keychain[HUSH_PROTOCOL_ID][i].address
         // console.log('GET BCH ADDRESS', i, address)
         hushAddresses.value.push(address)
     }
@@ -269,7 +269,9 @@ const init = async () => {
 }
 
 onMounted(() => {
-    init()
+    console.log('KEYCHAIN', Wallet.keychain)
+    // init()
+    setTimeout(init, 1000)
 })
 
 // onBeforeUnmount(() => {
@@ -280,14 +282,9 @@ onMounted(() => {
 
 <template>
     <main>
-        <h2 class="text-base font-semibold leading-6 text-gray-900">
-            Wallets
+        <h2 class="text-5xl font-light text-gray-600 italic">
+            LP Wallets
         </h2>
-
-        <p class="mt-1 text-sm text-gray-500">
-            You haven’t created a Wallet yet.
-            Get started by selecting a template or start from an empty project.
-        </p>
 
         <section>
             <h2>

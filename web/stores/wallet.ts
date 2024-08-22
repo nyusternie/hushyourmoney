@@ -97,6 +97,11 @@ export const useWalletStore = defineStore('wallet', {
             return _state.wallet?._balances
         },
 
+        /* Return keychain. */
+        keychain(_state) {
+            return _state._keychain
+        },
+
         /* Return mnemonic. */
         mnemonic(_state) {
             if (!_state._wallet) {
