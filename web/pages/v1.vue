@@ -38,51 +38,74 @@ const System = useSystemStore()
 
         <section class="flex flex-col gap-4">
             <h2 class="text-sky-600 text-2xl font-bold tracking-widest uppercase">
-                Requests
+                Client Requests
             </h2>
 
             <h3 class="text-2xl font-bold text-amber-500">
-                - getClubs
+                /v1/fusion/&lt;fusion-id&gt;
             </h3>
 
             <h3 class="text-2xl font-bold text-amber-500">
-                - getFusions
-            </h3>
-
-            <h3 class="text-2xl font-bold text-amber-500">
-                - getProfiles
-            </h3>
-
-            <h3 class="text-2xl font-bold text-amber-500">
-                - getStats
+                /v1/tier/&lt;tier-id&gt;
             </h3>
 
         </section>
 
         <section class="flex flex-col gap-4">
             <h2 class="text-sky-600 text-2xl font-bold tracking-widest uppercase">
-                Actions
+                Client Actions
             </h2>
 
             <h3 class="text-2xl font-bold text-amber-500">
-                - addComponents <small class="text-base text-amber-400">( PublicKey, Component[] )</small>
+                addComponents <small class="text-base text-amber-400">( PublicKey, Component[] )</small>
             </h3>
 
             <h3 class="text-2xl font-bold text-amber-500">
-                - generateAddress
+                generateAddress
             </h3>
 
             <h3 class="text-2xl font-bold text-amber-500">
-                - generateProof
+                generateProof
             </h3>
 
             <h3 class="text-2xl font-bold text-amber-500">
-                - submitComponents <small class="text-base text-amber-400">( PublicKey, Component[] )</small>
+                submitComponents <small class="text-base text-amber-400">( PublicKey, Component[] )</small>
             </h3>
 
             <h3 class="text-2xl font-bold text-amber-500">
-                - verifyProof
+                verifyProof
             </h3>
+        </section>
+
+        <section class="flex flex-col gap-4">
+            <h2 class="text-sky-600 text-2xl font-bold tracking-widest uppercase">
+                Batch (System) Requests
+            </h2>
+
+            <h3 class="text-2xl font-bold text-amber-500">
+                /_clubs
+            </h3>
+
+            <h3 class="text-2xl font-bold text-amber-500">
+                /_fusions
+            </h3>
+
+            <h3 class="text-2xl font-bold text-amber-500">
+                /_profiles
+            </h3>
+
+            <h3 class="text-2xl font-bold text-amber-500">
+                /_stats
+            </h3>
+
+            <h3 class="text-2xl font-bold text-amber-500">
+                /_tiers
+            </h3>
+
+            <h3 class="text-2xl font-bold text-amber-500">
+                /_vaults
+            </h3>
+
         </section>
 
         <section class="flex flex-col gap-4">
@@ -91,27 +114,31 @@ const System = useSystemStore()
             </h2>
 
             <h3 class="text-2xl font-bold text-amber-500">
-                - Club
+                Club
             </h3>
 
             <h3 class="text-2xl font-bold text-amber-500">
-                - Component
+                Component
             </h3>
 
             <h3 class="text-2xl font-bold text-amber-500">
-                - Fusion
+                Fusion
             </h3>
 
             <h3 class="text-2xl font-bold text-amber-500">
-                - PrivateTransaction
+                PrivateTransaction
             </h3>
 
             <h3 class="text-2xl font-bold text-amber-500">
-                - Profile
+                Profile
             </h3>
 
             <h3 class="text-2xl font-bold text-amber-500">
-                - PublicKey
+                PublicKey
+            </h3>
+
+            <h3 class="text-2xl font-bold text-amber-500">
+                Tier
             </h3>
 
         </section>
