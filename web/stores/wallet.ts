@@ -2,9 +2,10 @@
 import { defineStore } from 'pinia'
 
 import BCHJS from '@psf/bch-js'
-
+import { encryptForPubkey } from '@nexajs/crypto'
 import { mnemonicToEntropy } from '@nexajs/hdnode'
-
+import { randomOutputsForTier } from '@nexajs/privacy'
+import { binToHex } from '@nexajs/utils'
 import { Wallet } from '@nexajs/wallet'
 
 import _broadcast from './wallet/broadcast.ts'
@@ -132,6 +133,39 @@ export const useWalletStore = defineStore('wallet', {
             }
 
             return _state._utxos
+        },
+
+        /* Return UTXOs. */
+        fusionInputs(_state) {
+            if (!_state._wallet) {
+                return null
+            }
+
+            const collection = _state._utxos
+
+            const mainList = []
+
+            collection[0].forEach(_account => {
+                // console.log('ACCOUNT (0)', _account)
+                _account.utxos.forEach(_utxo => {
+                    mainList.push({
+                        address: _account.address,
+                        ..._utxo,
+                    })
+                })
+            })
+
+            collection[HUSH_PROTOCOL_ID].forEach(_account => {
+                // console.log('ACCOUNT (1213551432)', _account)
+                _account.utxos.forEach(_utxo => {
+                    mainList.push({
+                        address: _account.address,
+                        ..._utxo,
+                    })
+                })
+            })
+
+            return mainList
         },
 
         /* Return wif. */
@@ -275,32 +309,127 @@ _setupHushKeychain.bind(this)()
             }
 
             coins = this._keychain[HUSH_PROTOCOL_ID]
-            console.log('WAITING FOR COINS', coins)
+            // console.log('WAITING FOR COINS', coins)
 
             hushAddresses = Object.keys(coins).map(_coinid => {
                 const coin = coins[_coinid]
                 return coin.address
             })
-            console.log('SAVED ADDRESSES', hushAddresses)
+            // console.log('SAVED ADDRESSES', hushAddresses)
 
             data = await bchjs.Electrumx.utxo(hushAddresses.slice(0, 20))
-            console.log('HUSH DATA', data)
+            // console.log('HUSH DATA', data)
             // const utxos = data.utxos
 
-            if (_allChains) {
-                const bchAddress = await this.getBchAddress(0, 0, 0)
-                    .catch(err => console.error(err))
-                console.log('BCH ADDRESS', bchAddress)
+            // FIXME Update the delata ONLY!
+            this._utxos[HUSH_PROTOCOL_ID] = data?.utxos
 
-                data = await bchjs.Electrumx.utxo(bchAddress)
-                console.log('WALLET DATA', data)
+            if (_allChains) {
+                let bchAddress1
+                let bchAddress2
+                let bchAddress3
+
+                bchAddress1 = await this.getBchAddress(0, 0, 0)
+                    .catch(err => console.error(err))
+                // console.log('BCH ADDRESS-1', bchAddress1)
+
+                bchAddress2 = await this.getBchAddress(0, 0, 1)
+                    .catch(err => console.error(err))
+                // console.log('BCH ADDRESS-2', bchAddress2)
+
+                bchAddress3 = await this.getBchAddress(0, 0, 2)
+                    .catch(err => console.error(err))
+                // console.log('BCH ADDRESS-3', bchAddress3)
+
+                data = await bchjs.Electrumx.utxo([
+                    bchAddress1,
+                    bchAddress2,
+                    bchAddress3,
+                ])
+                // console.log('WALLET DATA', data)
+
+                // FIXME Update the delta ONLY!
+                this._utxos[0] = data?.utxos
             }
 
-
-            utxos = this._utxos[HUSH_PROTOCOL_ID]
-            console.log('WAITING FOR UTXOS', utxos)
-
             return true
+        },
+
+        async startFusion () {
+            console.log('Starting fusions...')
+
+            /* Initialize locals. */
+            let cipherCoins
+            let cipherTokens
+            let publicKey
+            let rawTx
+            let readyToFuse
+            let response
+            let wallet
+
+            rawTx = Wallet.buildUnsignedTx()
+            console.log('RAW TX (HEX)', rawTx)
+
+            readyToFuse = JSON.stringify(props.utxos)
+            console.log('READY TO FUSE', readyToFuse)
+
+            // TODO Handle any filtering required BEFORE submitting for fusion.
+
+            wallet = await $fetch('/api/wallet')
+                .catch(err => console.error(err))
+            // console.log('WALLET', wallet)
+
+            // FIXME Retrieve public key from a "public" endpoint.
+            publicKey = wallet.publicKey
+            console.log('PUBLIC KEY', publicKey)
+
+            /* Generate cipher coins. */
+            cipherCoins = encryptForPubkey(publicKey, readyToFuse)
+            console.log('CIPHER COINS', cipherCoins)
+
+            let outputs
+            let tierScale
+
+            /* Calculate safe balance. */
+            const safeBalance = props.utxos.reduce(
+                (acc, utxo) => (utxo.value > 10000) ? acc + utxo.value : 0, 0
+            )
+
+            /* Set "random" parameters. */
+            const inputAmount = safeBalance
+            tierScale = 12000
+            const feeOffset = 34//10034
+            const maxOutputCount = 17
+
+            /* Request (random) outputs. */
+            outputs = randomOutputsForTier(
+                inputAmount,
+                tierScale,
+                feeOffset,
+                maxOutputCount,
+            )
+            console.info('OUTPUTS-1', outputs)
+
+            tierScale = 15000
+            outputs = randomOutputsForTier(
+                inputAmount,
+                tierScale,
+                feeOffset,
+                maxOutputCount,
+            )
+            console.info('OUTPUTS-2', outputs)
+
+            response = await $fetch('/v1', {
+                method: 'POST',
+                body: {
+                    authid: binToHex(Wallet.wallet.publicKey),
+                    coins: cipherCoins,
+                    tokens: [],
+                    rawTx,
+                },
+            })
+            .catch(err => console.error(err))
+            console.log('RESPONSE', response)
         },
 
         async transfer(_receiver, _satoshis) {

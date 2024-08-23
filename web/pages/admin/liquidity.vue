@@ -44,7 +44,7 @@ const init = async () => {
     let response
     let rootSeed
 
-    utxos.value = []
+    // utxos.value = []
 
     if (typeof Wallet.mnemonic === 'undefined' || Wallet.mnemonic === null) {
         throw new Error('NO mnemonic available to create wallet.')
@@ -66,15 +66,15 @@ const init = async () => {
     cashAddress.value = bchjs.HDNode.toCashAddress(childNode)
     console.log('cashAddress', cashAddress.value)
 
-    response = await bchjs.Electrumx.utxo(cashAddress.value)
+    // response = await bchjs.Electrumx.utxo(cashAddress.value)
     // console.log('RESPONSE', response)
 
     /* Set UTXOs. */
     // utxos.value = response.utxos
-    utxos.value = response.utxos.filter(_utxo => {
-        return _utxo.value >= 10000 // NOTE: Protocol DUST limit (100 bits).
-    })
-    console.log('UTXOS', JSON.stringify(utxos.value, null, 2))
+    // utxos.value = response.utxos.filter(_utxo => {
+    //     return _utxo.value >= 10000 // NOTE: Protocol DUST limit (100 bits).
+    // })
+    // console.log('UTXOS', JSON.stringify(utxos.value, null, 2))
 
     /* Request balances. */
     // response = await bchjs.Electrumx.balance(cashAddress.value)

@@ -12,18 +12,24 @@ const init = async (_fusionsDb) => {
 
     fusionsDb['4e9654f9-3de9-4f9a-8169-3834f40847f5'] = {
         tierid: 888000,
-        guests: 0,
-        inputs: 0,
-        outputs: 0,
+        numGuests: 0,
+        numInputs: 0,
+        numOutputs: 0,
+        guests: [],
+        inputs: [],
+        outputs: [],
         createdAt: moment().unix(),
         updatedAt: moment().unix(),
     }
 
     fusionsDb['6f765750-2267-4601-87be-80a416143a28'] = {
         tierid: 820000,
-        guests: 20,
-        inputs: 36,
-        outputs: 68,
+        numGuests: 20,
+        numInputs: 36,
+        numOutputs: 68,
+        guests: [],
+        inputs: [],
+        outputs: [],
         createdAt: 1723245503,
         updatedAt: 1723245503,
         completedAt: 1723245503,
@@ -32,9 +38,12 @@ const init = async (_fusionsDb) => {
 
     fusionsDb['4eff6293-60e9-4a5a-83de-4b91da1f7de4'] = {
         tierid: 1800000,
-        guests: 22,
-        inputs: 51,
-        outputs: 181,
+        numGuests: 22,
+        numInputs: 51,
+        numOutputs: 181,
+        guests: [],
+        inputs: [],
+        outputs: [],
         createdAt: 1723245818,
         updatedAt: 1723245818,
         complatedAt: 1723245818,

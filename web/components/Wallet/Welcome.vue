@@ -1,9 +1,6 @@
 <script setup lang="ts">
 /* Import modules. */
 import numeral from 'numeral'
-import { encryptForPubkey } from '@nexajs/crypto'
-import { randomOutputsForTier } from '@nexajs/privacy'
-import { binToHex } from '@nexajs/utils'
 
 /* Define properties. */
 // https://vuejs.org/guide/components/props.html#props-declaration
@@ -24,6 +21,19 @@ const nexaAddresses = ref(null)
 
 const HUSH_PROTOCOL_ID = 0x48555348
 
+const balance = computed(() => {
+    if (!Wallet.fusionInputs) {
+        return 0
+    }
+
+    const totalValue = Wallet.fusionInputs.reduce(
+        (acc, utxo) => acc + utxo.value, 0
+    )
+    // console.log('TOTAL VALUE', totalValue)
+
+    return numeral(totalValue).format('0,0')
+})
+
 const cashout = () => {
     alert('WIP?? sorry...')
 }
@@ -32,83 +42,9 @@ const consolidate = () => {
     alert('WIP?? sorry...')
 }
 
-const start = async () => {
-    console.log('Starting...')
-
-    /* Initialize locals. */
-    let cipherCoins
-    let cipherTokens
-    let publicKey
-    let rawTx
-    let readyToFuse
-    let response
-    let wallet
-
-    rawTx = Wallet.buildUnsignedTx()
-    console.log('RAW TX (HEX)', rawTx)
-
-    readyToFuse = JSON.stringify(props.utxos)
-    console.log('READY TO FUSE', readyToFuse)
-
-    // TODO Handle any filtering required BEFORE submitting for fusion.
-
-    wallet = await $fetch('/api/wallet')
-        .catch(err => console.error(err))
-    // console.log('WALLET', wallet)
-
-    // FIXME Retrieve public key from a "public" endpoint.
-    publicKey = wallet.publicKey
-    console.log('PUBLIC KEY', publicKey)
-
-    /* Generate cipher coins. */
-    cipherCoins = encryptForPubkey(publicKey, readyToFuse)
-    console.log('CIPHER COINS', cipherCoins)
-
-    let outputs
-    let tierScale
-
-    /* Calculate safe balance. */
-    const safeBalance = props.utxos.reduce(
-        (acc, utxo) => (utxo.value > 10000) ? acc + utxo.value : 0, 0
-    )
-
-    /* Set "random" parameters. */
-    const inputAmount = safeBalance
-    tierScale = 12000
-    const feeOffset = 34//10034
-    const maxOutputCount = 17
-
-    /* Request (random) outputs. */
-    outputs = randomOutputsForTier(
-        inputAmount,
-        tierScale,
-        feeOffset,
-        maxOutputCount,
-    )
-    console.info('OUTPUTS-1', outputs)
-
-    tierScale = 15000
-    outputs = randomOutputsForTier(
-        inputAmount,
-        tierScale,
-        feeOffset,
-        maxOutputCount,
-    )
-    console.info('OUTPUTS-2', outputs)
-
-    response = await $fetch('/v1', {
-        method: 'POST',
-        body: {
-            authid: binToHex(Wallet.wallet.publicKey),
-            coins: cipherCoins,
-            tokens: [],
-            rawTx,
-        },
-    })
-    .catch(err => console.error(err))
-    console.log('RESPONSE', response)
+const startFusion = () => {
+    Wallet.startFusion()
 }
-
 
 const init = () => {
     /* Initialize locals. */
@@ -145,6 +81,10 @@ onMounted(() => {
             LP Wallets
         </h2>
 
+<!-- <pre class="text-xs">{{Wallet.fusionInputs}}</pre> -->
+<!-- <hr /> -->
+<!-- <pre class="text-xs">{{Wallet.utxos}}</pre> -->
+
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="w-full lg:w-fit">
                 <section class="my-3 px-3 py-2 grid grid-cols-2 items-center gap-1 bg-green-300 border-2 border-green-500 rounded-xl shadow">
@@ -157,20 +97,11 @@ onMounted(() => {
                     </NuxtLink>
 
                     <h3 class="text-green-900 text-sm font-medium text-right uppercase">
-                        Confirmed
+                        Current Balance
                     </h3>
 
                     <h3 class="text-green-900 text-xl font-medium">
-                        {{numeral(props.balances?.confirmed).format('0,0')}}
-                        <small class="text-sm">sats</small>
-                    </h3>
-
-                    <h3 class="text-green-900 text-sm font-medium text-right uppercase">
-                        Unconfirmed
-                    </h3>
-
-                    <h3 class="text-green-900 text-xl font-medium">
-                        {{numeral(props.balances?.unconfirmed).format('0,0')}}
+                        {{balance}}
                         <small class="text-sm">sats</small>
                     </h3>
                 </section>
@@ -194,15 +125,7 @@ onMounted(() => {
                     </NuxtLink>
 
                     <h3 class="text-yellow-900 text-sm font-medium text-right uppercase">
-                        Confirmed
-                    </h3>
-
-                    <h3 class="text-yellow-900 text-xl font-medium">
-                        n/a
-                    </h3>
-
-                    <h3 class="text-yellow-900 text-sm font-medium text-right uppercase">
-                        Unconfirmed
+                        Current Balance
                     </h3>
 
                     <h3 class="text-yellow-900 text-xl font-medium">
