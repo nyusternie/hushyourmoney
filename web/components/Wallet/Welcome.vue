@@ -42,8 +42,8 @@ const consolidate = () => {
     alert('WIP?? sorry...')
 }
 
-const startFusion = () => {
-    Wallet.startFusion()
+const startFusions = () => {
+    Wallet.startFusions()
 }
 
 const init = () => {
@@ -145,7 +145,7 @@ onMounted(() => {
         <hr />
 
         <div class="my-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <button @click="start" class="px-3 py-2 bg-lime-200 border-2 border-lime-400 text-2xl text-lime-800 font-medium rounded-lg shadow hover:bg-lime-100">
+            <button @click="startFusions" class="px-3 py-2 bg-lime-200 border-2 border-lime-400 text-2xl text-lime-800 font-medium rounded-lg shadow hover:bg-lime-100">
                 Start Fusions
             </button>
 

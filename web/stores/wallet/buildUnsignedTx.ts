@@ -19,7 +19,7 @@ export default function () {
     let utxo
 
     try {
-        safeBalance = this.utxos.reduce(
+        safeBalance = this.fusionInputs.reduce(
             (acc, utxo) => (utxo.value >= 10000) ? acc + utxo.value : 0, 0
         )
         console.log('SAFE BALANCE', safeBalance)
@@ -35,7 +35,7 @@ export default function () {
 
         const transactionBuilder = new bchjs.TransactionBuilder()
 let inputIdx
-        this.utxos.forEach((_utxo) => {
+        this.fusionInputs.forEach((_utxo) => {
             /* Set UTXO. */
             utxo = _utxo
             console.log('UTXO', utxo)

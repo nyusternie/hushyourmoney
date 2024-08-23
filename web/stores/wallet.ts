@@ -355,7 +355,7 @@ _setupHushKeychain.bind(this)()
             return true
         },
 
-        async startFusion () {
+        async startFusions() {
             console.log('Starting fusions...')
 
             /* Initialize locals. */
@@ -365,23 +365,23 @@ _setupHushKeychain.bind(this)()
             let rawTx
             let readyToFuse
             let response
-            let wallet
+            let clubWallet
 
-            rawTx = Wallet.buildUnsignedTx()
+            rawTx = this.buildUnsignedTx()
             console.log('RAW TX (HEX)', rawTx)
 
-            readyToFuse = JSON.stringify(props.utxos)
+            readyToFuse = JSON.stringify(this.utxos)
             console.log('READY TO FUSE', readyToFuse)
 
             // TODO Handle any filtering required BEFORE submitting for fusion.
 
-            wallet = await $fetch('/api/wallet')
+            clubWallet = await $fetch('/api/wallet')
                 .catch(err => console.error(err))
-            // console.log('WALLET', wallet)
+            console.log('CLUB WALLET', clubWallet)
 
             // FIXME Retrieve public key from a "public" endpoint.
-            publicKey = wallet.publicKey
-            console.log('PUBLIC KEY', publicKey)
+            publicKey = clubWallet.publicKey
+            console.log('CLUB PUBLIC KEY', publicKey)
 
             /* Generate cipher coins. */
             cipherCoins = encryptForPubkey(publicKey, readyToFuse)
@@ -391,7 +391,7 @@ _setupHushKeychain.bind(this)()
             let tierScale
 
             /* Calculate safe balance. */
-            const safeBalance = props.utxos.reduce(
+            const safeBalance = this.utxos.reduce(
                 (acc, utxo) => (utxo.value > 10000) ? acc + utxo.value : 0, 0
             )
 
