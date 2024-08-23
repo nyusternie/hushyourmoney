@@ -1,16 +1,9 @@
 <script setup lang="ts">
 /* Import modules. */
 import numeral from 'numeral'
-import { Transaction } from 'bitcoinjs-lib'
-import BCHJS from '@psf/bch-js'
 import { encryptForPubkey } from '@nexajs/crypto'
-import { mnemonicToSeed } from '@nexajs/hdnode'
 import { randomOutputsForTier } from '@nexajs/privacy'
-import { encodeNullData } from '@nexajs/script'
-import {
-    binToHex,
-    utf8ToBin,
-} from '@nexajs/utils'
+import { binToHex } from '@nexajs/utils'
 
 /* Define properties. */
 // https://vuejs.org/guide/components/props.html#props-declaration
@@ -24,146 +17,12 @@ const props = defineProps({
 import { useWalletStore } from '@/stores/wallet'
 const Wallet = useWalletStore()
 
-// REST API servers.
-const BCHN_MAINNET = 'https://bchn.fullstack.cash/v5/'
-
-// Instantiate bch-js based on the network.
-const bchjs = new BCHJS({
-    restURL: BCHN_MAINNET,
-})
-
 const bchAddresses = ref(null)
 const btcAddresses = ref(null)
 const hushAddresses = ref(null)
 const nexaAddresses = ref(null)
 
 const HUSH_PROTOCOL_ID = 0x48555348
-
-// Combine all accounts inputs and outputs in one unsigned Tx
-const buildUnsignedTx = () => {
-    /* Initialize locals. */
-    let rawTx
-    let utxo
-
-    try {
-        const safeBalance = props.utxos.reduce(
-            (acc, utxo) => (utxo.value > 10000) ? acc + utxo.value : 0, 0
-        )
-        console.log('SAFE BALANCE', safeBalance)
-        const fee = bchjs.BitcoinCash.getByteCount({ P2PKH: 1 }, { P2PKH: 2 })
-        console.log('FEE', fee)
-
-        const paymentAmount = safeBalance - fee
-
-        const satsNeeded = fee + paymentAmount
-
-        const receiver = 'bitcoincash:qq27zfgmy7hckrrxygjdz6rr847pjkzzyc6d0un4e4'
-        console.log(`payment (+fee): ${satsNeeded}`)
-
-        const transactionBuilder = new bchjs.TransactionBuilder()
-let inputIdx
-        props.utxos.forEach((_utxo) => {
-            /* Set UTXO. */
-            utxo = _utxo
-            console.log('UTXO', utxo)
-inputIdx = 0//utxo.tx_pos
-            transactionBuilder.addInput(utxo.tx_hash, utxo.tx_pos)
-
-            const originalAmount = utxo.value
-
-            const remainder = originalAmount - satsNeeded
-            console.log('REMAINDER', remainder);
-
-            if (remainder < 0) {
-                throw new Error('Selected UTXO does not have enough satoshis')
-            }
-
-
-            const protocolId = '1337'
-            const msg = 'building...'
-
-            const script = [
-                utf8ToBin(protocolId),
-                utf8ToBin(msg),
-            ]
-            console.log('my SCRIPT', script)
-            console.log('encodeNullData', encodeNullData(script))
-
-            // Compile the script array into a bitcoin-compliant hex encoded string.
-            // const data = bchjs.Script.encode(script)
-            const data = Buffer.from(encodeNullData(script))
-            console.log('OP_RETURN (data)', data)
-
-            // Add the OP_RETURN output.
-            // transactionBuilder.addOutput(data, 0)
-            transactionBuilder.addOutput(data, 0)
-
-
-
-            // Send payment
-            // transactionBuilder.addOutput(receiver, satsNeeded)
-            transactionBuilder.addOutput(receiver, paymentAmount)
-
-            // Send the BCH change back to the payment part
-            // transactionBuilder.addOutput(account.address, remainder - 300)
-        })
-
-        /* Initialize redeem script. */
-        // FIXME Why do we need this??
-        let redeemScript
-
-        /* Convert mnemonic to seed. */
-        const seed = mnemonicToSeed(Wallet.mnemonic)
-
-        /* Conver to seed buffer. */
-        // FIXME Migrate to TypedArrays.
-        const seedBuffer = Buffer.from(seed, 'hex')
-
-        /* Generate master node. */
-        const masterNode = bchjs.HDNode.fromSeed(seedBuffer)
-
-/* Set account index. */
-const accountIdx = 0
-/* Set change index. */
-const changeIdx = 0
-/* Set address index. */
-const addressIdx = 0
-
-        /* Generate child node. */
-        const chidleNode = masterNode
-            .derivePath(`m/44'/145'/${accountIdx}'/${changeIdx}/${addressIdx}`)
-
-        /* Generate wallet import format (WIF). */
-        const wif = bchjs.HDNode.toWIF(chidleNode)
-        // console.log('BCH WIF', wif)
-
-        /* Generate elliptic pair. */
-        const ecPair = bchjs.ECPair.fromWIF(wif)
-
-        /* Sign transaction. */
-        transactionBuilder.sign(
-            inputIdx,
-            ecPair,
-            redeemScript,
-            Transaction.SIGHASH_ALL,
-            utxo.value,
-        )
-
-        /* Generate (incomplete) transaction. */
-        const tx = transactionBuilder.transaction.buildIncomplete()
-        // console.log('TRANSACTION', tx)
-
-        /* Convert to (raw) hex. */
-        rawTx = tx.toHex()
-    } catch (err) {
-        console.error(`Error in buildUnsignedTx(): ${err}`)
-        throw err
-    }
-
-    /* Return raw (hex) transaction. */
-    return rawTx
-}
-
 
 const cashout = () => {
     alert('WIP?? sorry...')
@@ -185,7 +44,7 @@ const start = async () => {
     let response
     let wallet
 
-    rawTx = buildUnsignedTx()
+    rawTx = Wallet.buildUnsignedTx()
     console.log('RAW TX (HEX)', rawTx)
 
     readyToFuse = JSON.stringify(props.utxos)
@@ -282,62 +141,100 @@ onMounted(() => {
 
 <template>
     <main>
-        <h2 class="text-5xl font-light text-gray-600 italic">
+        <h2 class="text-6xl font-light text-gray-600">
             LP Wallets
         </h2>
 
-        <section>
-            <h2>
-                Cash Address
-            </h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="w-full lg:w-fit">
+                <section class="my-3 px-3 py-2 grid grid-cols-2 items-center gap-1 bg-green-300 border-2 border-green-500 rounded-xl shadow">
+                    <h2 class="col-span-2 text-green-900 text-base font-medium uppercase tracking-widest">
+                        Bitcoin Cash Address
+                    </h2>
 
-            <NuxtLink :to="'https://3xpl.com/bitcoin-cash/address/' + props.cashAddress.slice(12)" target="_blank" class="text-blue-500 hover:underline">
-                {{props.cashAddress}}
-            </NuxtLink>
+                    <NuxtLink :to="'https://3xpl.com/bitcoin-cash/address/' + props.cashAddress.slice(12)" target="_blank" class="col-span-2 text-base sm:text-xl text-blue-500 truncate hover:underline">
+                        {{props.cashAddress.slice(12)}}
+                    </NuxtLink>
 
-            <section class="w-fit my-3 px-3 py-2 grid grid-cols-2 gap-1 bg-amber-100 border-2 border-amber-300 rounded-xl shadow">
-                <h3 class="text-lg font-medium text-right">
-                    Confirmed
-                </h3>
+                    <h3 class="text-green-900 text-sm font-medium text-right uppercase">
+                        Confirmed
+                    </h3>
 
-                <h3 class="text-lg font-medium">
-                    {{numeral(props.balances?.confirmed).format('0,0')}}
-                </h3>
+                    <h3 class="text-green-900 text-xl font-medium">
+                        {{numeral(props.balances?.confirmed).format('0,0')}}
+                        <small class="text-sm">sats</small>
+                    </h3>
 
-                <h3 class="text-lg font-medium text-right">
-                    Unconfirmed
-                </h3>
+                    <h3 class="text-green-900 text-sm font-medium text-right uppercase">
+                        Unconfirmed
+                    </h3>
 
-                <h3 class="text-lg font-medium">
-                    {{numeral(props.balances?.unconfirmed).format('0,0')}}
-                </h3>
-            </section>
+                    <h3 class="text-green-900 text-xl font-medium">
+                        {{numeral(props.balances?.unconfirmed).format('0,0')}}
+                        <small class="text-sm">sats</small>
+                    </h3>
+                </section>
 
-            <section v-for="(address, index) of hushAddresses" :key="address" class="text-xs">
-                <div class="grid grid-cols-4 gap-3">
-                    <span class="text-right">Hush #{{(index + 1)}}</span>
-                    <NuxtLink :to="'https://3xpl.com/bitcoin-cash/address/' + address.slice(12)" target="_blank" class="col-span-3 text-blue-500 hover:underline">{{address}}</NuxtLink>
+                <div v-for="(address, index) of hushAddresses" :key="address" class="text-xs">
+                    <div class="grid grid-cols-4 items-center gap-3">
+                        <span class="text-right">Hush #{{(index + 1)}}</span>
+                        <NuxtLink :to="'https://3xpl.com/bitcoin-cash/address/' + address.slice(12)" target="_blank" class="col-span-3 text-blue-500 hover:underline">{{address}}</NuxtLink>
+                    </div>
                 </div>
-            </section>
-
-            <div class="my-3 grid grid-cols-2 gap-4">
-                <button @click="start" class="px-3 py-2 bg-lime-200 border-2 border-lime-400 text-2xl text-lime-800 font-medium rounded shadow hover:bg-lime-100">
-                    Start Fusions
-                </button>
-
-                <button @click="cashout" class="px-3 py-2 bg-lime-200 border-2 border-lime-400 text-2xl text-lime-800 font-medium rounded shadow hover:bg-lime-100">
-                    Cashout
-                </button>
-
-                <button @click="consolidate" class="px-3 py-2 bg-lime-200 border-2 border-lime-400 text-2xl text-lime-800 font-medium rounded shadow hover:bg-lime-100">
-                    Consolidate
-                </button>
-
             </div>
 
-            <pre class="text-xs">{{props.utxos}}</pre>
+            <div class="w-full lg:w-fit">
+                <section class="my-3 px-3 py-2 grid grid-cols-2 items-center gap-1 bg-yellow-200 border-2 border-yellow-400 rounded-xl shadow">
+                    <h2 class="col-span-2 text-yellow-900 text-base font-medium uppercase tracking-widest">
+                        Nexa Address
+                    </h2>
 
-        </section>
+                    <NuxtLink :to="'https://explorer.nexa.org/address/' + Wallet.address" target="_blank" class="col-span-2 text-base sm:text-xl text-blue-500 truncate hover:underline">
+                        {{Wallet.address.slice(5)}}
+                    </NuxtLink>
+
+                    <h3 class="text-yellow-900 text-sm font-medium text-right uppercase">
+                        Confirmed
+                    </h3>
+
+                    <h3 class="text-yellow-900 text-xl font-medium">
+                        n/a
+                    </h3>
+
+                    <h3 class="text-yellow-900 text-sm font-medium text-right uppercase">
+                        Unconfirmed
+                    </h3>
+
+                    <h3 class="text-yellow-900 text-xl font-medium">
+                        n/a
+                    </h3>
+                </section>
+
+                <!-- <div v-for="(address, index) of hushAddresses" :key="address" class="text-xs">
+                    <div class="grid grid-cols-4 items-center gap-3">
+                        <span class="text-right">Hush #{{(index + 1)}}</span>
+                        <NuxtLink :to="'https://3xpl.com/bitcoin-cash/address/' + address.slice(12)" target="_blank" class="col-span-3 text-blue-500 hover:underline">{{address}}</NuxtLink>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="my-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <button @click="start" class="px-3 py-2 bg-lime-200 border-2 border-lime-400 text-2xl text-lime-800 font-medium rounded-lg shadow hover:bg-lime-100">
+                Start Fusions
+            </button>
+
+            <button @click="consolidate" class="px-3 py-2 bg-lime-200 border-2 border-lime-400 text-2xl text-lime-800 font-medium rounded-lg shadow hover:bg-lime-100">
+                Consolidate UTXOs
+            </button>
+
+            <button @click="cashout" class="px-3 py-2 bg-lime-200 border-2 border-lime-400 text-2xl text-lime-800 font-medium rounded-lg shadow hover:bg-lime-100">
+                Cashout Wallet
+            </button>
+
+        </div>
 
         <ul role="list" class="mt-6 grid grid-cols-1 gap-6 border-b border-t border-gray-200 py-6 sm:grid-cols-2">
             <li class="flow-root">

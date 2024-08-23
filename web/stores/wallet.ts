@@ -8,8 +8,13 @@ import { mnemonicToEntropy } from '@nexajs/hdnode'
 import { Wallet } from '@nexajs/wallet'
 
 import _broadcast from './wallet/broadcast.ts'
+import _buildUnsignedTx from './wallet/buildUnsignedTx.ts'
 import _setEntropy from './wallet/setEntropy.ts'
-import _setupHush from './wallet/setupHush.ts'
+import _setupKeychain from './wallet/setupKeychain.ts'
+import _setupHushKeychain from './wallet/setupHushKeychain.ts'
+
+/* Initialize constants. */
+const HUSH_PROTOCOL_ID = 0x48555348
 
 // REST API servers.
 const BCHN_MAINNET = 'https://bchn.fullstack.cash/v5/'
@@ -19,6 +24,8 @@ const bchjs = new BCHJS({
     restURL: BCHN_MAINNET,
 })
 
+/* Set constants. */
+const UPDATE_UTXOS_INTERVAL = 8000 // Allows for ~7 (REST) requests per minute.
 
 /**
  * Wallet Store
@@ -60,6 +67,13 @@ export const useWalletStore = defineStore('wallet', {
          * ]
          */
         _keychain: null,
+
+        /**
+         * Unspent Transaction Outputs (UTXOs)
+         *
+         * A dedicated handler for ALL network UTXOs.
+         */
+        _utxos: null,
 
         /**
          * Wallet
@@ -111,6 +125,15 @@ export const useWalletStore = defineStore('wallet', {
             return _state._wallet._mnemonic
         },
 
+        /* Return UTXOs. */
+        utxos(_state) {
+            if (!_state._wallet) {
+                return null
+            }
+
+            return _state._utxos
+        },
+
         /* Return wif. */
         wif(_state) {
             if (!_state._wallet) {
@@ -147,11 +170,15 @@ export const useWalletStore = defineStore('wallet', {
                 }
                 console.log('Keychain initialized successfully!', this._keychain)
 
-                /* Set Hush. */
-                _setupHush.bind(this)()
+                /* Set keychain. */
+                _setupKeychain.bind(this)()
+
+                /* Set Hush keychian. */
+                _setupHushKeychain.bind(this)()
             }
 // FOR DEV PURPOSES ONLY
-_setupHush.bind(this)()
+_setupKeychain.bind(this)()
+_setupHushKeychain.bind(this)()
 
             /* Request a wallet instance (by mnemonic). */
             this._wallet = await Wallet.init(this._entropy, true)
@@ -170,6 +197,12 @@ _setupHush.bind(this)()
 // FIXME Read ASSETS directly from library (getter).
                 this._assets = { ..._assets }
             })
+
+            // FIXME ADDED FOR BITCOIN CASH SUPPORT
+            setInterval(this.updateUtxos, UPDATE_UTXOS_INTERVAL)
+
+            /* Update ALL chains. */
+            this.updateUtxos(true)
         },
 
         /**
@@ -196,13 +229,19 @@ _setupHush.bind(this)()
             this.init()
         },
 
+        /**
+         * Get Bitcoin Cash Address
+         *
+         * Will return the "child" address of a master node,
+         * based on the account index, change flag and address index.
+         */
         async getBchAddress(
             _accountIdx = 0,
-            _changeIdx = 0,
+            _isChange = 0, // NOTE: 0 = false, 1 = true
             _addressIdx = 0,
         ) {
             /* Set root seed. */
-            const rootSeed = await bchjs.Mnemonic.toSeed(Wallet.mnemonic)
+            const rootSeed = await bchjs.Mnemonic.toSeed(this.mnemonic)
             // console.log('rootSeed', rootSeed)
 
             /* Set HD master node. */
@@ -211,14 +250,57 @@ _setupHush.bind(this)()
 
             /* Set child node. */
             const childNode = masterHdnode
-                .derivePath(`m/44'/145'/${_accountIdx}'/${_changeIdx}/${_addressIdx}`)
+                .derivePath(`m/44'/145'/${_accountIdx}'/${_isChange}/${_addressIdx}`)
             // console.log('childNode', childNode)
 
             /* Set Bitcoin Cash address. */
             const cashAddress = bchjs.HDNode.toCashAddress(childNode)
-            console.log('cashAddress', cashAddress)
+            // console.log('cashAddress', cashAddress)
 
             return cashAddress
+        },
+
+        async updateUtxos(_allChains = false) {
+            /* Initialize locals. */
+            let coins
+            let data
+            let hushAddresses
+            let utxos
+            let walletAddresses
+
+            /* Validate UTXO handler. */
+            if (this._utxos === null) {
+                /* Initialize UTXO handler. */
+                this._utxos = {}
+            }
+
+            coins = this._keychain[HUSH_PROTOCOL_ID]
+            console.log('WAITING FOR COINS', coins)
+
+            hushAddresses = Object.keys(coins).map(_coinid => {
+                const coin = coins[_coinid]
+                return coin.address
+            })
+            console.log('SAVED ADDRESSES', hushAddresses)
+
+            data = await bchjs.Electrumx.utxo(hushAddresses.slice(0, 20))
+            console.log('HUSH DATA', data)
+            // const utxos = data.utxos
+
+            if (_allChains) {
+                const bchAddress = await this.getBchAddress(0, 0, 0)
+                    .catch(err => console.error(err))
+                console.log('BCH ADDRESS', bchAddress)
+
+                data = await bchjs.Electrumx.utxo(bchAddress)
+                console.log('WALLET DATA', data)
+            }
+
+
+            utxos = this._utxos[HUSH_PROTOCOL_ID]
+            console.log('WAITING FOR UTXOS', utxos)
+
+            return true
         },
 
         async transfer(_receiver, _satoshis) {
@@ -235,6 +317,11 @@ _setupHush.bind(this)()
         broadcast(_receivers) {
             /* Broadcast to receivers. */
             return _broadcast.bind(this)(_receivers)
+        },
+
+        buildUnsignedTx() {
+            /* Build unsigned transactions. */
+            return _buildUnsignedTx.bind(this)()
         },
 
         setEntropy(_entropy) {

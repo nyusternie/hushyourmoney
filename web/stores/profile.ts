@@ -9,7 +9,7 @@ export const useProfileStore = defineStore('profile', {
         /* Initialize session. */
         _session: null,
 
-        _apiKeys: {},
+        _profiles: null,
     }),
 
     getters: {
@@ -25,12 +25,16 @@ export const useProfileStore = defineStore('profile', {
             return _state._session?.challenge || null
         },
 
-        apiKey(_state) {
-            return (_exchangeid) => _state._apiKeys[_exchangeid] || null
+        profiles(_state) {
+            return _state._profiles || null
         },
     },
 
     actions: {
+        init () {
+            console.log('Initializing Profiles...')
+        },
+
         async initSession () {
             console.log('INIT SESSION (before):', this._session)
             /* Check for existing session. */

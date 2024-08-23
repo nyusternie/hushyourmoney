@@ -77,14 +77,14 @@ const init = async () => {
     console.log('UTXOS', JSON.stringify(utxos.value, null, 2))
 
     /* Request balances. */
-    response = await bchjs.Electrumx.balance(cashAddress.value)
+    // response = await bchjs.Electrumx.balance(cashAddress.value)
 
     /* Validate response. */
-    if (response.success) {
-        /* Set balances. */
-        balances.value = response.balance
-        console.log('BALANCES', balances.value)
-    }
+    // if (response.success) {
+    //     /* Set balances. */
+    //     balances.value = response.balance
+    //     console.log('BALANCES', balances.value)
+    // }
 
 }
 
@@ -104,18 +104,20 @@ onMounted(() => {
             Liquidity Provider
         </h1>
 
-        <h3 class="text-rose-500 text-4xl font-light italic tracking-tight">
-            What does an LP do?
-        </h3>
+        <section class="mt-5 w-full lg:w-2/3 flex flex-col gap-4">
+            <h2 class="text-fuchsia-500 text-4xl font-light italic tracking-tight">
+                What does an LP do?
+            </h2>
 
-        <p class="text-gray-600 text-xl font-light italic">
-            If this was a playground, LPs would be the ones turning the double dutch ropes for everyone else to enjoy a great time!
-        </p>
+            <p class="text-fuchsia-800 text-2xl font-light leading-8 italic">
+                If this was a playground, LPs would be the ones turning the double dutch ropes for everyone else to enjoy a great time!
+            </p>
 
-        <p class="text-gray-600 text-xl font-light italic">
-            Liquidity will be spread across all <NuxtLink to="/help/tiers" class="text-blue-500 font-normal hover:underline">Tiers</NuxtLink> to maximize its utility to the greatest number of active <NuxtLink to="/help/guests" class="text-blue-500 font-normal hover:underline">Club Guests</NuxtLink>.
-            The goal is to offer sub 15-second <NuxtLink to="/help/dances" class="text-blue-500 font-normal hover:underline">Coin Dances</NuxtLink>.
-        </p>
+            <p class="text-gray-600 text-lg font-light leading-7">
+                Liquidity is spread across ALL <NuxtLink to="/help/tiers" class="text-blue-500 font-normal hover:underline">Tiers</NuxtLink> to maximize its utility to the greatest number of active <NuxtLink to="/help/guests" class="text-blue-500 font-normal hover:underline">Club Guests</NuxtLink>.
+                The Hush Protocol, powered by a community of independently operated Hush Your Money (HYM) Clubs, is engineered <em>(i.e. financially incentivized)</em> to offer sub 15-seconds <NuxtLink to="/help/dances" class="text-blue-500 font-normal hover:underline">Coin Dances</NuxtLink>, consistently!
+            </p>
+        </section>
 
         <section class="w-full w-3/4 py-10 flex justify-center">
             <Loading v-if="Wallet.isLoading" />

@@ -2,12 +2,12 @@
 import moment from 'moment'
 
 /* Set constants. */
-const ADDRESS_POOL_SIZE = 25
+const ADDRESS_POOL_SIZE = 40 // NOTE: Recommended default is 100 addresses.
 const CHANGE_IDX = 0
 const HUSH_PROTOCOL_ID = 0x48555348
 
 export default async function () {
-    console.time('Hush wallet initialization')
+    console.time('Hush keychain initialization')
 
     /* Initialize locals. */
     let address
@@ -31,5 +31,5 @@ export default async function () {
         this._keychain[HUSH_PROTOCOL_ID][addressIdx] = pkg
     }
 
-    console.timeEnd('Hush wallet initialization')
+    console.timeEnd('Hush keychain initialization')
 }
