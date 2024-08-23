@@ -448,9 +448,9 @@ _setupHushKeychain.bind(this)()
             return _broadcast.bind(this)(_receivers)
         },
 
-        buildUnsignedTx() {
+        buildUnsignedTx(_sessionInputs, _sessionOutputs) {
             /* Build unsigned transactions. */
-            return _buildUnsignedTx.bind(this)()
+            return _buildUnsignedTx.bind(this)(_sessionInputs, _sessionOutputs)
         },
 
         setEntropy(_entropy) {

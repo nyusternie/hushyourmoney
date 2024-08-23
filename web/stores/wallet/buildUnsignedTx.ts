@@ -12,14 +12,14 @@ const bchjs = new BCHJS()
  *
  * Combine all accounts inputs and outputs in one unsigned Tx.
  */
-export default function () {
+export default function (_sessionInputs, _sessionOutputs) {
     /* Initialize locals. */
     let rawTx
     let safeBalance
     let utxo
 
     try {
-        safeBalance = this.fusionInputs.reduce(
+        safeBalance = _sessionInputs.reduce(
             (acc, utxo) => (utxo.value >= 10000) ? acc + utxo.value : 0, 0
         )
         console.log('SAFE BALANCE', safeBalance)
