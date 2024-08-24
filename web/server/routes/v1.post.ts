@@ -10,8 +10,12 @@ import {
 
 export default defineEventHandler(async (event) => {
     /* Initialize locals. */
-    let coins
-    let tokens
+    let components
+    let params
+    let profile
+    let response
+    let session
+    let success
 
     /* Set database. */
     const Db = event.context.Db
@@ -34,25 +38,17 @@ export default defineEventHandler(async (event) => {
     const actionid = body.actionid
     // console.log('ACTION ID', actionid)
 
-    const sessionid = body.sessionid
+    // const sessionid = body.sessionid
     // console.log('SESSION ID', sessionid)
 
-    const rawTx = body.rawTx
+    // const rawTx = body.rawTx
     // console.log('RAW TRANSACTION', rawTx)
 
-    coins = decryptForPubkey(binToHex(Wallet.privateKey), body.coins)
-    coins = binToUtf8(coins)
-    coins = JSON.parse(coins)
-
-    tokens = body.tokens
-    // console.log('TOKENS', tokens)
-
-    /* Initialize locals. */
-    let params
-    let profile
-    let response
-    let session
-    let success
+    components = body.components
+    components = decryptForPubkey(binToHex(Wallet.privateKey), components)
+    components = binToUtf8(components)
+    components = JSON.parse(components)
+    console.log('COMPONENTS', components)
 
     /* Validate auth ID. */
     if (typeof authid === 'undefined' || authid === null) {
@@ -93,12 +89,11 @@ export default defineEventHandler(async (event) => {
         // console.log('UPDATE PROFILE', response)
     }
 
-    console.log('DEBUG::INSERTING A NEW FUSION')
-    const fusion = Db.fusions['4e9654f9-3de9-4f9a-8169-3834f40847f5']
-    console.log('FUSION', fusion)
+console.log('DEBUG::INSERTING A NEW FUSION')
+const fusion = Db.fusions['4e9654f9-3de9-4f9a-8169-3834f40847f5']
+console.log('FUSION', fusion)
 
-    fusion.coins = coins
-    fusion.tokens = tokens
+    fusion.components = components
     fusion.rawTx = rawTx
 
     /* Set (new) updated at (timestamp). */
@@ -109,8 +104,7 @@ export default defineEventHandler(async (event) => {
     /* Build (response) package. */
     const pkg = {
         id: profile._id,
-        coins,
-        tokens,
+        components,
         createdAt: profile.createdAt,
         updatedAt: profile.updatedAt,
     }

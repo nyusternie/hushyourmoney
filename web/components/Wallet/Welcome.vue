@@ -83,7 +83,7 @@ onMounted(() => {
 
 <!-- <pre class="text-xs">{{Wallet.fusionInputs}}</pre> -->
 <!-- <hr /> -->
-<!-- <pre class="text-xs">{{Wallet.utxos}}</pre> -->
+<pre class="text-xs">{{Wallet.fusionAddrs}}</pre>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="w-full lg:w-fit">

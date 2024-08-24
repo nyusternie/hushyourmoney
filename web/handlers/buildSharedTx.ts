@@ -8,18 +8,18 @@ import { utf8ToBin } from '@nexajs/utils'
 const bchjs = new BCHJS()
 
 /**
- * Build Unsigned Transaction
+ * Build Shared Transaction
  *
- * Combine all accounts inputs and outputs in one unsigned Tx.
+ * Combine all participating inputs and outputs into one (signed) transaction.
  */
-export default function (_sessionInputs, _sessionOutputs) {
+export default function (_inputs, _outputs) {
     /* Initialize locals. */
     let rawTx
     let safeBalance
     let utxo
 
     try {
-        safeBalance = _sessionInputs.reduce(
+        safeBalance = _inputs.reduce(
             (acc, utxo) => (utxo.value >= 10000) ? acc + utxo.value : 0, 0
         )
         console.log('SAFE BALANCE', safeBalance)
