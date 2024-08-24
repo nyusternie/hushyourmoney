@@ -478,38 +478,39 @@ _setupHushKeychain.bind(this)()
                     }
                 })
             }
-console.log('BEST TIERS', bestTiers)
+            console.log('BEST TIERS', bestTiers)
 // return
 
             /* Add best tiers to components. */
             Object.keys(bestTiers).forEach(_tierid => {
                 const tier = bestTiers[_tierid]
 
+                /* Add (output) tier. */
                 components.push(tier)
             })
 
             /* Prepare components for encryption. */
             components = JSON.stringify(components)
-            console.log('FUSION (components)', inputs)
+            // console.log('FUSION (components)', components)
 
             // TODO Handle any filtering required BEFORE submitting for fusion.
 
             clubWallet = await $fetch('/api/wallet')
                 .catch(err => console.error(err))
-            console.log('CLUB WALLET', clubWallet)
+            // console.log('CLUB WALLET', clubWallet)
 
             // FIXME Retrieve public key from a "public" endpoint.
             publicKey = clubWallet.publicKey
-            console.log('CLUB PUBLIC KEY', publicKey)
+            // console.log('CLUB PUBLIC KEY', publicKey)
 
             /* Generate blind components. */
             blindComponents = encryptForPubkey(publicKey, components)
-            console.log('BLINDED COMPONENTS', blindComponents)
+            // console.log('BLINDED COMPONENTS', blindComponents)
 
             response = await $fetch('/v1', {
                 method: 'POST',
                 body: {
-                    authid: binToHex(Wallet.wallet.publicKey),
+                    authid: binToHex(this.wallet.publicKey),
                     components: blindComponents,
                 },
             })

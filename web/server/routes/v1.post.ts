@@ -93,8 +93,19 @@ console.log('DEBUG::INSERTING A NEW FUSION')
 const fusion = Db.fusions['4e9654f9-3de9-4f9a-8169-3834f40847f5']
 console.log('FUSION', fusion)
 
-    fusion.components = components
-    fusion.rawTx = rawTx
+    components.forEach(_component => {
+        if (_component.tx_hash) {
+            fusion.inputs[_component.tx_hash + ':' + _component.tx_pos] = _component
+        }
+
+        if (_component.tierid >= 10000) {
+            _component.outputs.forEach(_output => {
+                fusion.outputs[_output.address + ':' + _output.value] = true
+            })
+        }
+    })
+    // fusion.components = components
+    // fusion.rawTx = rawTx
 
     /* Set (new) updated at (timestamp). */
     fusion.updatedAt = moment().unix()
