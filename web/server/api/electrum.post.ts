@@ -29,7 +29,6 @@ let electrum
     await electrum.ready()
 })()
 
-
 export default defineEventHandler(async (event) => {
     /* Initialize locals. */
     let address
@@ -52,57 +51,71 @@ export default defineEventHandler(async (event) => {
     /* Set method. */
     method = body.method
 
+    /* Set params. */
+    params = body.params
+
+    let collection = []
+
     /* Handle method. */
     switch(method) {
     case 'blockchain.transaction.get':
-        /* Handle parameters. */
-        if (typeof body.params == 'string') {
-            params = body.params
+        if (Array.isArray(params)) {
+            for (let i = 0; i < params.length; i++) {
+                response = await electrum.request(method, params[i])
+
+                collection.push(response)
+            }
         } else {
-            params = body.params[0]
+            // Request the full transaction hex for the transaction ID.
+            response = await electrum.request(method, params)
+
+            collection = [ response ]
         }
 
-        break
+        return collection
     case 'blockchain.scripthash.listunspent':
-        /* Handle parameters. */
-        if (typeof body.params == 'string') {
-            params = body.params
+        if (Array.isArray(params)) {
+            for (let i = 0; i < params.length; i++) {
+                /* Set address. */
+                address = params[i]
+
+                /* Convert to script hash. */
+                hash160 = bchjs.Address.toHash160(params[i])
+                console.log('HASH160', hash160)
+
+                /* Set script. */
+                // FIXME Use `OP` and TypedArray.
+                script = `76a914${hash160}88ac`
+                // console.log('SCRIPT', script)
+
+                /* Conver to hex. */
+                script = hexToBin(script)
+
+                /* Generate script hash. */
+                scriptHash = sha256(script)
+
+                scriptHash = scriptHash.reverse()
+
+                /* Set params. */
+                params = binToHex(scriptHash)
+
+                response = await electrum.request(method, params)
+
+                // collection.push(response)
+                collection = [ ...collection, ...response ]
+            }
         } else {
-            params = body.params[0]
+            // Request the full transaction hex for the transaction ID.
+            response = await electrum.request(method, params)
+
+            // collection.push(response)
+            collection = [ ...response ]
         }
 
-        /* Set address. */
-        address = params
+        return collection
 
-        /* Convert to script hash. */
-        hash160 = bchjs.Address.toHash160(params)
-        console.log('HASH160', hash160)
-
-        /* Set script. */
-        // FIXME Use `OP` and TypedArray.
-        script = `76a914${hash160}88ac`
-        // console.log('SCRIPT', script)
-
-        /* Conver to hex. */
-        script = hexToBin(script)
-
-        /* Generate script hash. */
-        scriptHash = sha256(script)
-
-        scriptHash = scriptHash.reverse()
-
-        /* Set params. */
-        params = binToHex(scriptHash)
-
-        break
     default:
         setResponseStatus(event, 401)
         return 'Oops! Invalid request!'
     }
-
-    // Request the full transaction hex for the transaction ID.
-    response = await electrum.request(body.method, params)
-    // console.log('RESPONSE', response)
-
-    return response
 })
