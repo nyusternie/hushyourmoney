@@ -58,8 +58,8 @@ const init = async () => {
 // txObj.ins[1].script = txObj2.ins[1].script
 // txObj.ins[2].script = txObj3.ins[2].script
 
-                    /* Add to database. */
-                    // fusionsDb.rawTx
+                    /* Save to database. */
+                    // fusionsDb[???].rawTx
                 }
             })
             console.log('NEW LAST UPDATE', lastUpdate)
@@ -74,7 +74,4 @@ export default defineEventHandler((event) => {
 
     /* Set fusions database. */
     fusionsDb = Db.fusions
-
-    /* Inject wallet into server context. */
-    event.context.Wallet = wallet
 })

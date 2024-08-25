@@ -13,6 +13,7 @@ const init = async (_fusionsDb) => {
     fusionsDb['4e9654f9-3de9-4f9a-8169-3834f40847f5'] = {
         tierid: 888000,
         progress: 0.1,
+        buildHash: null,
         numGuests: 0,
         numInputs: 0,
         numOutputs: 0,
@@ -29,6 +30,7 @@ const init = async (_fusionsDb) => {
     fusionsDb['6f765750-2267-4601-87be-80a416143a28'] = {
         tierid: 820000,
         progress: 100.0,
+        buildHash: '9e3e7d52e195827b9061ceaa5b1a79d710ad4a8a',
         numGuests: 20,
         numInputs: 36,
         numOutputs: 68,
@@ -45,6 +47,7 @@ const init = async (_fusionsDb) => {
     fusionsDb['4eff6293-60e9-4a5a-83de-4b91da1f7de4'] = {
         tierid: 1800000,
         progress: 100.0,
+        buildHash: '9e3e7d52e195827b9061ceaa5b1a79d710ad4a8a',
         numGuests: 22,
         numInputs: 51,
         numOutputs: 181,
