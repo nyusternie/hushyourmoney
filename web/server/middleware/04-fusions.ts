@@ -1,45 +1,18 @@
 /* Import modules. */
-import Bitcoin from '@psf/bitcoincashjs-lib'
-import BCHJS from '@psf/bch-js'
-import { Wallet } from '@nexajs/wallet'
-
-// REST API servers.
-const BCHN_MAINNET = 'https://bchn.fullstack.cash/v5/'
-
-const runtimeConfig = useRuntimeConfig()
-// const jwtAuthToken = runtimeConfig.public.PSF_JWT_AUTH_TOKEN
-const jwtAuthToken = runtimeConfig.PSF_JWT_AUTH_TOKEN
-// console.log('jwtAuthToken', jwtAuthToken)
-
-// Instantiate bch-js based on the network.
-// FIXME https://github.com/Permissionless-Software-Foundation/jwt-bch-demo/blob/master/lib/fullstack-jwt.js
-const bchjs = new BCHJS({
-    restURL: BCHN_MAINNET,
-    apiToken: jwtAuthToken,
-})
-// console.log('bchjs', bchjs)
 
 /* Initialize globals. */
 let fusionsDb
-let wallet
 
 /* Set constants. */
 const CHECK_FUSIONS_INTERVAL = 5000
 
 /**
- * Initialize (Wallet)
+ * Initialize (Fusions)
  *
- * Setup an "ephemeral" wallet for the use of this Club Session.
+ * Setup a Fusions (background) handler.
  */
 const init = async () => {
-    wallet = await Wallet.init()
-        .catch(err => console.error(err))
-    // console.log('WALLET INIT', wallet)
-return // FIXME ONLY CLIENTS CAN BROADCAST FUSIONS
-    let lastUpdate = 0
-    let lastSnapshot
-
-    /* Manage Fusions */
+        /* Manage Fusions */
     setInterval(() => {
         // console.log('Looking for DB(fusions) changes...', fusionsDb)
 
@@ -50,10 +23,6 @@ return // FIXME ONLY CLIENTS CAN BROADCAST FUSIONS
         /* Validate Fusion snapshot. */
         if (fusionsDb && snapshot !== lastSnapshot) {
             lastSnapshot = snapshot
-
-// console.log('FOUND CHANGES??', snapshot)
-// txObj.ins[1].script = txObj2.ins[1].script
-// txObj.ins[2].script = txObj3.ins[2].script
 
             /* Initialize recents. */
             const recents = []
@@ -85,6 +54,10 @@ return // FIXME ONLY CLIENTS CAN BROADCAST FUSIONS
                     /* Build transaction. */
                     // rawTx = ...
 
+// console.log('FOUND CHANGES??', snapshot)
+// txObj.ins[1].script = txObj2.ins[1].script
+// txObj.ins[2].script = txObj3.ins[2].script
+
                     /* Add to database. */
                     // fusionsDb.rawTx
                 }
@@ -92,9 +65,8 @@ return // FIXME ONLY CLIENTS CAN BROADCAST FUSIONS
             console.log('NEW LAST UPDATE', lastUpdate)
         }
     }, CHECK_FUSIONS_INTERVAL)
-
 }
-init()
+// init()
 
 export default defineEventHandler((event) => {
     /* Set database. */
