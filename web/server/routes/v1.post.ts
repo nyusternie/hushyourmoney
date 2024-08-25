@@ -1,6 +1,9 @@
 /* Import modules. */
 import moment from 'moment'
-import { decryptForPubkey } from '@nexajs/crypto'
+import {
+    decryptForPubkey,
+    sha256,
+ } from '@nexajs/crypto'
 import {
     binToHex,
     binToUtf8,
@@ -48,7 +51,7 @@ export default defineEventHandler(async (event) => {
     components = decryptForPubkey(binToHex(Wallet.privateKey), components)
     components = binToUtf8(components)
     components = JSON.parse(components)
-    console.log('COMPONENTS', components)
+    // console.log('COMPONENTS', components)
 
     /* Validate auth ID. */
     if (typeof authid === 'undefined' || authid === null) {
@@ -93,19 +96,27 @@ console.log('DEBUG::INSERTING A NEW FUSION')
 const fusion = Db.fusions['4e9654f9-3de9-4f9a-8169-3834f40847f5']
 console.log('FUSION', fusion)
 
+    let componentid
+
     components.forEach(_component => {
         if (_component.tx_hash) {
-            fusion.inputs[_component.tx_hash + ':' + _component.tx_pos] = _component
+            componentid = sha256(_component.tx_hash + ':' + _component.tx_pos)
+            fusion.inputs[componentid] = {
+                ..._component,
+                signature: null,
+            }
         }
 
         if (_component.tierid >= 10000) {
             _component.outputs.forEach(_output => {
-                fusion.outputs[_output.address + ':' + _output.value] = true
+                componentid = sha256(_output.address + ':' + _output.value)
+                fusion.outputs[componentid] = _output
             })
         }
     })
-    // fusion.components = components
-    // fusion.rawTx = rawTx
+
+    /* Update progress. */
+    fusion.progress = 12.5
 
     /* Set (new) updated at (timestamp). */
     fusion.updatedAt = moment().unix()

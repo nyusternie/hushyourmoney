@@ -457,13 +457,15 @@ _setupHushKeychain.bind(this)()
                                 const numOutputs = response.length
                                 // console.log('NUM OUTPUTS', numOutputs)
 
-                                const fee = bchjs.BitcoinCash.getByteCount({ P2PKH: 1 }, { P2PKH: numOutputs })
+                                // const fee = bchjs.BitcoinCash.getByteCount({ P2PKH: 1 }, { P2PKH: numOutputs })
+                                const fee = bchjs.BitcoinCash.getByteCount({ P2PKH: 1 }, { P2PKH: 1 })
                                 // console.log('FEE', fee)
 
                                 const outputs = response.map(_outputValue => {
                                     return {
                                         address: this.getFusionAddress(),
-                                        value: _outputValue - Math.ceil(fee / numOutputs),
+                                        // value: (_outputValue - Math.ceil(fee / numOutputs)),
+                                        value: (_outputValue - fee),
                                     }
                                 })
 
@@ -529,9 +531,9 @@ _setupHushKeychain.bind(this)()
             }
         },
 
-        broadcast(_receivers) {
-            /* Broadcast to receivers. */
-            return _broadcast.bind(this)(_receivers)
+        broadcast(_network, _rawTx) {
+            /* Broadcast to raw (hex) transaction to mainnet. */
+            return _broadcast.bind(this)(_network, _rawTx)
         },
 
         setEntropy(_entropy) {
