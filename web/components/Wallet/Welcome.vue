@@ -1,7 +1,6 @@
 <script setup lang="ts">
 /* Import modules. */
 import numeral from 'numeral'
-import signSharedTx from '../handlers/signSharedTx.ts'
 
 /* Define properties. */
 // https://vuejs.org/guide/components/props.html#props-declaration
@@ -21,7 +20,7 @@ const hushAddresses = ref(null)
 const nexaAddresses = ref(null)
 
 const HUSH_PROTOCOL_ID = 0x48555348
-const DUST_VAL = 546
+
 
 const balance = computed(() => {
     if (!Wallet.fusionInputs) {
@@ -39,7 +38,7 @@ const balance = computed(() => {
 const cashout = async () => {
     // alert('WIP?? sorry...')
 
-    const response = Wallet.completeFusion()
+    const response = await Wallet.completeFusion()
         .catch(err => console.error(err))
     console.log('COMPLETE FUSION', response)
 }

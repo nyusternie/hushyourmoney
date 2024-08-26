@@ -42,7 +42,7 @@ console.log('SIGN SHARED TX', _sessionid, _inputs, _outputs)
     protocolId = '1337'
 
     /* Set protocol message. */
-    msg = 'testing...'
+    msg = 'finalization...'
 
     script = [
         utf8ToBin(protocolId),
@@ -97,7 +97,7 @@ addressIdx = 0
     ecPair = bchjs.ECPair.fromWIF(wif)
 
 // FIXME Identify our owned inputs.
-ownedInputs = [ 0, 1, 2 ]
+ownedInputs = [ 0, 1, 2, 3, 4, 5, 6 ]
 
     for (let i = 0; i < _inputs.length; i++) {
         /* Verify input ownership. */

@@ -1,3 +1,7 @@
+/* Import modules. */
+import signSharedTx from '../../handlers/signSharedTx.ts'
+
+const DUST_VAL = 546
 
 export default async function () {
     /* Initialize locals. */
@@ -7,9 +11,10 @@ export default async function () {
     let rawTx
     let response
     let session
+    let sessionid
 
-    // FIXME
-    const sessionid = '4e9654f9-3de9-4f9a-8169-3834f40847f5'
+    // FIXME Where do we get the session ID from??
+    sessionid = '4e9654f9-3de9-4f9a-8169-3834f40847f5'
 
     /* Request session details. */
     session = await $fetch(`http://localhost:39159/v1/fusion/${sessionid}`)
@@ -73,10 +78,10 @@ export default async function () {
 
     /* Sign shared transaction. */
     rawTx = signSharedTx(
-        sessionid, Wallet.mnemonic, sortedInputs, sortedOutputs)
+        sessionid, this.mnemonic, sortedInputs, sortedOutputs)
     console.log('RAW TX', rawTx)
 
-    response = await Wallet.broadcast('BCH', rawTx)
+    response = await this.broadcast('BCH', rawTx)
         .catch(err => console.error(err))
     console.log('BROADCAST (response)', response)
 }

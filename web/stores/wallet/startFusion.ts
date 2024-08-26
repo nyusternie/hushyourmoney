@@ -73,15 +73,23 @@ export default async function () {
                     const numOutputs = response.length
                     console.log('NUM OUTPUTS', numOutputs)
 
+                    // FIXME THE RESULTING BYTE COUNTS ARE WRONG!!
+                    //       THIS FUNCTION MAY BE OUTDATED!!
                     const fee = bchjs.BitcoinCash
                         .getByteCount({ P2PKH: fusionInputs.length }, { P2PKH: numOutputs })
                     // const fee = bchjs.BitcoinCash.getByteCount({ P2PKH: 1 }, { P2PKH: 1 })
                     console.log('FEE', fee)
 
+                    const safeFee = (fee * 2) + (fee * Math.random())
+                    console.log('SAFE FEE', safeFee)
+
+                    const feeOffset = Math.ceil(safeFee / numOutputs)
+                    console.log('FEE OFFSET', feeOffset)
+
                     const outputs = response.map(_outputValue => {
                         return {
                             address: this.getFusionAddress(),
-                            value: (_outputValue - Math.ceil(fee / numOutputs)),
+                            value: (_outputValue - feeOffset),
                             // value: (_outputValue - fee),
                         }
                     })

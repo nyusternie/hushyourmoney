@@ -8,11 +8,20 @@ import {
     binToHex,
     binToUtf8,
 } from '@nexajs/utils'
+import { v5 as uuidv5 } from 'uuid'
 
-// import { useProfileStore } from '@/stores/profile'
+/* Set Hush (UUIDv5) Namespace */
+// NOTE: Replace the 1st 4-bytes of the standard prefix with the
+//       Hush Protocol ID (0x48555348).
+// For reference:
+//   - uuidv5.DNS 6ba7b810-9dad-11d1-80b4-00c04fd430c8
+//   - uuidv5.URL 6ba7b811-9dad-11d1-80b4-00c04fd430c8
+const HUSH_NAMESPACE = '48555348-9dad-11d1-80b4-00c04fd430c8'
+
 
 export default defineEventHandler(async (event) => {
     /* Initialize locals. */
+    let componentid
     let components
     let params
     let profile
@@ -28,9 +37,11 @@ export default defineEventHandler(async (event) => {
 
     /* Set (request) body. */
     const body = await readBody(event)
-    console.log('BODY', body)
+    // console.log('BODY', body)
 
     if (!body) {
+        setResponseStatus(event, 401)
+
         return `Authorization FAILED!`
     }
 
@@ -60,9 +71,13 @@ export default defineEventHandler(async (event) => {
         return 'Authorization failed!'
     }
 
+console.log('DEBUG::INSERTING A NEW FUSION')
+const fusion = Db.fusions['4e9654f9-3de9-4f9a-8169-3834f40847f5']
+console.log('FUSION', fusion)
+
     /* Request session. */
     profile = Db.profiles[authid]
-    // console.log('PROFILE', profile)
+    console.log('PROFILE', profile)
 
     /* Validate profile id. */
     if (typeof profile === 'undefined' || profile === null) {
@@ -92,11 +107,22 @@ export default defineEventHandler(async (event) => {
         // console.log('UPDATE PROFILE', response)
     }
 
-console.log('DEBUG::INSERTING A NEW FUSION')
-const fusion = Db.fusions['4e9654f9-3de9-4f9a-8169-3834f40847f5']
-console.log('FUSION', fusion)
+    if (profile) {
+        fusion.guests[authid] = {
+            createdAt: profile.createdAt,
+            updatedAt: profile.updatedAt,
+        }
+    } else {
+        setResponseStatus(event, 401)
 
-    let componentid
+        return 'Oops! Authorization failed!'
+    }
+
+    fusion.numGuests = Object.keys(fusion.guests).length
+
+    /* Update progress. */
+    fusion.progress = 12.5
+
 
     components.forEach(_component => {
         /* Validate inputs. */
@@ -115,8 +141,27 @@ console.log('FUSION', fusion)
         }
     })
 
+    fusion.numInputs = Object.keys(fusion.inputs).length
+
+    fusion.numOutputs = Object.keys(fusion.outputs).length
+
+/* Calculate session contents. */
+const sessionContents = JSON.stringify({ ...fusion.inputs, ...fusion.outputs })
+// console.log('SESSION CONTENTS', sessionContents)
+
+/* Calculate (UUIDv5) session hash. */
+const sessionHash = sha256(sessionContents)
+// console.log('SESSION HASH', sessionHash)
+
+/* Calculate session ID. */
+const sessionid = uuidv5(sessionHash, HUSH_NAMESPACE)
+// console.log('SESSION (uuid v5)', sessionid)
+
+    /* Set session ID. */
+    fusion.sessionid = sessionid
+
     /* Update progress. */
-    fusion.progress = 12.5
+    fusion.progress = 75.5
 
     /* Set (new) updated at (timestamp). */
     fusion.updatedAt = moment().unix()
