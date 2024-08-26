@@ -3,10 +3,7 @@ import { defineStore } from 'pinia'
 import moment from 'moment'
 
 import BCHJS from '@psf/bch-js'
-import { encryptForPubkey } from '@nexajs/crypto'
 import { mnemonicToEntropy } from '@nexajs/hdnode'
-import { randomOutputsForTier } from '@nexajs/privacy'
-import { binToHex } from '@nexajs/utils'
 import { Wallet } from '@nexajs/wallet'
 
 import _broadcast from './wallet/broadcast.ts'
@@ -14,7 +11,7 @@ import _completeFusion from './wallet/completeFusion.ts'
 import _setEntropy from './wallet/setEntropy.ts'
 import _setupKeychain from './wallet/setupKeychain.ts'
 import _setupHushKeychain from './wallet/setupHushKeychain.ts'
-import _startFusions from './wallet/startFusions.ts'
+import _startFusion from './wallet/startFusion.ts'
 
 /* Initialize constants. */
 const HUSH_PROTOCOL_ID = 0x48555348
@@ -146,11 +143,11 @@ export const useWalletStore = defineStore('wallet', {
             }
 
             const collection = _state._utxos
-            // console.log('COLLECTION', collection)
+            // console.log('COLLECTION (fusionInputs)', collection)
 
             const mainList = []
 
-            collection[0].forEach(_account => {
+            collection[0]?.forEach(_account => {
                 // console.log('ACCOUNT (0)', _account)
                 _account.utxos.forEach(_utxo => {
                     mainList.push({
@@ -160,7 +157,7 @@ export const useWalletStore = defineStore('wallet', {
                 })
             })
 
-            collection[HUSH_PROTOCOL_ID].forEach(_account => {
+            collection[HUSH_PROTOCOL_ID]?.forEach(_account => {
                 // console.log('ACCOUNT (1213551432)', _account)
                 _account.utxos.forEach(_utxo => {
                     mainList.push({
@@ -328,32 +325,51 @@ _setupHushKeychain.bind(this)()
             // console.log('HUSH ADDRESSES', hushAddresses)
 
             /* Request UTXO data. */
-            data = await bchjs.Electrumx.utxo(hushAddresses.slice(0, 20))
-                .catch(err => console.error(err))
+            data = await $fetch('/api/electrum', {
+                method: 'POST',
+                body: JSON.stringify({
+                    method: 'blockchain.scripthash.listunspent',
+                    params: hushAddresses.slice(0, 20)
+                }),
+            })
+            .catch(err => console.error(err))
             console.log('HUSH UTXOS', data)
 
             // FIXME Update the deltas ONLY!
             // this._utxos[HUSH_PROTOCOL_ID] = data?.utxos
 
             /* Request history data. */
-            // data = await bchjs.Electrumx.transactions(hushAddresses.slice(0, 5))
-            //     .catch(err => console.error(err))
-            // console.log('HUSH TX HISTORY', data)
+            data = await $fetch('/api/electrum', {
+                method: 'POST',
+                body: JSON.stringify({
+                    method: 'blockchain.scripthash.get_history',
+                    params: hushAddresses.slice(0, 20)
+                }),
+            })
+            .catch(err => console.error(err))
+            console.log('HUSH TX HISTORY', data)
 
-            // usedAddresses = data?.utxos.map(_utxo => {
-            //     if (_utxo.utxos.length > 0) {
-            //         return _utxo.address
-            //     }
-            // })
+            usedAddresses = data?.filter(_tx => {
+                if (_tx.txs.length > 0) {
+                    return _tx.address
+                }
+            })
+            usedAddresses = usedAddresses.map(_tx => {
+                return _tx.address
+            })
             // console.log('USED ADDRESSES', usedAddresses)
 
-            // Object.keys(coins).forEach(_coinid => {
-            //     const coin = coins[_coinid]
+            Object.keys(coins).forEach(_coinid => {
+                /* Set coin. */
+                const coin = coins[_coinid]
 
-            //     if (usedAddresses.includes(coin.address)) {
-            //         coin.isUsed = true
-            //     }
-            // })
+                /* Verify address exists. */
+                if (usedAddresses.includes(coin.address)) {
+                    /* Set (used) flag. */
+                    coin.isUsed = true
+                    // console.log('COIN (is used)', coin)
+                }
+            })
 
             /* Validate chain handler flag. */
             if (_allChains) {
@@ -373,12 +389,18 @@ _setupHushKeychain.bind(this)()
                     .catch(err => console.error(err))
                 // console.log('BCH ADDRESS-3', bchAddress3)
 
-                data = await bchjs.Electrumx.utxo([
-                    bchAddress1,
-                    bchAddress2,
-                    bchAddress3,
-                ])
-                // console.log('WALLET DATA', data)
+                data = await $fetch('/api/electrum', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        method: 'blockchain.scripthash.listunspent',
+                        params: [
+                            bchAddress1,
+                            bchAddress2,
+                            bchAddress3,
+                        ],
+                    })
+                })
+                console.log('MAIN WALLET DATA', data)
 
                 // FIXME Update the delta ONLY!
                 this._utxos[0] = data?.utxos
@@ -403,7 +425,7 @@ _setupHushKeychain.bind(this)()
 
                 return fusionAddress.isUsed === false && fusionAddress.isLocked === false
             })
-            console.log('ADDRESS IDX', addressIdx)
+            // console.log('ADDRESS IDX', addressIdx)
 
             if (typeof addressIdx !== 'undefined') {
                 /* Set locked flag. */
@@ -417,9 +439,9 @@ _setupHushKeychain.bind(this)()
             }
         },
 
-        async startFusions() {
+        async startFusion() {
             /* Start fusions. */
-            return _startFusions.bind(this)()
+            return _startFusion.bind(this)()
         },
 
         async completeFusion() {

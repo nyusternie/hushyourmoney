@@ -51,7 +51,7 @@ export default defineEventHandler(async (event) => {
     components = decryptForPubkey(binToHex(Wallet.privateKey), components)
     components = binToUtf8(components)
     components = JSON.parse(components)
-    // console.log('COMPONENTS', components)
+    console.log('COMPONENTS', components)
 
     /* Validate auth ID. */
     if (typeof authid === 'undefined' || authid === null) {
@@ -99,6 +99,7 @@ console.log('FUSION', fusion)
     let componentid
 
     components.forEach(_component => {
+        /* Validate inputs. */
         if (_component.tx_hash) {
             componentid = sha256(_component.tx_hash + ':' + _component.tx_pos)
             fusion.inputs[componentid] = {
@@ -107,11 +108,10 @@ console.log('FUSION', fusion)
             }
         }
 
-        if (_component.tierid >= 10000) {
-            _component.outputs.forEach(_output => {
-                componentid = sha256(_output.address + ':' + _output.value)
-                fusion.outputs[componentid] = _output
-            })
+        /* Validate outputs. */
+        if (!_component.tx_hash) {
+            componentid = sha256(_component.address + ':' + _component.value)
+            fusion.outputs[componentid] = _component
         }
     })
 

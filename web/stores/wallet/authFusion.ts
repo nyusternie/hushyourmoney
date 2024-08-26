@@ -1,3 +1,12 @@
+/* Import modules. */
+import { encryptForPubkey } from '@nexajs/crypto'
+import { randomOutputsForTier } from '@nexajs/privacy'
+import { binToHex } from '@nexajs/utils'
+import BCHJS from '@psf/bch-js'
+
+/* Initialize BCHJS. */
+const bchjs = new BCHJS()
+
 
 export default async function () {
     console.log('Starting fusions...')
@@ -19,17 +28,8 @@ export default async function () {
     const feeOffset = 1034//10034
     const maxOutputCount = 17
 
-    /* Calculate input amount. */
-    // inputAmount = this.fusionInputs.reduce(
-    //     (acc, utxo) => (utxo.value > 10000) ? acc + utxo.value : 0, 0
-    // )
-    // console.log('INPUT AMOUNT', inputAmount)
-
     /* Clone fusion inputs. */
     fusionInputs = [ ...this.fusionInputs ]
-
-    /* Add inputs to components. */
-    components = [ ...fusionInputs ]
 
     const tierScales = [
         10000,      12000,      15000,      18000,      22000,      27000,      33000,      39000,      47000,      56000,      68000,      82000,
@@ -65,11 +65,11 @@ export default async function () {
                     /* Test for the best tiers. */
                     if (typeof bestTiers[i] === 'undefined' || response.length > bestTiers[i]?.outputs.length) {
                         const numOutputs = response.length
-                        // console.log('NUM OUTPUTS', numOutputs)
+                        console.log('NUM OUTPUTS', numOutputs)
 
                         // const fee = bchjs.BitcoinCash.getByteCount({ P2PKH: 1 }, { P2PKH: numOutputs })
                         const fee = bchjs.BitcoinCash.getByteCount({ P2PKH: 1 }, { P2PKH: 1 })
-                        // console.log('FEE', fee)
+                        console.log('FEE', fee)
 
                         const outputs = response.map(_outputValue => {
                             return {
@@ -93,13 +93,26 @@ export default async function () {
     console.log('BEST TIERS', bestTiers)
 // return
 
-    /* Add best tiers to components. */
-    Object.keys(bestTiers).forEach(_tierid => {
-        const tier = bestTiers[_tierid]
+    /* Initialize components. */
+    components = []
 
-        /* Add (output) tier. */
+    /* Add best tiers to components. */
+    // NOTE: Best tiers index is derived from inputs index.
+    Object.keys(bestTiers).forEach(_tierIdx => {
+        /* Add (matching) input to components. */
+        components.push(fusionInputs[_tierIdx])
+
+        /* Set tier. */
+        const tier = bestTiers[_tierIdx]
+
+        /* Add (output) components. */
         components.push(tier)
     })
+
+    /* Validate components. */
+    if (components.length === 0) {
+        throw new Error('Oops! You MUST provide components to the Club.')
+    }
 
     /* Prepare components for encryption. */
     components = JSON.stringify(components)
@@ -123,6 +136,7 @@ export default async function () {
         method: 'POST',
         body: {
             authid: binToHex(this.wallet.publicKey),
+            actionid: 'submit-components',
             components: blindComponents,
         },
     })

@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
 
     /* Set (request) body. */
     body = await readBody(event)
-    console.log('BODY', body)
+    // console.log('BODY', body)
 
     if (!body || !body.method || !body.params) {
         return `Request FAILED!`
@@ -82,12 +82,10 @@ export default defineEventHandler(async (event) => {
 
                 /* Convert to script hash. */
                 hash160 = bchjs.Address.toHash160(params[i])
-                console.log('HASH160', hash160)
 
                 /* Set script. */
                 // FIXME Use `OP` and TypedArray.
                 script = `76a914${hash160}88ac`
-                // console.log('SCRIPT', script)
 
                 /* Conver to hex. */
                 script = hexToBin(script)
@@ -126,16 +124,12 @@ export default defineEventHandler(async (event) => {
                 /* Set address. */
                 address = params[i]
 
-                console.log('ADDRESS', address)
-
                 /* Convert to script hash. */
                 hash160 = bchjs.Address.toHash160(params[i])
-                console.log('HASH160', hash160)
 
                 /* Set script. */
                 // FIXME Use `OP` and TypedArray.
                 script = `76a914${hash160}88ac`
-                // console.log('SCRIPT', script)
 
                 /* Conver to hex. */
                 script = hexToBin(script)
