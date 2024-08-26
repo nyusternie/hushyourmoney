@@ -7,6 +7,10 @@ import { utf8ToBin } from '@nexajs/utils'
 
 const bchjs = new BCHJS()
 
+/* Initialize constants. */
+const HUSH_PROTOCOL_ID = 0x48555348
+
+
 /**
  * Build Shared Transaction
  *
@@ -18,9 +22,10 @@ console.log('SIGN SHARED TX', _sessionid, _inputs, _outputs)
     let accountIdx
     let addressIdx
     let changeIdx
-    let chidleNode
+    let childNode
     let data
     let ecPair
+    let hushIndexes
     let ownedInputs
     let protocolId
     let msg
@@ -78,33 +83,40 @@ console.log('SIGN SHARED TX', _sessionid, _inputs, _outputs)
     /* Generate master node. */
     const masterNode = bchjs.HDNode.fromSeed(seedBuffer)
 
-/* Set account index. */
-accountIdx = 0
-/* Set change index. */
-changeIdx = 0
-/* Set address index. */
-addressIdx = 0
-
-    /* Generate child node. */
-    chidleNode = masterNode
-        .derivePath(`m/44'/145'/${accountIdx}'/${changeIdx}/${addressIdx}`)
-
-    /* Generate wallet import format (WIF). */
-    wif = bchjs.HDNode.toWIF(chidleNode)
-    // console.log('BCH WIF', wif)
-
-    /* Generate elliptic pair. */
-    ecPair = bchjs.ECPair.fromWIF(wif)
-
 // FIXME Identify our owned inputs.
 ownedInputs = [ 0, 1, 2, 3, 4, 5, 6 ]
-
+// hushIndexes = [ 0, 1, 2, 3, 4, 5, 6 ]
+// 0 - L58m5XW3cYG84ZN5Cbqqap7Mvx1TihNNMPSq7Vw9W7t3oHeuS36q
+// 1 - L2qsjy4xprtF2hocseepEtKM3V6y5hHjvkX5K7zedeBjmd6forbb
+// 2 - L4FmiWogy4THbosEUHbfLgxgTQpZ1e4dFDrAoik2fvoQ9TNKCsRe
     for (let i = 0; i < _inputs.length; i++) {
         /* Verify input ownership. */
         if (!ownedInputs.includes(i)) {
             continue
         }
 
+        /* Set account index. */
+        // accountIdx = 0
+        accountIdx = HUSH_PROTOCOL_ID
+        /* Set change index. */
+        changeIdx = 0
+        /* Set address index. */
+        // addressIdx = 0
+        // addressIdx = hushIndexes[i]
+        addressIdx = _inputs[i].address_idx
+        console.log('ADDRESS IDX')
+
+        /* Generate child node. */
+        childNode = masterNode
+            .derivePath(`m/44'/145'/${accountIdx}'/${changeIdx}/${addressIdx}`)
+
+        /* Generate wallet import format (WIF). */
+        wif = bchjs.HDNode.toWIF(childNode)
+        // console.log('BCH WIF', i, wif)
+
+        /* Generate elliptic pair. */
+        ecPair = bchjs.ECPair.fromWIF(wif)
+console.log('PARAMS', i, redeemScript, _inputs[i].value)
         /* Sign (our own) input. */
         transactionBuilder.sign(
             i,

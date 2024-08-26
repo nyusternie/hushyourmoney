@@ -43,8 +43,21 @@ export default async function () {
 
     /* Handle (input) keys. */
     keys.forEach(_keyid => {
+        /* Set input. */
+        const input = inputs[_keyid]
+        console.log('HANDLE INPUT', input)
+
+        /* Find address index for input. */
+        for (let i = 0; i < this.fusionInputs.length; i++) {
+            if (this.fusionInputs[i].address === input.address) {
+                input.address_idx = i
+                console.log('ADDRESS INDEX', i)
+                break
+            }
+        }
+
         /* Add input. */
-        sortedInputs.push(inputs[_keyid])
+        sortedInputs.push(input)
     })
     // console.log('INPUTS (sorted)', sortedInputs)
 
