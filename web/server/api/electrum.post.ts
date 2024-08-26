@@ -35,6 +35,7 @@ export default defineEventHandler(async (event) => {
     let body
     let hash160
     let method
+    let newParams
     let params
     let response
     let script
@@ -42,7 +43,7 @@ export default defineEventHandler(async (event) => {
 
     /* Set (request) body. */
     body = await readBody(event)
-    // console.log('BODY', body)
+    console.log('BODY', body)
 
     if (!body || !body.method || !body.params) {
         return `Request FAILED!`
@@ -96,13 +97,19 @@ export default defineEventHandler(async (event) => {
 
                 scriptHash = scriptHash.reverse()
 
-                /* Set params. */
-                params = binToHex(scriptHash)
+                /* Set (new) params. */
+                newParams = binToHex(scriptHash)
 
-                response = await electrum.request(method, params)
+                response = await electrum.request(method, newParams)
+
+                /* Add (a reference to) address. */
+                response = {
+                    address,
+                    utxos: response,
+                }
 
                 // collection.push(response)
-                collection = [ ...collection, ...response ]
+                collection = [ ...collection, response ]
             }
         } else {
             // Request the full transaction hex for the transaction ID.
@@ -113,7 +120,54 @@ export default defineEventHandler(async (event) => {
         }
 
         return collection
+    case 'blockchain.scripthash.get_history':
+        if (Array.isArray(params)) {
+            for (let i = 0; i < params.length; i++) {
+                /* Set address. */
+                address = params[i]
 
+                console.log('ADDRESS', address)
+
+                /* Convert to script hash. */
+                hash160 = bchjs.Address.toHash160(params[i])
+                console.log('HASH160', hash160)
+
+                /* Set script. */
+                // FIXME Use `OP` and TypedArray.
+                script = `76a914${hash160}88ac`
+                // console.log('SCRIPT', script)
+
+                /* Conver to hex. */
+                script = hexToBin(script)
+
+                /* Generate script hash. */
+                scriptHash = sha256(script)
+
+                scriptHash = scriptHash.reverse()
+
+                /* Set (new) params. */
+                newParams = binToHex(scriptHash)
+
+                response = await electrum.request(method, newParams)
+
+                /* Add (a reference to) address. */
+                response = {
+                    address,
+                    txs: response,
+                }
+
+                // collection.push(response)
+                collection = [ ...collection, response ]
+            }
+        } else {
+            // Request the full transaction hex for the transaction ID.
+            response = await electrum.request(method, params)
+
+            // collection.push(response)
+            collection = [ ...response ]
+        }
+
+        return collection
     default:
         setResponseStatus(event, 401)
         return 'Oops! Invalid request!'
