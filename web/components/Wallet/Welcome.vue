@@ -27,7 +27,13 @@ const balance = computed(() => {
         return 0
     }
 
-    const totalValue = Wallet.fusionInputs.reduce(
+    const inputs = []
+
+    Object.keys(Wallet.fusionInputs).forEach(_outpoint => {
+        inputs.push(Wallet.fusionInputs[_outpoint])
+    })
+
+    const totalValue = inputs.reduce(
         (acc, utxo) => acc + utxo.value, 0
     )
     // console.log('TOTAL VALUE', totalValue)
@@ -55,6 +61,14 @@ const init = () => {
     /* Initialize locals. */
     let address
 
+    if (typeof props.cashAddress === 'undefined' || !props.cashAddress || props.cashAddress === '') {
+        console.log('RELOAD PAGE FOR CASH ADDRESS!!')
+        const router = useRouter()
+        // router.push({ path: "/admin/liquidity?setup-complete" })
+        router.push({ path: "/admin" })
+        return
+    }
+
     /* Initialize #? Hush addresses. */
     hushAddresses.value = []
 
@@ -66,11 +80,14 @@ const init = () => {
         hushAddresses.value.push(address)
     }
 
+
 }
 
 onMounted(() => {
     // console.log('KEYCHAIN', Wallet.keychain)
     // init()
+
+    // FIXME Race conditions with loading time and reloading...
     setTimeout(init, 1000)
 })
 
@@ -97,7 +114,7 @@ onMounted(() => {
                         Bitcoin Cash Address
                     </h2>
 
-                    <NuxtLink :to="'https://3xpl.com/bitcoin-cash/address/' + props.cashAddress.slice(12)" target="_blank" class="col-span-2 text-base sm:text-xl text-blue-500 truncate hover:underline">
+                    <NuxtLink v-if="props.cashAddress" :to="'https://explorer.melroy.org/address/' + props.cashAddress.slice(12)" target="_blank" class="col-span-2 text-base sm:text-xl text-blue-500 truncate hover:underline">
                         {{props.cashAddress.slice(12)}}
                     </NuxtLink>
 
@@ -105,7 +122,7 @@ onMounted(() => {
                         Current Balance
                     </h3>
 
-                    <h3 class="text-green-900 text-xl font-medium">
+                    <h3 v-if="balance" class="text-green-900 text-xl font-medium">
                         {{balance}}
                         <small class="text-sm">sats</small>
                     </h3>
@@ -114,7 +131,7 @@ onMounted(() => {
                 <div v-for="(address, index) of hushAddresses" :key="address" class="text-xs">
                     <div class="grid grid-cols-4 items-center gap-3">
                         <span class="text-right">Hush #{{(index + 1)}}</span>
-                        <NuxtLink :to="'https://3xpl.com/bitcoin-cash/address/' + address.slice(12)" target="_blank" class="col-span-3 text-blue-500 hover:underline">{{address}}</NuxtLink>
+                        <NuxtLink :to="'https://explorer.melroy.org/address/' + address.slice(12)" target="_blank" class="col-span-3 text-blue-500 hover:underline">{{address}}</NuxtLink>
                     </div>
                 </div>
             </div>
@@ -141,7 +158,7 @@ onMounted(() => {
                 <!-- <div v-for="(address, index) of hushAddresses" :key="address" class="text-xs">
                     <div class="grid grid-cols-4 items-center gap-3">
                         <span class="text-right">Hush #{{(index + 1)}}</span>
-                        <NuxtLink :to="'https://3xpl.com/bitcoin-cash/address/' + address.slice(12)" target="_blank" class="col-span-3 text-blue-500 hover:underline">{{address}}</NuxtLink>
+                        <NuxtLink :to="'https://explorer.melroy.org/address/' + address.slice(12)" target="_blank" class="col-span-3 text-blue-500 hover:underline">{{address}}</NuxtLink>
                     </div>
                 </div> -->
             </div>

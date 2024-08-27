@@ -17,7 +17,7 @@ const HUSH_PROTOCOL_ID = 0x48555348
  * Combine all participating inputs and outputs into one (signed) transaction.
  */
 export default function (_sessionid, _mnemonic, _inputs, _outputs) {
-console.log('SIGN SHARED TX', _sessionid, _inputs, _outputs)
+// console.log('SIGN SHARED TX', _sessionid, _inputs, _outputs)
     /* Initialize locals. */
     let accountIdx
     let addressIdx
@@ -25,7 +25,6 @@ console.log('SIGN SHARED TX', _sessionid, _inputs, _outputs)
     let childNode
     let data
     let ecPair
-    let hushIndexes
     let ownedInputs
     let protocolId
     let msg
@@ -47,7 +46,7 @@ console.log('SIGN SHARED TX', _sessionid, _inputs, _outputs)
     protocolId = '1337'
 
     /* Set protocol message. */
-    msg = 'finalization...'
+    msg = 're-finalization...'
 
     script = [
         utf8ToBin(protocolId),
@@ -85,10 +84,7 @@ console.log('SIGN SHARED TX', _sessionid, _inputs, _outputs)
 
 // FIXME Identify our owned inputs.
 ownedInputs = [ 0, 1, 2, 3, 4, 5, 6 ]
-// hushIndexes = [ 0, 1, 2, 3, 4, 5, 6 ]
-// 0 - L58m5XW3cYG84ZN5Cbqqap7Mvx1TihNNMPSq7Vw9W7t3oHeuS36q
-// 1 - L2qsjy4xprtF2hocseepEtKM3V6y5hHjvkX5K7zedeBjmd6forbb
-// 2 - L4FmiWogy4THbosEUHbfLgxgTQpZ1e4dFDrAoik2fvoQ9TNKCsRe
+
     for (let i = 0; i < _inputs.length; i++) {
         /* Verify input ownership. */
         if (!ownedInputs.includes(i)) {
@@ -101,10 +97,8 @@ ownedInputs = [ 0, 1, 2, 3, 4, 5, 6 ]
         /* Set change index. */
         changeIdx = 0
         /* Set address index. */
-        // addressIdx = 0
-        // addressIdx = hushIndexes[i]
         addressIdx = _inputs[i].address_idx
-        console.log('ADDRESS IDX')
+        // console.log('ADDRESS IDX')
 
         /* Generate child node. */
         childNode = masterNode

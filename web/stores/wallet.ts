@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import moment from 'moment'
 
 import BCHJS from '@psf/bch-js'
+import { sha256 } from '@nexajs/crypto'
 import { mnemonicToEntropy } from '@nexajs/hdnode'
 import { Wallet } from '@nexajs/wallet'
 
@@ -142,32 +143,46 @@ export const useWalletStore = defineStore('wallet', {
                 return null
             }
 
-            const collection = _state._utxos
-            // console.log('COLLECTION (fusionInputs)', collection)
+            // const collection = _state._utxos
+            console.log('STATE (utxos)', _state._utxos)
 
-            const mainList = []
+            /* Initialize inputs (collection). */
+            let inputs = {}
 
-            collection[0]?.forEach(_account => {
-                // console.log('ACCOUNT (0)', _account)
-                _account.utxos.forEach(_utxo => {
-                    mainList.push({
-                        address: _account.address,
-                        ..._utxo,
-                    })
-                })
-            })
+            /* Verify Main chain. */
+            if (_state._utxos[0]) {
+                inputs = { ...inputs, ..._state._utxos[0] }
+            }
 
-            collection[HUSH_PROTOCOL_ID]?.forEach(_account => {
-                // console.log('ACCOUNT (1213551432)', _account)
-                _account.utxos.forEach(_utxo => {
-                    mainList.push({
-                        address: _account.address,
-                        ..._utxo,
-                    })
-                })
-            })
+            /* Verify Hush chain. */
+            if (_state._utxos[HUSH_PROTOCOL_ID]) {
+                inputs = { ...inputs, ..._state._utxos[HUSH_PROTOCOL_ID] }
+            }
 
-            return mainList
+            console.log('FUSION (inputs)', inputs)
+
+            // collection[0]?.forEach(_utxo => {
+            //     // console.log('ACCOUNT (0)', _account)
+            //     _account.utxos.forEach(_utxo => {
+            //         mainList.push({
+            //             address: _account.address,
+            //             ..._utxo,
+            //         })
+            //     })
+            // })
+
+            // collection[HUSH_PROTOCOL_ID]?.forEach(_account => {
+            //     // console.log('ACCOUNT (1213551432)', _account)
+            //     _account.utxos.forEach(_utxo => {
+            //         mainList.push({
+            //             address: _account.address,
+            //             ..._utxo,
+            //         })
+            //     })
+            // })
+
+            /* Return inputs. */
+            return inputs
         },
 
         fusionAddrs() {
@@ -402,8 +417,28 @@ _setupHushKeychain.bind(this)()
                 })
                 console.log('MAIN WALLET DATA', data)
 
+                // if (!this._utxos[0]) {
+                    this._utxos[0] = {}
+                // }
+
+                /* Handle unspent outputs. */
+                data.forEach(_unspent => {
+                    _unspent.utxos.forEach(_utxo => {
+                        console.log('ADDING UTXO...', _utxo)
+
+                        /* Generate outpoint (hash). */
+                        const outpoint = sha256(_utxo.tx_hash + ':' + _utxo.tx_pos)
+
+                        /* Add to UTXOs. */
+                        this._utxos[0][outpoint] = {
+                            address: _unspent.address,
+                            ..._utxo,
+                        }
+                    })
+                })
+
                 // FIXME Update the delta ONLY!
-                this._utxos[0] = data?.utxos
+                // this._utxos[0] = data?.utxos
             }
 
             return true
