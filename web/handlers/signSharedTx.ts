@@ -5,6 +5,7 @@ import { mnemonicToSeed } from '@nexajs/hdnode'
 import { encodeNullData } from '@nexajs/script'
 import { utf8ToBin } from '@nexajs/utils'
 
+/* Initialize BCHJS. */
 const bchjs = new BCHJS()
 
 /* Initialize constants. */

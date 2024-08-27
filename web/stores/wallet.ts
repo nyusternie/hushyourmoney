@@ -9,6 +9,7 @@ import { Wallet } from '@nexajs/wallet'
 
 import _broadcast from './wallet/broadcast.ts'
 import _completeFusion from './wallet/completeFusion.ts'
+import _getWifForAddress from './wallet/getWifForAddress.ts'
 import _setEntropy from './wallet/setEntropy.ts'
 import _setupKeychain from './wallet/setupKeychain.ts'
 import _setupHushKeychain from './wallet/setupHushKeychain.ts'
@@ -159,28 +160,7 @@ export const useWalletStore = defineStore('wallet', {
             if (_state._utxos[HUSH_PROTOCOL_ID]) {
                 inputs = { ...inputs, ..._state._utxos[HUSH_PROTOCOL_ID] }
             }
-
             console.log('FUSION (inputs)', inputs)
-
-            // collection[0]?.forEach(_utxo => {
-            //     // console.log('ACCOUNT (0)', _account)
-            //     _account.utxos.forEach(_utxo => {
-            //         mainList.push({
-            //             address: _account.address,
-            //             ..._utxo,
-            //         })
-            //     })
-            // })
-
-            // collection[HUSH_PROTOCOL_ID]?.forEach(_account => {
-            //     // console.log('ACCOUNT (1213551432)', _account)
-            //     _account.utxos.forEach(_utxo => {
-            //         mainList.push({
-            //             address: _account.address,
-            //             ..._utxo,
-            //         })
-            //     })
-            // })
 
             /* Return inputs. */
             return inputs
@@ -357,7 +337,7 @@ _setupHushKeychain.bind(this)()
             /* Handle unspent outputs. */
             data.forEach(_unspent => {
                 _unspent.utxos.forEach(_utxo => {
-                    console.log('ADDING HUSH UTXO...', _utxo)
+                    // console.log('ADDING HUSH UTXO...', _utxo)
 
                     /* Generate outpoint (hash). */
                     const outpoint = sha256(_utxo.tx_hash + ':' + _utxo.tx_pos)
@@ -366,6 +346,7 @@ _setupHushKeychain.bind(this)()
                     this._utxos[HUSH_PROTOCOL_ID][outpoint] = {
                         address: _unspent.address,
                         ..._utxo,
+                        wif: _getWifForAddress.bind(this)(_unspent.address),
                     }
                 })
             })
@@ -451,6 +432,7 @@ _setupHushKeychain.bind(this)()
                         this._utxos[0][outpoint] = {
                             address: _unspent.address,
                             ..._utxo,
+                            wif: _getWifForAddress.bind(this)(_unspent.address),
                         }
                     })
                 })
