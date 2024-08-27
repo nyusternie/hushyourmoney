@@ -1,5 +1,8 @@
 /* Import modules. */
-import signSharedTx from '../../handlers/signSharedTx.ts'
+import { TransactionBuilder } from 'bitcoinjs-lib'
+import { hexToBin } from '@nexajs/utils'
+
+import buildSharedTx from '../../handlers/buildSharedTx.ts'
 
 const DUST_VAL = 546
 
@@ -90,11 +93,64 @@ export default async function () {
     // console.log('OUTPUTS (sorted)', sortedOutputs)
 
     /* Sign shared transaction. */
-    rawTx = signSharedTx(
-        sessionid, this.mnemonic, sortedInputs, sortedOutputs)
-    console.log('RAW TX', rawTx)
+    const transactionBuilder = buildSharedTx.bind(this)(
+        sessionid, sortedInputs, sortedOutputs)
 
-    response = await this.broadcast('BCH', rawTx)
+const script = Buffer.from(hexToBin(inputs['185ad6a10ea70d977d943a910f54dc446163a16771017c6df35c7893c1db0c35'].unlocking))
+console.log('SCRIPT', script)
+// transactionBuilder.transaction.tx.ins[0].script = script
+    console.log('FINALIZED TRANSACTION', transactionBuilder)
+
+// console.log('UNLOCKING', inputs['185ad6a10ea70d977d943a910f54dc446163a16771017c6df35c7893c1db0c35'])
+
+
+    const transaction = transactionBuilder.transaction.buildIncomplete()
+    // const transaction = transactionBuilder.transaction
+    console.log('TRANSACTION', transaction)
+    transaction.ins[0].script = script
+    console.log('TRANSACTION (hex)', transaction.toHex())
+
+    // transaction.ins[0].script = Buffer.from(hexToBin(inputs['185ad6a10ea70d977d943a910f54dc446163a16771017c6df35c7893c1db0c35'].unlocking))
+
+    // const transaction2 = transactionBuilder.transaction.build()
+
+    // const transactionBuilder2 = TransactionBuilder.fromTransaction(
+    //     transaction,
+    //     'mainnet'
+    //   )
+    // console.log('TX BUILDER-2', transactionBuilder2)
+
+      // build tx
+    //   const tx = transactionBuilder2.build()
+    //   const tx = transactionBuilder2.transaction.buildIncomplete()
+    //   console.log('TX BUILDER 2', tx)
+    //   // output rawhex
+    //   const txHex = tx.toHex()
+    //   console.log('TX HEX', txHex)
+
+    /* Convert to (raw) hex. */
+    // rawTx = tx.toHex()
+
+    response = await this.broadcast('BCH', transaction.toHex())
         .catch(err => console.error(err))
     console.log('BROADCAST (response)', response)
 }
+
+
+    // // Overwrite the tx inputs of the first partially-signed TX with the signed
+    // // inputs from the other two transactions.
+    // txObj.ins[1].script = txObj2.ins[1].script
+    // txObj.ins[2].script = txObj3.ins[2].script
+
+    // // console.log(`Fully-signed txObj.ins: ${JSON.stringify(txObj.ins, null, 2)}`)
+
+    // // Port the transaction object into the TransactionBuilder.
+    // const transactionBuilder = Bitcoin.TransactionBuilder.fromTransaction(
+    //   txObj,
+    //   'mainnet'
+    // )
+
+    // // build tx
+    // const tx = transactionBuilder.build()
+    // // output rawhex
+    // const txHex = tx.toHex()

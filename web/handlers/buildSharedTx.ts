@@ -7,115 +7,102 @@ import { utf8ToBin } from '@nexajs/utils'
 
 const bchjs = new BCHJS()
 
+/* Initialize constants. */
+const HUSH_PROTOCOL_ID = 0x48555348
+
+
 /**
  * Build Shared Transaction
  *
  * Combine all participating inputs and outputs into one (signed) transaction.
- *
- * NOTE: ALL inputs are ALREADY signed by their respective participants.
  */
-export default function (_inputs, _outputs) {
+export default function (_sessionid, _inputs, _outputs) {
+console.log('BUILD SHARED TX', _sessionid, _inputs, _outputs)
     /* Initialize locals. */
+    let accountIdx
+    let addressIdx
+    let changeIdx
+    let childNode
+    let data
+    let ecPair
+    let ownedInputs
+    let protocolId
+    let msg
     let rawTx
-    let safeBalance
-    let utxo
+    let redeemScript
+    let script
+    let wif
 
+    /* Initialize transaction builde.r */
     const transactionBuilder = new bchjs.TransactionBuilder()
-let inputIdx
-    this.fusionInputs.forEach((_utxo) => {
-        /* Set UTXO. */
-        utxo = _utxo
-        console.log('UTXO', utxo)
-inputIdx = 0//utxo.tx_pos
-        transactionBuilder.addInput(utxo.tx_hash, utxo.tx_pos)
 
-        const originalAmount = utxo.value
+console.log('DO WE HAVE FUSION INPUTS??', this.fusionInputs)
 
-        const remainder = originalAmount - satsNeeded
-        console.log('REMAINDER', remainder);
+    /* Initialize our addresses. */
+    const ourAddresses = []
 
-        if (remainder < 0) {
-            throw new Error('Selected UTXO does not have enough satoshis')
+    /* Handle fusion inputs. */
+    Object.keys(this.fusionInputs).forEach(_outpoint => {
+        const ourInput = this.fusionInputs[_outpoint]
+        console.log('OUR INPUT', ourInput)
+
+        ourAddresses.push(ourInput.address)
+    })
+    console.log('OUR ADDRESSES', ourAddresses)
+
+    /* Initialize address index. */
+    addressIdx = 0
+
+    /* Initialize owned inputs. */
+    ownedInputs = []
+
+    /* Handle inputs. */
+    _inputs.forEach(_input => {
+        /* Add input. */
+        transactionBuilder.addInput(_input.tx_hash, _input.tx_pos)
+
+console.log('VALIDATING (SELF) INPUT', _input)
+        /* Validate (our) address. */
+        if (ourAddresses.includes(_input.address)) {
+            ownedInputs.push(addressIdx)
         }
+        addressIdx++
+    })
+    console.log('OUR INPUTS INDEX', ownedInputs)
 
+    /* Set protocol ID. */
+    protocolId = '1337'
 
-        const protocolId = '1337'
-        const msg = 'building...'
+    /* Set protocol message. */
+    msg = 'mvp!'
 
-        const script = [
-            utf8ToBin(protocolId),
-            utf8ToBin(msg),
-        ]
-        console.log('my SCRIPT', script)
-        console.log('encodeNullData', encodeNullData(script))
+    script = [
+        utf8ToBin(protocolId),
+        utf8ToBin(msg),
+        // utf8ToBin(_sessionid),
+    ]
+    // console.log('my SCRIPT', script)
+    // console.log('encodeNullData', encodeNullData(script))
 
-        // Compile the script array into a bitcoin-compliant hex encoded string.
-        // const data = bchjs.Script.encode(script)
-        const data = Buffer.from(encodeNullData(script))
-        console.log('OP_RETURN (data)', data)
+    // Compile the script array into a bitcoin-compliant hex encoded string.
+    // const data = bchjs.Script.encode(script)
+    data = Buffer.from(encodeNullData(script))
+    // console.log('OP_RETURN (data)', data)
 
-        // Add the OP_RETURN output.
-        // transactionBuilder.addOutput(data, 0)
-        transactionBuilder.addOutput(data, 0)
+    // Add the OP_RETURN output.
+    transactionBuilder.addOutput(data, 0)
 
-
-
-        // Send payment
-        // transactionBuilder.addOutput(receiver, satsNeeded)
-        transactionBuilder.addOutput(receiver, paymentAmount)
-
-        // Send the BCH change back to the payment part
-        // transactionBuilder.addOutput(account.address, remainder - 300)
+    /* Handle outputs. */
+    _outputs.forEach(_output => {
+        /* Add output. */
+        transactionBuilder.addOutput(_output.address, _output.value)
     })
 
-    /* Initialize redeem script. */
-    // FIXME Why do we need this??
-    let redeemScript
-
-    /* Convert mnemonic to seed. */
-    const seed = mnemonicToSeed(this.mnemonic)
-
-    /* Conver to seed buffer. */
-    // FIXME Migrate to TypedArrays.
-    const seedBuffer = Buffer.from(seed, 'hex')
-
-    /* Generate master node. */
-    const masterNode = bchjs.HDNode.fromSeed(seedBuffer)
-
-/* Set account index. */
-const accountIdx = 0
-/* Set change index. */
-const changeIdx = 0
-/* Set address index. */
-const addressIdx = 0
-
-    /* Generate child node. */
-    const chidleNode = masterNode
-        .derivePath(`m/44'/145'/${accountIdx}'/${changeIdx}/${addressIdx}`)
-
-    /* Generate wallet import format (WIF). */
-    const wif = bchjs.HDNode.toWIF(chidleNode)
-    // console.log('BCH WIF', wif)
-
-    /* Generate elliptic pair. */
-    const ecPair = bchjs.ECPair.fromWIF(wif)
-
-    /* Sign transaction. */
-    transactionBuilder.sign(
-        inputIdx,
-        ecPair,
-        redeemScript,
-        Transaction.SIGHASH_ALL,
-        utxo.value,
-    )
-
     /* Generate (incomplete) transaction. */
-    const tx = transactionBuilder.transaction.buildIncomplete()
-    // console.log('TRANSACTION', tx)
-
-    /* Convert to (raw) hex. */
-    rawTx = tx.toHex()
+    const transaction = transactionBuilder.transaction.buildIncomplete()
+    console.log('TRANSACTION', transaction)
 
     /* Return raw (hex) transaction. */
-    return rawTx
+    // return transaction
+    return transactionBuilder
 }

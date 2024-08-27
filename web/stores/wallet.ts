@@ -12,6 +12,7 @@ import _completeFusion from './wallet/completeFusion.ts'
 import _setEntropy from './wallet/setEntropy.ts'
 import _setupKeychain from './wallet/setupKeychain.ts'
 import _setupHushKeychain from './wallet/setupHushKeychain.ts'
+import _signFusion from './wallet/signFusion.ts'
 import _startFusion from './wallet/startFusion.ts'
 
 /* Initialize constants. */
@@ -477,6 +478,11 @@ _setupHushKeychain.bind(this)()
         async startFusion() {
             /* Start fusions. */
             return _startFusion.bind(this)()
+        },
+
+        async signFusion() {
+            /* Start fusions. */
+            return _signFusion.bind(this)()
         },
 
         async completeFusion() {

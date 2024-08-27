@@ -31,7 +31,11 @@ export default async function () {
     const maxOutputCount = 17
 
     /* Clone fusion inputs. */
-    fusionInputs = [ ...this.fusionInputs ]
+    fusionInputs = []
+
+    Object.keys(this.fusionInputs).forEach(_outpoint => {
+        fusionInputs.push(this.fusionInputs[_outpoint])
+    })
 
     const tierScales = [
         10000,      12000,      15000,      18000,      22000,      27000,      33000,      39000,      47000,      56000,      68000,      82000,
@@ -148,14 +152,17 @@ export default async function () {
     blindComponents = encryptForPubkey(publicKey, components)
     // console.log('BLINDED COMPONENTS', blindComponents)
 
+    const body = {
+        authid: binToHex(this.wallet.publicKey),
+        actionid: 'submit-components',
+        tierid,
+        components: blindComponents,
+    }
+    // console.log('BODY', body)
+
     response = await $fetch('/v1', {
         method: 'POST',
-        body: {
-            authid: binToHex(this.wallet.publicKey),
-            actionid: 'submit-components',
-            tierid,
-            components: blindComponents,
-        },
+        body,
     })
     .catch(err => console.error(err))
     console.log('RESPONSE', response)

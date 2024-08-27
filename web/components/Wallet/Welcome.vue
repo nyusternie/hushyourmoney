@@ -49,8 +49,12 @@ const cashout = async () => {
     console.log('COMPLETE FUSION', response)
 }
 
-const consolidate = () => {
-    alert('WIP?? sorry...')
+const consolidate = async () => {
+    // alert('WIP?? sorry...')
+
+    const response = await Wallet.signFusion()
+        .catch(err => console.error(err))
+    console.log('SIGN FUSION', response)
 }
 
 const startFusion = () => {

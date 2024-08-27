@@ -28,6 +28,7 @@ export default defineEventHandler(async (event) => {
     let response
     let session
     let success
+    let unlocked
 
     /* Set database. */
     const Db = event.context.Db
@@ -58,11 +59,23 @@ export default defineEventHandler(async (event) => {
     // const rawTx = body.rawTx
     // console.log('RAW TRANSACTION', rawTx)
 
-    components = body.components
-    components = decryptForPubkey(binToHex(Wallet.privateKey), components)
-    components = binToUtf8(components)
-    components = JSON.parse(components)
-    console.log('COMPONENTS', components)
+    /* Validate components. */
+    if (body.components) {
+        components = body.components
+        components = decryptForPubkey(binToHex(Wallet.privateKey), components)
+        components = binToUtf8(components)
+        components = JSON.parse(components)
+        console.log('COMPONENTS', components)
+    }
+
+    /* Validate unlocked. */
+    if (body.unlocked) {
+        unlocked = body.unlocked
+        unlocked = decryptForPubkey(binToHex(Wallet.privateKey), unlocked)
+        unlocked = binToUtf8(unlocked)
+        unlocked = JSON.parse(unlocked)
+        console.log('UNLOCKED', unlocked)
+    }
 
     /* Validate auth ID. */
     if (typeof authid === 'undefined' || authid === null) {
@@ -118,6 +131,42 @@ console.log('FUSION', fusion)
         return 'Oops! Authorization failed!'
     }
 
+
+
+    if (actionid === 'unlock-components') {
+        /* Update progress. */
+        // fusion.progress = 75.5
+
+        /* Set (new) updated at (timestamp). */
+        fusion.updatedAt = moment().unix()
+
+        console.log('***UNLOCK COMPONENT(S)***', unlocked)
+        // await Db.put('fusions', '4e9654f9-3de9-4f9a-8169-3834f40847f5', fusion)
+
+        const inputs = fusion.inputs
+        console.log('INPUTS', inputs)
+
+        /* Handle inputs. */
+        Object.keys(inputs).forEach(_outpoint => {
+console.log('OUTPOINT', _outpoint)
+            /* Handle unlocked (scripts). */
+            Object.keys(unlocked).forEach(_lockpoint => {
+console.log('LOCKPOINT', _lockpoint)
+                const unlock = unlocked[_lockpoint]
+console.log('UNLOCK', unlock)
+                /* Validate transaction hash. */
+                if (inputs[_outpoint].tx_hash === unlock.tx_hash) {
+console.log('FOUND A MATCH', unlock.tx_hash)
+                    /* Set unlocking script. */
+                    inputs[_outpoint].unlocking = unlock.unlocking
+                }
+            })
+        })
+console.log('UPDATED FUSION', fusion)
+        return 'almost there...'
+    }
+
+
     fusion.numGuests = Object.keys(fusion.guests).length
 
     /* Update progress. */
@@ -130,7 +179,7 @@ console.log('FUSION', fusion)
             componentid = sha256(_component.tx_hash + ':' + _component.tx_pos)
             fusion.inputs[componentid] = {
                 ..._component,
-                signature: null,
+                unlocking: null,
             }
         }
 
