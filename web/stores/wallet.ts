@@ -352,7 +352,24 @@ _setupHushKeychain.bind(this)()
             console.log('HUSH UTXOS', data)
 
             // FIXME Update the deltas ONLY!
-            // this._utxos[HUSH_PROTOCOL_ID] = data?.utxos
+            this._utxos[HUSH_PROTOCOL_ID] = {}
+
+            /* Handle unspent outputs. */
+            data.forEach(_unspent => {
+                _unspent.utxos.forEach(_utxo => {
+                    console.log('ADDING HUSH UTXO...', _utxo)
+
+                    /* Generate outpoint (hash). */
+                    const outpoint = sha256(_utxo.tx_hash + ':' + _utxo.tx_pos)
+
+                    /* Add to UTXOs. */
+                    this._utxos[HUSH_PROTOCOL_ID][outpoint] = {
+                        address: _unspent.address,
+                        ..._utxo,
+                    }
+                })
+            })
+
 
             /* Request history data. */
             data = await $fetch('/api/electrum', {
