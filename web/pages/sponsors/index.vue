@@ -69,6 +69,10 @@ const System = useSystemStore()
                         <span class="text-2xl font-bold">0.100000 BTC</span>
                         <span class="block text-sm">remaining to unlock the next tier</span>
                     </h3>
+
+                    <p class="mt-3 text-xs text-gray-700 text-center italic">
+                        + qualified for $HUSH BRC-20 airdrop
+                    </p>
                 </NuxtLink>
 
                 <NuxtLink to="/sponsors/bch/seekers" class="group px-5 py-7 bg-sky-200 rounded-xl border border-sky-300 hover:bg-sky-100">
@@ -84,6 +88,10 @@ const System = useSystemStore()
                         <span class="text-2xl font-bold">10.000000 BCH</span>
                         <span class="block text-sm">remaining to unlock the next tier</span>
                     </h3>
+
+                    <p class="mt-3 text-xs text-gray-700 text-center italic">
+                        + qualified for $HUSH cash token airdrop
+                    </p>
                 </NuxtLink>
 
                 <NuxtLink to="/sponsors/nexa/seekers" class="group px-5 py-7 bg-sky-200 rounded-xl border border-sky-300 hover:bg-sky-100">
@@ -98,6 +106,10 @@ const System = useSystemStore()
                     <h3 class="px-3 py-1 bg-amber-200 text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow group-hover:bg-sky-700 group-hover:text-sky-100 group-hover:border-sky-300">
                         <span class="text-2xl font-bold">1.00B NEXA</span> to unlock next tier
                     </h3>
+
+                    <p class="mt-3 text-xs text-gray-700 text-center italic">
+                        + qualified for $HUSH native token airdrop
+                    </p>
                 </NuxtLink>
 
                 <div class="cursor-not-allowed group px-5 py-7 bg-sky-200 rounded-xl border border-sky-300 opacity-30">
@@ -142,7 +154,21 @@ const System = useSystemStore()
                     </h3>
                 </div>
 
-                <!-- <div class="cursor-not-allowed group px-5 py-7 bg-sky-200 rounded-xl border border-sky-300 opacity-30">
+                <div class="cursor-not-allowed group px-5 py-7 bg-sky-200 rounded-xl border border-sky-300 opacity-30">
+                    <h2 class="text-xl text-gray-700 font-medium tracking-widest uppercase">
+                        Doge
+                    </h2>
+
+                    <h3 class="py-2 text-sm">
+                        Adding 5K DOGE, 50K DOGE and 500K DOGE blender pools
+                    </h3>
+
+                    <h3 class="px-3 py-1 bg-amber-200 text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow">
+                        <span class="text-2xl font-bold">5K DOGE</span> to unlock next tier
+                    </h3>
+                </div>
+
+                <div class="cursor-not-allowed group px-5 py-7 bg-sky-200 rounded-xl border border-sky-300 opacity-30">
                     <h2 class="text-xl text-gray-700 font-medium tracking-widest uppercase">
                         Dash
                     </h2>
@@ -154,7 +180,31 @@ const System = useSystemStore()
                     <h3 class="px-3 py-1 bg-amber-200 text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow">
                         <span class="text-2xl font-bold">5K DASH</span> to unlock next tier
                     </h3>
-                </div> -->
+                </div>
+
+                <div class="cursor-not-allowed group px-5 py-7 bg-sky-200 rounded-xl border border-sky-300 opacity-30">
+                    <h2 class="text-xl text-gray-700 font-medium tracking-widest uppercase">
+                        Kaspa
+                    </h2>
+
+                    <h3 class="py-2 text-sm">
+                        Adding 50K KAS, 500K KAS and 5M KAS blender pools
+                    </h3>
+
+                    <h3 class="px-3 py-1 bg-amber-200 text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow">
+                        <span class="text-2xl font-bold">50K KAS</span> to unlock next tier
+                    </h3>
+                </div>
+
+                <div class="cursor-not-allowed group px-5 py-7 bg-sky-200 rounded-xl border border-sky-300">
+                    <h2 class="text-xl text-rose-700 font-medium tracking-widest uppercase">
+                        Sponsors Vote
+                    </h2>
+
+                    <p class="py-2 text-sm italic leading-6">
+                        All Sponsors will be invited to vote for the <span class="font-bold">FINAL network integration</span> into the inaugural launch of the HYM cloud network, before <span class="font-bold">"locking in $HUSH rewards"</span> and moving on to Phase II (Incognito).
+                    </p>
+                </div>
 
             </div>
 
@@ -209,6 +259,10 @@ const System = useSystemStore()
                             Unstoppable wallet
                         </li>
                     </ol>
+
+                    <p class="mt-3 text-xs text-gray-700 text-center italic">
+                        + qualified for $HUSH BRC-20 airdrop
+                    </p>
                 </NuxtLink>
 
                 <section>
@@ -359,6 +413,10 @@ const System = useSystemStore()
                         <li>Mac desktop app</li>
                         <li>Linux desktop app</li>
                     </ol>
+
+                    <p class="mt-3 text-xs text-gray-700 text-center italic">
+                        + qualified for $HUSH BRC-20 airdrop
+                    </p>
                 </NuxtLink>
 
                 <div class="cursor-not-allowed group px-5 py-7 bg-sky-200 rounded-xl border border-sky-300 opacity-30">
@@ -383,6 +441,10 @@ const System = useSystemStore()
                         <li>Mac desktop app</li>
                         <li>Linux desktop app</li>
                     </ol>
+
+                    <p class="mt-3 text-xs text-gray-700 text-center italic">
+                        + qualified for $HUSH cash token airdrop
+                    </p>
                 </div>
 
                 <div class="cursor-not-allowed group px-5 py-7 bg-sky-200 rounded-xl border border-sky-300 opacity-30">
@@ -407,6 +469,10 @@ const System = useSystemStore()
                         <li>Mac desktop app</li>
                         <li>Linux desktop app</li>
                     </ol>
+
+                    <p class="mt-3 text-xs text-gray-700 text-center italic">
+                        + qualified for $HUSH native token airdrop
+                    </p>
                 </div>
 
             </div>
