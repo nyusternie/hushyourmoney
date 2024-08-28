@@ -19,10 +19,105 @@ console.log('NETWORK ID', networkid)
 const campaignid = route?.params?.pageid[1]
 console.log('CAMPAIGN ID', campaignid)
 
-// onMounted(() => {
-//     console.log('Mounted!')
-//     // Now it's safe to perform setup operations.
-// })
+const campaigns = ref(null)
+const campaignTitle = ref(null)
+const networkTitle = ref(null)
+
+const init = () => {
+    /* Handle campaign id. */
+    switch(campaignid) {
+    case 'seekers':
+        campaignTitle.value = 'Privacy Seekers'
+        break
+    case 'masters':
+        campaignTitle.value = 'Privacy Masters'
+        break
+    case 'gurus':
+        campaignTitle.value = 'Privacy Gurus'
+        break
+    }
+
+    /* Handle network id. */
+    switch(networkid) {
+    case 'btc':
+        networkTitle.value = 'Bitcoin'
+        break
+    case 'bch':
+        networkTitle.value = 'Bitcoin Cash'
+        break
+    case 'nexa':
+        networkTitle.value = 'Nexa'
+        break
+    }
+
+    /* Initialize ALL campaigns handler. */
+    campaigns.value = {}
+
+    /* Initialize Seekers handler. */
+    campaigns.value['seekers'] = {}
+
+    /* Initialize Masters handler. */
+    campaigns.value['masters'] = {}
+
+    /* Initialize Gurus handler. */
+    campaigns.value['gurus'] = {}
+
+    /* Initialize Gurus (Bitcoin) handler. */
+    campaigns.value['seekers']['btc'] = {
+        address: 'bitcoin:3Gwb2zrg64REcnDFdGHeAUMuibfpk932Kr',
+        goal: 0,
+        donated: 0,
+        hasAirdrop: true,
+        createdAt: 0,
+        updatedAt: 0,
+    }
+
+    /* Initialize Gurus (Bitcoin Cash) handler. */
+    campaigns.value['seekers']['bch'] = {
+        address: 'bitcoincash:qrqdff68n8wm757kvfumylxs47tud3fuvqz3h6depv',
+        goal: 0,
+        donated: 0,
+        hasAirdrop: true,
+        createdAt: 0,
+        updatedAt: 0,
+    }
+
+    /* Initialize Gurus (Nexa) handler. */
+    campaigns.value['seekers']['nexa'] = {
+        address: 'nexa:nqtsq5g5fxezfwrhc323dm9npzy77lay7p26x903hkk4u8zu',
+        goal: 0,
+        donated: 0,
+        hasAirdrop: true,
+        createdAt: 0,
+        updatedAt: 0,
+    }
+
+    campaigns.value['masters']['btc'] = {
+        address: 'bitcoin:3EQELPmJREqt3gVyELGYFnzLxV6Lnthudk',
+        goal: 0,
+        donated: 0,
+        hasAirdrop: true,
+        createdAt: 0,
+        updatedAt: 0,
+    }
+    campaigns.value['masters']['bch'] = {}
+    campaigns.value['masters']['nexa'] = {}
+
+    campaigns.value['gurus']['btc'] = {
+        address: 'bitcoin:34XzM3e3Tsf4wLGGcFCPRyoTP1NF6HF53z',
+        goal: 0,
+        donated: 0,
+        hasAirdrop: true,
+        createdAt: 0,
+        updatedAt: 0,
+    }
+    campaigns.value['gurus']['bch'] = {}
+    campaigns.value['gurus']['nexa'] = {}
+}
+
+onMounted(() => {
+    init()
+})
 
 // onBeforeUnmount(() => {
 //     console.log('Before Unmount!')
@@ -33,8 +128,12 @@ console.log('CAMPAIGN ID', campaignid)
 <template>
     <main class="max-w-5xl mx-auto py-5 flex flex-col gap-4">
         <h1 class="text-5xl font-medium">
-            Sponsors — {{ networkid }} — {{ campaignid }}
+            Sponsors for {{networkTitle}}
         </h1>
+
+        <h2 class="text-5xl font-light italic">
+            {{campaignTitle}}
+        </h2>
 
         <section class="flex flex-col gap-4">
             <h2 class="text-rose-500 text-2xl font-bold uppercase">
@@ -63,33 +162,89 @@ console.log('CAMPAIGN ID', campaignid)
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id eius voluptatem minus natus at eveniet dolorum eos mollitia, maxime animi excepturi harum omnis illum odit recusandae pariatur! Unde, explicabo molestias.
         </p>
 
-        <section>
-            <h2>
-                Bitcoin Seekers Round 1
-            </h2>
+        <section v-if="campaigns" class="flex flex-col gap-3">
+            <h3 class="text-gray-500 text-3xl font-light tracking-widest">
+                Bitcoin
+            </h3>
+
+            <h3 class="font-medium tracking-tight">
+                {{campaigns.seekers.btc.address}}
+            </h3>
 
             <h3>
-                3FDveRn9A2cdqJqy7LDQu48crEfYLJhYDV
+                Bitcoin Cash
+            </h3>
+
+            <h3>
+                {{campaigns.seekers.bch.address}}
+            </h3>
+
+            <h3>
+                Nexa
+            </h3>
+
+            <h3>
+                {{campaigns.seekers.nexa.address}}
             </h3>
         </section>
 
         <section>
             <h2>
-                Bitcoin Cash Seekers Round 1
+                Privacy Masters
             </h2>
 
             <h3>
-                qzdyw35wslfrk6qjrcva2ujzkwv5a6ufl5uhg5xjkg
+                Bitcoin
+            </h3>
+
+            <h3>
+                {{campaigns.masters.btc.address}}
+            </h3>
+
+            <h3>
+                Bitcoin Cash
+            </h3>
+
+            <h3>
+                bitcoincash:qzl4kq5wapcpae9zc7sql5hz5xmj8fqrqs5c7kgywy
+            </h3>
+
+            <h3>
+                Nexa
+            </h3>
+
+            <h3>
+                nexa:nqtsq5g5egqz48van0zjx2xtxl38ec3czapdtryewwe5he0z
             </h3>
         </section>
 
         <section>
             <h2>
-                Nexa Seekers Round 1
+                Privacy Gurus
             </h2>
 
             <h3>
-                nexa:XXX
+                Bitcoin
+            </h3>
+
+            <h3>
+                {{campaigns.gurus.btc.address}}
+            </h3>
+
+            <h3>
+                Bitcoin Cash
+            </h3>
+
+            <h3>
+                bitcoincash:qqfk0ag6tnzgxevfzp9ma7qw0npd9vwe65v40e22a9
+            </h3>
+
+            <h3>
+                Nexa
+            </h3>
+
+            <h3>
+                nexa:nqtsq5g5ya3jv0tv36je7d8ld8vsds0vfqmt0g9lryhqnv6m
             </h3>
         </section>
     </main>

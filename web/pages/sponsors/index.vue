@@ -47,12 +47,16 @@ const System = useSystemStore()
         <SponsorHeading />
 
         <div>
-            <h2 class="text-4xl font-medium">
-                Privacy Seekers - Unlock Higher Tiers
+            <h3 class="pl-3 text-sky-300 text-2xl font-medium uppercase">
+                For Privacy Seekers
+            </h3>
+
+            <h2 class="text-sky-700 text-7xl font-light italic">
+                Unlock Higher Tiers
             </h2>
 
-            <p class="py-5">
-                Will introduce higher blending tiers for large bag holders.
+            <p class="py-5 text-gray-600 text-lg leading-7">
+                Will introduce higher CoinJoin tiers for large bag holders.
             </p>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -62,7 +66,7 @@ const System = useSystemStore()
                     </h2>
 
                     <h3 class="py-2 text-sm">
-                        Unlock the 0.1 BTC tier for blender pools
+                        Unlock the 0.1 BTC tier for CoinJoin pools
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-center text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow group-hover:bg-sky-700 group-hover:text-sky-100 group-hover:border-sky-300">
@@ -71,7 +75,7 @@ const System = useSystemStore()
                     </h3>
 
                     <p class="mt-3 text-xs text-gray-700 text-center italic">
-                        + qualified for $HUSH BRC-20 airdrop
+                        + qualified for $HUSH BRC-20 token airdrop
                     </p>
                 </NuxtLink>
 
@@ -81,7 +85,7 @@ const System = useSystemStore()
                     </h2>
 
                     <h3 class="py-2 text-sm">
-                        Unlock the 10 BCH tier for blender pools
+                        Unlock the 10 BCH tier for CoinJoin pools
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-center text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow group-hover:bg-sky-700 group-hover:text-sky-100 group-hover:border-sky-300">
@@ -100,7 +104,7 @@ const System = useSystemStore()
                     </h2>
 
                     <h3 class="py-2 text-sm">
-                        Adding 1B NEXA, 10B NEXA and 100B NEXA blender pools
+                        Adding 1B NEXA, 10B NEXA and 100B NEXA CoinJoin pools
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow group-hover:bg-sky-700 group-hover:text-sky-100 group-hover:border-sky-300">
@@ -118,7 +122,7 @@ const System = useSystemStore()
                     </h2>
 
                     <h3 class="py-2 text-sm">
-                        Adding 50 LTC, 500 LTC and 5K LTC blender pools
+                        Adding 50 LTC, 500 LTC and 5K LTC CoinJoin pools
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow">
@@ -132,7 +136,7 @@ const System = useSystemStore()
                     </h2>
 
                     <h3 class="py-2 text-sm">
-                        Adding 5K FLUX, 50K FLUX and 500K FLUX blender pools
+                        Adding 5K FLUX, 50K FLUX and 500K FLUX CoinJoin pools
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow">
@@ -146,7 +150,7 @@ const System = useSystemStore()
                     </h2>
 
                     <h3 class="py-2 text-sm">
-                        Adding 5K XEC, 50K XEC and 500K XEC blender pools
+                        Adding 5K XEC, 50K XEC and 500K XEC CoinJoin pools
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow">
@@ -160,7 +164,7 @@ const System = useSystemStore()
                     </h2>
 
                     <h3 class="py-2 text-sm">
-                        Adding 5K DOGE, 50K DOGE and 500K DOGE blender pools
+                        Adding 5K DOGE, 50K DOGE and 500K DOGE CoinJoin pools
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow">
@@ -174,7 +178,7 @@ const System = useSystemStore()
                     </h2>
 
                     <h3 class="py-2 text-sm">
-                        Adding 5K DASH, 50K DASH and 500K DASH blender pools
+                        Adding 5K DASH, 50K DASH and 500K DASH CoinJoin pools
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow">
@@ -188,7 +192,7 @@ const System = useSystemStore()
                     </h2>
 
                     <h3 class="py-2 text-sm">
-                        Adding 50K KAS, 500K KAS and 5M KAS blender pools
+                        Adding 50K KAS, 500K KAS and 5M KAS CoinJoin pools
                     </h3>
 
                     <h3 class="px-3 py-1 bg-amber-200 text-lg text-amber-900 font-medium border border-amber-400 rounded-lg shadow">
@@ -196,13 +200,20 @@ const System = useSystemStore()
                     </h3>
                 </div>
 
-                <div class="cursor-not-allowed group px-5 py-7 bg-sky-200 rounded-xl border border-sky-300">
-                    <h2 class="text-xl text-rose-700 font-medium tracking-widest uppercase">
+                <div class="cursor-help group px-5 py-7 bg-sky-200 rounded-xl border border-sky-300">
+                    <h2 class="flex items-center gap-2 text-xl text-rose-700 font-medium tracking-widest uppercase">
                         Sponsors Vote
+
+                        <!-- <svg class="h-8 w-auto" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"></path>
+                        </svg> -->
+                        <svg class="h-8 w-auto" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"></path>
+                        </svg>
                     </h2>
 
                     <p class="py-2 text-sm italic leading-6">
-                        All Sponsors will be invited to vote for the <span class="font-bold">FINAL network integration</span> into the inaugural launch of the HYM cloud network, before <span class="font-bold">"locking in $HUSH rewards"</span> and moving on to Phase II (Incognito).
+                        All Sponsors will be invited to vote for the <span class="font-bold">FINAL network integration</span> into the inaugural launch of the HYM cloud network, before <span class="font-bold">"locking in $HUSH rewards"</span> and moving on to Phase II (Zero-Knowledge + Incognito Cash).
                     </p>
                 </div>
 
@@ -214,11 +225,15 @@ const System = useSystemStore()
         <SponsorHeading />
 
         <div>
-            <h2 class="text-4xl font-medium">
-                Privacy Masters - Wallet Integrations + Dev Kits
+            <h3 class="pl-3 text-sky-300 text-2xl font-medium uppercase">
+                For Privacy Masters
+            </h3>
+
+            <h2 class="text-sky-700 text-7xl font-light italic">
+                Wallet Integrations + Dev Kits
             </h2>
 
-            <p class="py-5">
+            <p class="py-5 text-gray-600 text-lg leading-7">
                 Will offer native integration with the ecosystem's MOST popular wallets.
             </p>
 
@@ -261,7 +276,7 @@ const System = useSystemStore()
                     </ol>
 
                     <p class="mt-3 text-xs text-gray-700 text-center italic">
-                        + qualified for $HUSH BRC-20 airdrop
+                        + qualified for $HUSH BRC-20 token airdrop
                     </p>
                 </NuxtLink>
 
@@ -382,12 +397,17 @@ const System = useSystemStore()
         <SponsorHeading />
 
         <div>
-            <h2 class="text-4xl font-medium">
-                Privacy Gurus - Native Apps
+            <h3 class="pl-3 text-sky-300 text-2xl font-medium uppercase">
+                For Privacy Gurus
+            </h3>
+
+            <h2 class="text-sky-700 text-7xl font-light italic">
+                Incognito Cash Apps
             </h2>
 
-            <p class="py-5">
-                Will introduce native Android and iOS applications.
+            <p class="py-5 text-gray-600 text-lg leading-7">
+                We will introduce native Android and iOS applications to support the NEW Incognito network
+                — supporting ALL networks with $NITO native assets.
             </p>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -415,7 +435,7 @@ const System = useSystemStore()
                     </ol>
 
                     <p class="mt-3 text-xs text-gray-700 text-center italic">
-                        + qualified for $HUSH BRC-20 airdrop
+                        + qualified for $HUSH BRC-20 token airdrop
                     </p>
                 </NuxtLink>
 
