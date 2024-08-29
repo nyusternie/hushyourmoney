@@ -119,8 +119,8 @@ export default async function () {
 
     transaction.ins.forEach(_input => {
 console.log('INS (input)', _input)
-        /* Validate (unlocked) script. */
-        if (_input.script) {
+        /* Validate (unlocking) script. */
+        if (_input.script.length > 0) {
             outpoint = sha256(binToHex(_input.hash.reverse()) + ':' + _input.index)
             console.log('INS (outpoint)', outpoint)
 

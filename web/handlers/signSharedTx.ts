@@ -72,10 +72,10 @@ console.log('DO WE HAVE FUSION INPUTS??', this.fusionInputs)
     // console.log('OUR INPUTS INDEX', ownedInputs)
 
     /* Set protocol ID. */
-    protocolId = '1337'
+    protocolId = 'HUSH'
 
     /* Set protocol message. */
-    msg = 'FINAL!'
+    msg = 'f35a93da-237c-5dba-a1e9-96d109bc10e0'
 
     script = [
         utf8ToBin(protocolId),

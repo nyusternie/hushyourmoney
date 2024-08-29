@@ -23,11 +23,8 @@ export default defineEventHandler(async (event) => {
     /* Initialize locals. */
     let componentid
     let components
-    let params
     let profile
     let response
-    let session
-    let success
     let unlocked
 
     /* Set database. */
@@ -53,19 +50,13 @@ export default defineEventHandler(async (event) => {
     const actionid = body.actionid
     // console.log('ACTION ID', actionid)
 
-    // const sessionid = body.sessionid
-    // console.log('SESSION ID', sessionid)
-
-    // const rawTx = body.rawTx
-    // console.log('RAW TRANSACTION', rawTx)
-
     /* Validate components. */
     if (body.components) {
         components = body.components
         components = decryptForPubkey(binToHex(Wallet.privateKey), components)
         components = binToUtf8(components)
         components = JSON.parse(components)
-        console.log('COMPONENTS', components)
+        // console.log('COMPONENTS', components)
     }
 
     /* Validate unlocked. */
@@ -74,7 +65,7 @@ export default defineEventHandler(async (event) => {
         unlocked = decryptForPubkey(binToHex(Wallet.privateKey), unlocked)
         unlocked = binToUtf8(unlocked)
         unlocked = JSON.parse(unlocked)
-        console.log('UNLOCKED', unlocked)
+        // console.log('UNLOCKED', unlocked)
     }
 
     /* Validate auth ID. */
@@ -94,11 +85,6 @@ console.log('FUSION', fusion)
 
     /* Validate profile id. */
     if (typeof profile === 'undefined' || profile === null) {
-        /* Set status code. */
-        // setResponseStatus(event, 404)
-
-        // return 'Oops! Something went wrong..'
-
         /* Build profile. */
         profile = {
             _id: authid,
@@ -131,8 +117,7 @@ console.log('FUSION', fusion)
         return 'Oops! Authorization failed!'
     }
 
-
-
+    /* Handle component unlocking. */
     if (actionid === 'unlock-components') {
         /* Update progress. */
         // fusion.progress = 75.5
@@ -141,41 +126,33 @@ console.log('FUSION', fusion)
         fusion.updatedAt = moment().unix()
 
         console.log('***UNLOCK COMPONENT(S)***', unlocked)
-        // await Db.put('fusions', '4e9654f9-3de9-4f9a-8169-3834f40847f5', fusion)
 
         const inputs = fusion.inputs
         console.log('INPUTS', inputs)
 
         /* Handle inputs. */
-        Object.keys(inputs).forEach(_outpoint => {
-console.log('OUTPOINT', _outpoint)
+        for (let i = 0; i < Object.keys(inputs).length; i++) {
+            const outpoint = Object.keys(inputs)[i]
+            console.log('UNLOCKING OUTPOINT', outpoint)
 
-            /* Add unlocking script to input. */
-            inputs[_outpoint].unlocking = unlocked[_outpoint].unlocking
+            const input = inputs[outpoint]
+            console.log('UNLOCKING INPUT', input)
 
-//             /* Handle unlocked (scripts). */
-//             Object.keys(unlocked).forEach(_lockpoint => {
-// console.log('LOCKPOINT', _lockpoint)
-//                 const unlock = unlocked[_lockpoint]
-// console.log('UNLOCK', unlock)
-//                 /* Validate transaction hash. */
-//                 if (inputs[_outpoint].tx_hash === unlock.tx_hash) {
-// console.log('FOUND A MATCH', unlock.tx_hash)
-//                     /* Set unlocking script. */
-//                     inputs[_outpoint].unlocking = unlock.unlocking
-//                 }
-//             })
-        })
-console.log('UPDATED FUSION', fusion)
-        return 'almost there...'
+// FIXME WE MUST VALIDATE THE OUTPOINT AUTH BEFORE UPDATING...
+            if (unlocked && unlocked[outpoint] && unlocked[outpoint].unlocking) {
+                /* Add unlocking script to input. */
+                input.unlocking = unlocked[outpoint].unlocking
+            }
+        }
+        console.log('UPDATED FUSION', fusion)
+
+        return fusion
     }
-
 
     fusion.numGuests = Object.keys(fusion.guests).length
 
     /* Update progress. */
     fusion.progress = 12.5
-
 
     components.forEach(_component => {
         /* Validate inputs. */
@@ -198,17 +175,17 @@ console.log('UPDATED FUSION', fusion)
 
     fusion.numOutputs = Object.keys(fusion.outputs).length
 
-/* Calculate session contents. */
-const sessionContents = JSON.stringify({ ...fusion.inputs, ...fusion.outputs })
-// console.log('SESSION CONTENTS', sessionContents)
+    /* Calculate session contents. */
+    const sessionContents = JSON.stringify({ ...fusion.inputs, ...fusion.outputs })
+    // console.log('SESSION CONTENTS', sessionContents)
 
-/* Calculate (UUIDv5) session hash. */
-const sessionHash = sha256(sessionContents)
-// console.log('SESSION HASH', sessionHash)
+    /* Calculate (UUIDv5) session hash. */
+    const sessionHash = sha256(sessionContents)
+    // console.log('SESSION HASH', sessionHash)
 
-/* Calculate session ID. */
-const sessionid = uuidv5(sessionHash, HUSH_NAMESPACE)
-// console.log('SESSION (uuid v5)', sessionid)
+    /* Calculate session ID. */
+    const sessionid = uuidv5(sessionHash, HUSH_NAMESPACE)
+    // console.log('SESSION (uuid v5)', sessionid)
 
     /* Set session ID. */
     fusion.sessionid = sessionid
