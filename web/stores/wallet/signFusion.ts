@@ -1,5 +1,8 @@
 /* Import modules. */
-import { encryptForPubkey } from '@nexajs/crypto'
+import {
+    encryptForPubkey,
+    sha256,
+} from '@nexajs/crypto'
 import { binToHex } from '@nexajs/utils'
 
 import signSharedTx from '../../handlers/signSharedTx.ts'
@@ -12,6 +15,7 @@ export default async function () {
     let clubWallet
     let inputs
     let keys
+    let outpoint
     let outputs
     let publicKey
     // let rawTx
@@ -114,10 +118,14 @@ export default async function () {
     let unlocked = {}
 
     transaction.ins.forEach(_input => {
+console.log('INS (input)', _input)
         /* Validate (unlocked) script. */
         if (_input.script) {
+            outpoint = sha256(binToHex(_input.hash.reverse()) + ':' + _input.index)
+            console.log('INS (outpoint)', outpoint)
+
             /* Add input. */
-            unlocked[binToHex(_input.hash)] = {
+            unlocked[outpoint] = {
                 tx_hash: binToHex(_input.hash.reverse()),
                 unlocking: binToHex(_input.script),
             }
@@ -146,10 +154,9 @@ export default async function () {
     const body = {
         authid: binToHex(this.wallet.publicKey),
         actionid: 'unlock-components',
-        // tierid,
         unlocked: blindComponents,
     }
-    console.log('BODY', body)
+    // console.log('BODY', body)
 
     response = await $fetch('/v1', {
         method: 'POST',

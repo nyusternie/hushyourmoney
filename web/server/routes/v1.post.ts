@@ -149,18 +149,22 @@ console.log('FUSION', fusion)
         /* Handle inputs. */
         Object.keys(inputs).forEach(_outpoint => {
 console.log('OUTPOINT', _outpoint)
-            /* Handle unlocked (scripts). */
-            Object.keys(unlocked).forEach(_lockpoint => {
-console.log('LOCKPOINT', _lockpoint)
-                const unlock = unlocked[_lockpoint]
-console.log('UNLOCK', unlock)
-                /* Validate transaction hash. */
-                if (inputs[_outpoint].tx_hash === unlock.tx_hash) {
-console.log('FOUND A MATCH', unlock.tx_hash)
-                    /* Set unlocking script. */
-                    inputs[_outpoint].unlocking = unlock.unlocking
-                }
-            })
+
+            /* Add unlocking script to input. */
+            inputs[_outpoint].unlocking = unlocked[_outpoint].unlocking
+
+//             /* Handle unlocked (scripts). */
+//             Object.keys(unlocked).forEach(_lockpoint => {
+// console.log('LOCKPOINT', _lockpoint)
+//                 const unlock = unlocked[_lockpoint]
+// console.log('UNLOCK', unlock)
+//                 /* Validate transaction hash. */
+//                 if (inputs[_outpoint].tx_hash === unlock.tx_hash) {
+// console.log('FOUND A MATCH', unlock.tx_hash)
+//                     /* Set unlocking script. */
+//                     inputs[_outpoint].unlocking = unlock.unlocking
+//                 }
+//             })
         })
 console.log('UPDATED FUSION', fusion)
         return 'almost there...'

@@ -8,13 +8,19 @@ const DUST_VAL = 546
 
 export default async function () {
     /* Initialize locals. */
+    let input
     let inputs
     let keys
     let outputs
     let rawTx
     let response
+    let script
     let session
     let sessionid
+    let sortedInputs
+    let sortedOutputs
+    let transaction
+    let transactionBuilder
 
     // FIXME Where do we get the session ID from??
     sessionid = '4e9654f9-3de9-4f9a-8169-3834f40847f5'
@@ -42,7 +48,7 @@ export default async function () {
     // console.log('KEYS (sorted)', keys)
 
     /* Initialize sorted inputs. */
-    const sortedInputs = []
+    sortedInputs = []
 
     /* Handle (input) keys. */
     keys.forEach(_keyid => {
@@ -81,7 +87,7 @@ export default async function () {
     // console.log('KEYS (sorted)', keys)
 
     /* Initialize sorted outputs. */
-    const sortedOutputs = []
+    sortedOutputs = []
 
     /* Handle (output) keys. */
     keys.forEach(_keyid => {
@@ -93,7 +99,7 @@ export default async function () {
     // console.log('OUTPUTS (sorted)', sortedOutputs)
 
     /* Sign shared transaction. */
-    const transactionBuilder = buildSharedTx.bind(this)(
+    transactionBuilder = buildSharedTx.bind(this)(
         sessionid, sortedInputs, sortedOutputs)
 // transactionBuilder.transaction.tx.ins[0].script = script
     console.log('FINALIZED TRANSACTION', transactionBuilder)
@@ -101,26 +107,35 @@ export default async function () {
 // console.log('UNLOCKING', inputs['185ad6a10ea70d977d943a910f54dc446163a16771017c6df35c7893c1db0c35'])
 
 
-    const transaction = transactionBuilder.transaction.buildIncomplete()
+    transaction = transactionBuilder.transaction.buildIncomplete()
     // const transaction = transactionBuilder.transaction
     console.log('TRANSACTION', transaction)
 
-const scripts = []
-Object.keys(inputs).forEach(_outpoint => {
-    const input = inputs[_outpoint]
-    console.log('SCRIPT INPUT', input)
+// const scripts = []
+    /* Handle (sorted) inputs. */
+    for (let i = 0; i < sortedInputs.length; i++) {
+        /* Set input. */
+        input = sortedInputs[i]
+        console.log('UNLOCKING SCRIPT INPUT', input)
 
-    scripts.push({
-        id: _outpoint,
-        script: Buffer.from(input.unlocking, 'hex')
-    })
-})
-console.log('SCRIPTS', scripts)
+        /* Set script. */
+        script = Buffer.from(input.unlocking, 'hex')
+
+        /* Add unlocking script to input. */
+        transaction.ins[i].script = script
+    }
+    console.log('TRANSACTION (hex)', transaction.toHex())
+// Object.keys(inputs).forEach(_outpoint => {
+//     // scripts.push({
+//     //     id: _outpoint,
+//     //     script: Buffer.from(input.unlocking, 'hex')
+//     // })
+// })
+// console.log('SCRIPTS', scripts)
 // const script = Buffer.from(hexToBin(inputs['185ad6a10ea70d977d943a910f54dc446163a16771017c6df35c7893c1db0c35'].unlocking))
 // console.log('SCRIPT', script)
     // transaction.ins[0].script = script
-    transaction.ins[0].script = scripts[0].script
-    console.log('TRANSACTION (hex)', transaction.toHex())
+
 
     // transaction.ins[0].script = Buffer.from(hexToBin(inputs['185ad6a10ea70d977d943a910f54dc446163a16771017c6df35c7893c1db0c35'].unlocking))
 
@@ -132,7 +147,7 @@ console.log('SCRIPTS', scripts)
     //   )
     // console.log('TX BUILDER-2', transactionBuilder2)
 
-      // build tx
+    // build tx
     //   const tx = transactionBuilder2.build()
     //   const tx = transactionBuilder2.transaction.buildIncomplete()
     //   console.log('TX BUILDER 2', tx)
@@ -147,22 +162,3 @@ console.log('SCRIPTS', scripts)
         .catch(err => console.error(err))
     console.log('BROADCAST (response)', response)
 }
-
-
-    // // Overwrite the tx inputs of the first partially-signed TX with the signed
-    // // inputs from the other two transactions.
-    // txObj.ins[1].script = txObj2.ins[1].script
-    // txObj.ins[2].script = txObj3.ins[2].script
-
-    // // console.log(`Fully-signed txObj.ins: ${JSON.stringify(txObj.ins, null, 2)}`)
-
-    // // Port the transaction object into the TransactionBuilder.
-    // const transactionBuilder = Bitcoin.TransactionBuilder.fromTransaction(
-    //   txObj,
-    //   'mainnet'
-    // )
-
-    // // build tx
-    // const tx = transactionBuilder.build()
-    // // output rawhex
-    // const txHex = tx.toHex()
