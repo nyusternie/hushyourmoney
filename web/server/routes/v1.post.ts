@@ -76,7 +76,7 @@ export default defineEventHandler(async (event) => {
     }
 
 console.log('DEBUG::INSERTING A NEW FUSION')
-const fusion = Db.fusions['4e9654f9-3de9-4f9a-8169-3834f40847f5']
+const fusion = Db.fusions['4fa84224-be56-49ba-830a-fa3b6774eb01']
 console.log('FUSION', fusion)
 
     /* Request session. */
@@ -196,7 +196,7 @@ console.log('FUSION', fusion)
     /* Set (new) updated at (timestamp). */
     fusion.updatedAt = moment().unix()
 
-    await Db.put('fusions', '4e9654f9-3de9-4f9a-8169-3834f40847f5', fusion)
+    await Db.put('fusions', '4fa84224-be56-49ba-830a-fa3b6774eb01', fusion)
 
     /* Build (response) package. */
     const pkg = {

@@ -115,7 +115,7 @@ onMounted(() => {
 
             <p class="text-gray-600 text-lg font-light leading-7">
                 Liquidity is spread across ALL <NuxtLink to="/help/tiers" class="text-blue-500 font-normal hover:underline">Tiers</NuxtLink> to maximize its utility to the greatest number of active <NuxtLink to="/help/guests" class="text-blue-500 font-normal hover:underline">Club Guests</NuxtLink>.
-                The Hush Protocol, powered by a community of independently operated Hush Your Money (HYM) Clubs, is engineered <em>(i.e. financially incentivized)</em> to offer sub 15-seconds <NuxtLink to="/help/dances" class="text-blue-500 font-normal hover:underline">Coin Dances</NuxtLink>, consistently!
+                The Hush Protocol, powered by a community of independently operated Hush Your Money (HYM) Clubs, is engineered <em>(i.e. financially incentivized)</em> to offer sub 15-seconds <NuxtLink to="/help/coinjoin" class="text-blue-500 font-normal hover:underline">CoinJoins</NuxtLink>, consistently!
             </p>
         </section>
 

@@ -25,10 +25,10 @@ export default async function () {
     let transaction
 
     // FIXME Where do we get the session ID from??
-    sessionid = '4e9654f9-3de9-4f9a-8169-3834f40847f5'
+    sessionid = '4fa84224-be56-49ba-830a-fa3b6774eb01'
 
     /* Request session details. */
-    session = await $fetch(`http://localhost:39159/v1/fusion/${sessionid}`)
+    session = await $fetch(`/v1/fusion/${sessionid}`)
         .catch(err => console.error(err))
     console.log('SESSION', session)
 

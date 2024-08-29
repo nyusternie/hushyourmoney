@@ -24,11 +24,11 @@ const System = useSystemStore()
 <template>
     <main class="max-w-5xl mx-auto py-5 flex flex-col gap-4">
         <h1 class="text-5xl font-medium">
-            Coin Dances
+            CoinJoin
         </h1>
 
         <p>
-            Coin Dances are the NEW (CoinJoin, CashShuffle, CashFusion).
+            CoinJoins great!
         </p>
     </main>
 </template>

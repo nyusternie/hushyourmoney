@@ -74,7 +74,7 @@ console.log('DO WE HAVE FUSION INPUTS??', this.fusionInputs)
     protocolId = 'HUSH'
 
     /* Set protocol message. */
-    msg = 'f35a93da-237c-5dba-a1e9-96d109bc10e0'
+    msg = '4fa84224-be56-49ba-830a-fa3b6774eb01'
 
     script = [
         utf8ToBin(protocolId),

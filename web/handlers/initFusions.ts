@@ -10,7 +10,7 @@ let fusionsDb
 const init = async (_fusionsDb) => {
     fusionsDb = _fusionsDb
 
-    fusionsDb['4e9654f9-3de9-4f9a-8169-3834f40847f5'] = {
+    fusionsDb['4fa84224-be56-49ba-830a-fa3b6774eb01'] = {
         tierid: 888000,
         sessionid: null,
         progress: 0.1,
@@ -60,6 +60,7 @@ const init = async (_fusionsDb) => {
         updatedAt: 1723245818,
         completedAt: 1723245818,
     }
+    console.log('FUSIONS DB', fusionsDb)
 }
 
 
