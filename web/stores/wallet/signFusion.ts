@@ -54,22 +54,22 @@ export default async function () {
         const input = inputs[_keyid]
         console.log('HANDLE INPUT', input)
 
-        let addressIdx = 0
+        // let addressIdx = 0
 
-        /* Find address index for input. */
-        Object.keys(this.fusionInputs).forEach(_outpoint => {
-            /* Set fusion input. */
-            const fusionInput = this.fusionInputs[_outpoint]
-            console.log('FUSION INPUT', fusionInput)
+        // /* Find address index for input. */
+        // Object.keys(this.fusionInputs).forEach(_outpoint => {
+        //     /* Set fusion input. */
+        //     const fusionInput = this.fusionInputs[_outpoint]
+        //     console.log('FUSION INPUT', fusionInput)
 
-            if (fusionInput.address === input.address) {
-                input.address_idx = addressIdx
-                console.log('ADDED ADDRESS INDEX', addressIdx)
-                // break
-            }
+        //     if (fusionInput.address === input.address) {
+        //         input.address_idx = addressIdx
+        //         console.log('ADDED ADDRESS INDEX', addressIdx)
+        //         // break
+        //     }
 
-            addressIdx++
-        })
+        //     addressIdx++
+        // })
 
         /* Add input. */
         sortedInputs.push(input)
@@ -106,8 +106,8 @@ export default async function () {
 
     /* Sign shared transaction. */
     transaction = signSharedTx.bind(this)(
-        sessionid, this.mnemonic, sortedInputs, sortedOutputs)
-    console.log('SIGNED TRANSACTION', transaction)
+        sessionid, sortedInputs, sortedOutputs)
+    console.log('(partially) SIGNED TRANSACTION', transaction)
     // txObj.ins[1].script = txObj2.ins[1].script
 
     /* Initailize unlocked. */

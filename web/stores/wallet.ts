@@ -4,7 +4,10 @@ import moment from 'moment'
 
 import BCHJS from '@psf/bch-js'
 import { sha256 } from '@nexajs/crypto'
-import { mnemonicToEntropy } from '@nexajs/hdnode'
+import {
+    mnemonicToEntropy,
+    mnemonicToSeed,
+} from '@nexajs/hdnode'
 import { Wallet } from '@nexajs/wallet'
 
 import _broadcast from './wallet/broadcast.ts'
@@ -271,17 +274,17 @@ _setupHushKeychain.bind(this)()
          * Will return the "child" address of a master node,
          * based on the account index, change flag and address index.
          */
-        async getBchAddress(
+        getBchAddress(
             _accountIdx = 0,
             _isChange = 0, // NOTE: 0 = false, 1 = true
             _addressIdx = 0,
         ) {
             /* Set root seed. */
-            const rootSeed = await bchjs.Mnemonic.toSeed(this.mnemonic)
+            const rootSeed = mnemonicToSeed(this.mnemonic)
             // console.log('rootSeed', rootSeed)
 
             /* Set HD master node. */
-            const masterHdnode = bchjs.HDNode.fromSeed(rootSeed)
+            const masterHdnode = bchjs.HDNode.fromSeed(Buffer.from(rootSeed, 'hex') )
             // console.log('masterHdnode', masterHdnode);
 
             /* Set child node. */
@@ -391,16 +394,13 @@ _setupHushKeychain.bind(this)()
                 let bchAddress2
                 let bchAddress3
 
-                bchAddress1 = await this.getBchAddress(0, 0, 0)
-                    .catch(err => console.error(err))
+                bchAddress1 = this.getBchAddress(0, 0, 0)
                 // console.log('BCH ADDRESS-1', bchAddress1)
 
-                bchAddress2 = await this.getBchAddress(0, 0, 1)
-                    .catch(err => console.error(err))
+                bchAddress2 = this.getBchAddress(0, 0, 1)
                 // console.log('BCH ADDRESS-2', bchAddress2)
 
-                bchAddress3 = await this.getBchAddress(0, 0, 2)
-                    .catch(err => console.error(err))
+                bchAddress3 = this.getBchAddress(0, 0, 2)
                 // console.log('BCH ADDRESS-3', bchAddress3)
 
                 data = await $fetch('/api/electrum', {
@@ -472,6 +472,15 @@ _setupHushKeychain.bind(this)()
             } else {
                 return ''
             }
+        },
+
+        /**
+         * Get WIF for Address
+         *
+         * TBD..
+         */
+        getWifForAddress(_address) {
+            return _getWifForAddress.bind(this)(_address)
         },
 
         async startFusion() {

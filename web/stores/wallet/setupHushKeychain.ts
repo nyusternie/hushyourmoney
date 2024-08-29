@@ -18,7 +18,7 @@ export default async function () {
         /* Set address index. */
         addressIdx = i
 
-        address = await this.getBchAddress(HUSH_PROTOCOL_ID, CHANGE_IDX, addressIdx)
+        address = this.getBchAddress(HUSH_PROTOCOL_ID, CHANGE_IDX, addressIdx)
 
         pkg = {
             address,

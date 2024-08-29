@@ -78,7 +78,7 @@ const init = () => {
 
     for (let i = 0; i < 20; i++) {
         // HUSH == 0x48555348 == 1,213,551,432
-        // address = await Wallet.getBchAddress(HUSH_PROTOCOL_ID, 0, i)
+        // address = Wallet.getBchAddress(HUSH_PROTOCOL_ID, 0, i)
         address = Wallet.keychain[HUSH_PROTOCOL_ID][i].address
         // console.log('GET BCH ADDRESS', i, address)
         hushAddresses.value.push(address)

@@ -20,24 +20,40 @@ export default function (_address) {
     let addressIdx
     let changeIdx
     let childNode
+    let mainAddress
     let wif
 
-    /* Handle fusion addresses. */
-    Object.keys(this.fusionAddrs).forEach(_addressIdx => {
-        /* Set fusion address. */
-        const fusionAddress = this.fusionAddrs[_addressIdx]
+    /* Set main (wallet) address. */
+    mainAddress = this.getBchAddress(0, 0, 0)
 
-        /* Validate address. */
-        if (_address === fusionAddress.address) {
-            /* Set address index. */
-            addressIdx = _addressIdx
-        }
-    })
-    // console.log('ADDRESS IDX')
+    if (mainAddress === _address) {
+        /* Set account index. */
+        accountIdx = 0 // NOTE: This is the Main chain
 
-    /* Set account index. */
-// FIXME Detect account type.
-    accountIdx = 0
+        /* Set address index. */
+        addressIdx = 0
+    } else {
+        /* Set account index. */
+        accountIdx = HUSH_PROTOCOL_ID // NOTE: This is the Hush chain
+
+        /* Handle fusion addresses. */
+        Object.keys(this.fusionAddrs).forEach(_addressIdx => {
+            /* Set fusion address. */
+            const fusionAddress = this.fusionAddrs[_addressIdx]
+
+            /* Validate address. */
+            if (_address === fusionAddress.address) {
+                /* Set address index. */
+                addressIdx = _addressIdx
+            }
+        })
+    }
+    // console.log('ACCOUNT IDX', accountIdx)
+    // console.log('ADDRESS IDX', addressIdx)
+
+    if (typeof addressIdx === 'undefined' || addressIdx === null) {
+        throw new Error(`Oops! There is NO private key for [ ${_address} ]`)
+    }
 
     /* Set change index. */
     changeIdx = 0

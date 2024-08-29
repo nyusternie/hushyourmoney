@@ -17,19 +17,19 @@ const HUSH_PROTOCOL_ID = 0x48555348
  *
  * Combine all participating inputs and outputs into one (signed) transaction.
  */
-export default function (_sessionid, _mnemonic, _inputs, _outputs) {
+export default function (_sessionid, _inputs, _outputs) {
 console.log('SIGN SHARED TX', _sessionid, _inputs, _outputs)
     /* Initialize locals. */
-    let accountIdx
-    let addressIdx
-    let changeIdx
-    let childNode
+    // let accountIdx
+    // let addressIdx
+    // let changeIdx
+    // let childNode
     let data
     let ecPair
-    let ownedInputs
+    // let ownedInputs
     let protocolId
     let msg
-    let rawTx
+    // let rawTx
     let redeemScript
     let script
     let wif
@@ -52,30 +52,30 @@ console.log('DO WE HAVE FUSION INPUTS??', this.fusionInputs)
     console.log('OUR ADDRESSES', ourAddresses)
 
     /* Initialize address index. */
-    addressIdx = 0
+    // addressIdx = 0
 
     /* Initialize owned inputs. */
-    ownedInputs = []
+    // ownedInputs = []
 
     /* Handle inputs. */
     _inputs.forEach(_input => {
         /* Add input. */
         transactionBuilder.addInput(_input.tx_hash, _input.tx_pos)
 
-console.log('VALIDATING (SELF) INPUT', _input)
-        /* Validate (our) address. */
-        if (ourAddresses.includes(_input.address)) {
-            ownedInputs.push(addressIdx)
-        }
-        addressIdx++
+// console.log('VALIDATING (SELF) INPUT', _input)
+//         /* Validate (our) address. */
+//         if (ourAddresses.includes(_input.address)) {
+//             ownedInputs.push(addressIdx)
+//         }
+//         addressIdx++
     })
-    console.log('OUR INPUTS INDEX', ownedInputs)
+    // console.log('OUR INPUTS INDEX', ownedInputs)
 
     /* Set protocol ID. */
     protocolId = '1337'
 
     /* Set protocol message. */
-    msg = 'mvp!'
+    msg = 'FINAL!'
 
     script = [
         utf8ToBin(protocolId),
@@ -100,51 +100,61 @@ console.log('VALIDATING (SELF) INPUT', _input)
     })
 
     /* Convert mnemonic to seed. */
-    const seed = mnemonicToSeed(_mnemonic)
+    // const seed = mnemonicToSeed(_mnemonic)
 
     /* Conver to seed buffer. */
     // FIXME Migrate to TypedArrays.
-    const seedBuffer = Buffer.from(seed, 'hex')
+    // const seedBuffer = Buffer.from(seed, 'hex')
 
     /* Generate master node. */
-    const masterNode = bchjs.HDNode.fromSeed(seedBuffer)
+    // const masterNode = bchjs.HDNode.fromSeed(seedBuffer)
 
 // FIXME Identify our owned inputs.
-ownedInputs = [ 0, 1, 2, 3, 4, 5, 6 ]
+// ownedInputs = [ 0, 1, 2, 3, 4, 5, 6 ]
 
     for (let i = 0; i < _inputs.length; i++) {
+        const input = _inputs[i]
+        console.log('AN INPUT---', input)
+
+        const address = input.address
+        console.log('INPUT ADDR', address)
         /* Verify input ownership. */
-        if (!ownedInputs.includes(i)) {
+        // if (!ownedInputs.includes(i)) {
+        // if (typeof input.wif === 'undefined' || input.wif === null) {
+        if (!ourAddresses.includes(address)) {
             continue
         }
 
         /* Set account index. */
-        accountIdx = 0
+        // accountIdx = 0
         // accountIdx = HUSH_PROTOCOL_ID
         /* Set change index. */
-        changeIdx = 0
+        // changeIdx = 0
         /* Set address index. */
-        addressIdx = _inputs[i].address_idx
+        // addressIdx = _inputs[i].address_idx
         // console.log('ADDRESS IDX')
 
         /* Generate child node. */
-        childNode = masterNode
-            .derivePath(`m/44'/145'/${accountIdx}'/${changeIdx}/${addressIdx}`)
+        // childNode = masterNode
+        //     .derivePath(`m/44'/145'/${accountIdx}'/${changeIdx}/${addressIdx}`)
 
         /* Generate wallet import format (WIF). */
-        wif = bchjs.HDNode.toWIF(childNode)
-        // console.log('BCH WIF', i, wif)
+        // wif = bchjs.HDNode.toWIF(childNode)
+
+        /* Set WIF. */
+        wif = this.getWifForAddress(address)
+        console.log('BCH WIF', wif)
 
         /* Generate elliptic pair. */
         ecPair = bchjs.ECPair.fromWIF(wif)
-console.log('PARAMS', i, redeemScript, _inputs[i].value)
+console.log('SIGNING!', i, redeemScript, input.value)
         /* Sign (our own) input. */
         transactionBuilder.sign(
             i,
             ecPair,
             redeemScript,
             Transaction.SIGHASH_ALL,
-            _inputs[i].value,
+            input.value,
         )
     }
 

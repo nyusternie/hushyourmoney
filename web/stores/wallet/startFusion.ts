@@ -112,8 +112,16 @@ export default async function () {
 // return
 
     /* Initialize components. */
-    // NOTE: Automatically add ALL fusion inputs.
+    // NOTE: Automatically clone + add ALL fusion inputs.
     components = [ ...fusionInputs ]
+
+    /* Sanitize (cloned input) components. */
+    Object.keys(components).forEach(_outpoint => {
+        const component = components[_outpoint]
+
+        /* Delete WIF. */
+        delete component.wif
+    })
 
     /* Set tier ID. */
     tierid = bestTiers.tierid

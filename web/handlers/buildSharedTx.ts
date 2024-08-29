@@ -25,7 +25,7 @@ console.log('BUILD SHARED TX', _sessionid, _inputs, _outputs)
     let childNode
     let data
     let ecPair
-    let ownedInputs
+    // let ownedInputs
     let protocolId
     let msg
     let rawTx
@@ -51,30 +51,30 @@ console.log('DO WE HAVE FUSION INPUTS??', this.fusionInputs)
     console.log('OUR ADDRESSES', ourAddresses)
 
     /* Initialize address index. */
-    addressIdx = 0
+    // addressIdx = 0
 
     /* Initialize owned inputs. */
-    ownedInputs = []
+    // ownedInputs = []
 
     /* Handle inputs. */
     _inputs.forEach(_input => {
         /* Add input. */
         transactionBuilder.addInput(_input.tx_hash, _input.tx_pos)
 
-console.log('VALIDATING (SELF) INPUT', _input)
-        /* Validate (our) address. */
-        if (ourAddresses.includes(_input.address)) {
-            ownedInputs.push(addressIdx)
-        }
-        addressIdx++
+// console.log('VALIDATING (SELF) INPUT', _input)
+//         /* Validate (our) address. */
+//         if (ourAddresses.includes(_input.address)) {
+//             ownedInputs.push(addressIdx)
+//         }
+//         addressIdx++
     })
-    console.log('OUR INPUTS INDEX', ownedInputs)
+    // console.log('OUR INPUTS INDEX', ownedInputs)
 
     /* Set protocol ID. */
     protocolId = '1337'
 
     /* Set protocol message. */
-    msg = 'mvp!'
+    msg = 'FINAL!'
 
     script = [
         utf8ToBin(protocolId),

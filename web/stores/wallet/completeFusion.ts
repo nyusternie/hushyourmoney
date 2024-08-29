@@ -26,14 +26,14 @@ export default async function () {
 
     /* Set inputs. */
     inputs = session.inputs
-    // console.log('INPUTS', inputs)
+    console.log('INPUTS', inputs)
 
     /* Initialize keys. */
     keys = []
 
     /* Handle (input) keys. */
-    Object.keys(inputs).forEach(_inputid => {
-        keys.push(_inputid)
+    Object.keys(inputs).forEach(_outpoint => {
+        keys.push(_outpoint)
     })
     // console.log('KEYS', keys)
 
@@ -51,13 +51,13 @@ export default async function () {
         console.log('HANDLE INPUT', input)
 
         /* Find address index for input. */
-        for (let i = 0; i < this.fusionInputs.length; i++) {
-            if (this.fusionInputs[i].address === input.address) {
-                input.address_idx = i
-                console.log('ADDRESS INDEX', i)
-                break
-            }
-        }
+        // for (let i = 0; i < this.fusionInputs.length; i++) {
+        //     if (this.fusionInputs[i].address === input.address) {
+        //         input.address_idx = i
+        //         console.log('ADDRESS INDEX', i)
+        //         break
+        //     }
+        // }
 
         /* Add input. */
         sortedInputs.push(input)
@@ -95,9 +95,6 @@ export default async function () {
     /* Sign shared transaction. */
     const transactionBuilder = buildSharedTx.bind(this)(
         sessionid, sortedInputs, sortedOutputs)
-
-const script = Buffer.from(hexToBin(inputs['185ad6a10ea70d977d943a910f54dc446163a16771017c6df35c7893c1db0c35'].unlocking))
-console.log('SCRIPT', script)
 // transactionBuilder.transaction.tx.ins[0].script = script
     console.log('FINALIZED TRANSACTION', transactionBuilder)
 
@@ -107,7 +104,22 @@ console.log('SCRIPT', script)
     const transaction = transactionBuilder.transaction.buildIncomplete()
     // const transaction = transactionBuilder.transaction
     console.log('TRANSACTION', transaction)
-    transaction.ins[0].script = script
+
+const scripts = []
+Object.keys(inputs).forEach(_outpoint => {
+    const input = inputs[_outpoint]
+    console.log('SCRIPT INPUT', input)
+
+    scripts.push({
+        id: _outpoint,
+        script: Buffer.from(input.unlocking, 'hex')
+    })
+})
+console.log('SCRIPTS', scripts)
+// const script = Buffer.from(hexToBin(inputs['185ad6a10ea70d977d943a910f54dc446163a16771017c6df35c7893c1db0c35'].unlocking))
+// console.log('SCRIPT', script)
+    // transaction.ins[0].script = script
+    transaction.ins[0].script = scripts[0].script
     console.log('TRANSACTION (hex)', transaction.toHex())
 
     // transaction.ins[0].script = Buffer.from(hexToBin(inputs['185ad6a10ea70d977d943a910f54dc446163a16771017c6df35c7893c1db0c35'].unlocking))
