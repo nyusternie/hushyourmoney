@@ -1,0 +1,13 @@
+[{
+  "ticker": "HUSH",
+  "name": "Hush Money",
+  n"summary": "A multi-network privacy currency, providing always-on zero knowledge protection, that just works!",
+  "description": "A 100% permissionless and zero knowledge privacy asset built to run over ALL supporting (L1+) Supernets.",
+  "legal": "Hush Money ($HUSH) may be instantly swapped to and from Incognito ($NITO) at equal/par value on ANY supporting network.",
+  "creator": "Shomari",
+  "contact": { "twitter.com": "0xShomari" },
+  "icon": "/icon.svg",
+  "category": "coin"
+},
+""
+]
