@@ -24,7 +24,7 @@ const props = defineProps({
             Supernets: PoW Layer 1+ (Plus)
         </h2>
 
-        <p>
+        <div>
             The Incognito Network (Nito) is specifically designed to run across multiple UTXO-style networks;
             specifically those Proof-of-Work (Layer 1) networks capable of efficiently running Supernets, like:
 
@@ -35,15 +35,15 @@ const props = defineProps({
                 <li>Nexa</li>
                 <li>and more...</li>
             </ol>
-        </p>
+        </div>
 
-        <p>
+        <div>
             UTXO-based Supernets are the ideal technological platforms;
             offering a plethora of features and benefits, including:
 
             <ol class="py-3 pl-10 list-disc">
                 <li>BigNum support for Zero Knowledge math primitives</li>
             </ol>
-        </p>
+        </div>
     </main>
 </template>

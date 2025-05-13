@@ -95,10 +95,10 @@ FUNCTION : Tokenized Assets + Smart Contracts
                 (Transaction) Guardians
             </h2>
 
-            <p>
+            <div>
                 Guardians are a managed set of approx. 1,024 "Community UTXOs".
                 Guardians are
-                <NuxtLink to="https://nexa.sh/contracts" target="_blank" class="text-blue-500 font-bold hover:underline">
+                <NuxtLink to="https://awesomenexa.org/contracts" target="_blank" class="text-blue-500 font-bold hover:underline">
                     Wise Contracts
 
                     <svg class="inline h-5 w-auto" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -113,7 +113,7 @@ FUNCTION : Tokenized Assets + Smart Contracts
                     <li>the Transfer Amount</li>
                     <li class="line-through">the Sender's Location</li>
                 </ul>
-            </p>
+            </div>
 
             <div class="flex flex-col gap-5">
                 <h3 class="font-bold text-sm text-rose-500">

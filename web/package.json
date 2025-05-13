@@ -1,6 +1,6 @@
 {
   "name": "hushyourmoney",
-  "version": "24.8.25",
+  "version": "25.5.13",
   "license": "MIT",
   "description": "Spend Privately. Fearlessly!",
   "author": "Shomari <nyusternie@protonmail.com>",
@@ -13,22 +13,22 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nexajs/crypto": "24.8.16",
+    "@nexajs/crypto": "24.9.5",
     "@pinia/nuxt": "0.4.7",
-    "@psf/bch-js": "6.7.4",
+    "@psf/bch-js": "6.8.0",
     "async-mutex": "0.5.0",
-    "bitcoinjs-lib": "5.2.0",
+    "bitcoinjs-lib": "6.1.7",
     "electrum-cash": "3.2.0",
     "moment": "2.30.1",
-    "nexajs": "24.8.15",
+    "nexajs": "24.11.15",
     "numeral": "2.0.6",
     "nuxt": "3.12.4",
     "pinia": "2.0.32",
     "qr-scanner": "1.4.2",
     "qrcode": "1.5.4",
     "scrypt-js": "3.0.1",
-    "sweetalert2": "11.12.4",
-    "uuid": "10.0.0"
+    "sweetalert2": "11.21.0",
+    "uuid": "11.1.0"
   },
   "devDependencies": {
     "@kevinmarrec/nuxt-pwa": "0.17.0",

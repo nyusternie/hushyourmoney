@@ -161,7 +161,7 @@ onMounted(() => {
         </section>
 
         <section>
-            <p>
+            <div>
                 For every 6 $HUSH tokens airdropped:
 
                 <ol class="py-5 pl-10 list-disc">
@@ -169,7 +169,7 @@ onMounted(() => {
                     <li>Round 2 Sponsors will receive 2x $HUSH</li>
                     <li>Round 3 Sponsors will receive 1x $HUSH</li>
                 </ol>
-            </p>
+            </div>
         </section>
 
         <p>

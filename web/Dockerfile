@@ -5,10 +5,10 @@ WORKDIR /usr/src/app
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 COPY package.json /usr/src/app/package.json
-RUN yarn install --silent
+RUN pnpm install --silent
 
 COPY . /usr/src/app
-RUN yarn run build
+RUN pnpm run build
 
 EXPOSE 3000
 

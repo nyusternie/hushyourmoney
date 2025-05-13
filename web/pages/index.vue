@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { getTip } from '@nexajs/rostrum'
-import numeral from 'numeral'
+// import { getTip } from '@nexajs/rostrum'
+// import numeral from 'numeral'
 
 definePageMeta({
     layout: 'fullscreen',
@@ -9,10 +9,10 @@ definePageMeta({
 const blockHeight = ref(0)
 
 const init = async () => {
-    const currentTip = await getTip()
-    console.log('CURRENT TIP', currentTip)
+    // const currentTip = await getTip()
+    // console.log('CURRENT TIP', currentTip)
 
-    blockHeight.value = numeral(currentTip.height).format('0,0')
+    // blockHeight.value = numeral(currentTip.height).format('0,0')
 }
 
 onMounted(() => {
@@ -76,7 +76,7 @@ onMounted(() => {
 
                 |
 
-                <NuxtLink to="https://nexa.sh/blocks" target="_blank" class="hover:text-amber-900">
+                <NuxtLink to="https://awesomenexa.org/blocks" target="_blank" class="hover:text-amber-900">
                     block # {{ blockHeight }}
                 </NuxtLink>
             </div>

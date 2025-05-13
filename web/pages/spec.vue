@@ -289,21 +289,21 @@ If everything goes well, all the clients will disconnect when shuffling is compl
 
 </pre>
 
-        <p>
+        <div>
             ONLY the Club Manager will receive BOTH:
 
             <ol>
                 <li>List of Commitments</li>
                 <li>List of (blinded) Components</li>
             </ol>
-        </p>
+        </div>
 
-        <p>
+        <div>
             EARLY Guest will have an advantage for:
 
             <ol>
                 <li>Greater (component) anonymity against the Club Manager</li>
             </ol>
-        </p>
+        </div>
     </main>
 </template>
