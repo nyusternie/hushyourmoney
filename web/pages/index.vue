@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import { getTip } from '@nexajs/rostrum'
+import { getTip } from '@nexajs/rostrum'
 // import numeral from 'numeral'
 
 definePageMeta({
@@ -9,10 +9,10 @@ definePageMeta({
 const blockHeight = ref(0)
 
 const init = async () => {
-    // const currentTip = await getTip()
-    // console.log('CURRENT TIP', currentTip)
+    const currentTip = await getTip()
+    console.log('CURRENT TIP', currentTip)
 
-    // blockHeight.value = numeral(currentTip.height).format('0,0')
+    blockHeight.value = numeral(currentTip.height).format('0,0')
 }
 
 onMounted(() => {
