@@ -1,6 +1,6 @@
 {
   "name": "hushyourmoney",
-  "version": "25.5.13",
+  "version": "25.5.26",
   "license": "MIT",
   "description": "Spend Privately. Fearlessly!",
   "author": "Shomari <nyusternie@protonmail.com>",
@@ -29,6 +29,7 @@
     "qr-scanner": "1.4.2",
     "qrcode": "1.5.4",
     "scrypt-js": "3.0.1",
+    "simple-analytics-vue": "3.0.2",
     "sweetalert2": "11.21.0",
     "uuid": "11.1.0"
   },
